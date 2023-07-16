@@ -1,13 +1,25 @@
 import sprite from './assets/icons/icons.svg';
-import logo from './assets/icons/big-logo.svg';
+
 function App() {
   return (
     <>
       <h1>WalletAPP</h1>
-      <svg width={400} height={400} fill="red">
-        <use href={sprite + '#icon__logo'}></use>
+      <svg width={400} height={400}>
+        <use href={sprite + '#icon__big-logo-man1'}></use>
       </svg>
-      <img alt="logo" src={logo} />
+      <svg width={400} height={400}>
+        <use href={sprite + '#icon__big-logo-man2'}></use>
+      </svg>
+      <svg width={400} height={400}>
+        <use href={sprite + '#icon__big-logo-woman1'}></use>
+      </svg>
+      <svg width={400} height={400}>
+        <use href={sprite + '#icon__big-logo-woman2'}></use>
+      </svg>
+      <svg width={400} height={400}>
+        <use href={sprite + '#icon__logo'}></use>
+      </svg>{' '}
+      WalletAPP
     </>
   );
 }
