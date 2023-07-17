@@ -30,7 +30,7 @@ const Form = styled.form`
 const LoginForm = () => {
   return (
     <Form>
-      <Logo></Logo>
+      <Logo />
       <InputWithIcon icon="icon__baseline-email" placeholder="Email" />
       <InputWithIcon icon="icon__baseline-lock" placeholder="Password" />
       <PrimaryButton type="button">LOG IN</PrimaryButton>

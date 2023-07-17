@@ -3,7 +3,6 @@ import LoginForm from 'components/LoginForm/LoginForm';
 import { Container } from 'components/Container/Container';
 import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { data } from 'components/DiagramTable/data';
-import Logo from 'components/Logo/Logo';
 
 function App() {
   return (
