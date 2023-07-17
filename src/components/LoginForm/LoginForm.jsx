@@ -2,38 +2,37 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
-
+import { InputWithIcon } from 'components/Inputs/InputWithIcon';
+import { Icon } from 'components/Icon/Icon';
 const Form = styled.form`
-  max-width: 533px;
   min-width: 320px;
-  padding: 107px 20px 0px 20px;
+  width: 100vw;
+  padding: 107px 20px 36px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-const Input = styled.input`
-  border: none;
-  border-bottom: 1px solid #e0e0e0;
-  font-family: Circe;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  color: #bdbdbd;
-  padding-left: 36px;
-  margin-bottom: 40px;
-  &:focus {
-    outline: none;
+  background: var(--background-light);
+  border-radius: 12px;
+
+  // this applies to svg inside Form
+  svg {
+    margin-bottom: 50px; // this is just a guess before I have typograpy
+  }
+
+  //tablet+desktop
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    width: 533px;
+    padding: 40px 58.5px 62px 65px;
   }
 `;
 
 const LoginForm = () => {
   return (
     <Form>
-      <Input type="email" placeholder="E-mail" />
-      <Input type="password" placeholder="Password" />
-
+      <Icon icon="icon__logo" width="50" height="50" />
+      <InputWithIcon icon="icon__baseline-email" placeholder="Email" />
+      <InputWithIcon icon="icon__baseline-lock" placeholder="Password" />
       <PrimaryButton type="button">LOG IN</PrimaryButton>
       <SecondaryButton type="button">REGISTER</SecondaryButton>
     </Form>

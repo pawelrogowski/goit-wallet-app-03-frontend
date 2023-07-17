@@ -1,48 +1,58 @@
 import styled from 'styled-components';
 
+//Example Ussage:
+
+/* <PrimaryButton type="button">LOG IN</PrimaryButton>
+<SecondaryButton type="button">REGISTER</SecondaryButton> */
+
 export const BaseButton = styled.button`
-  min-width: 280px;
-  max-width: 300px;
+  width: 280px;
   height: 50px;
   border-radius: 20px;
   border: none;
-  background-color: gray;
   letter-spacing: 1.8px;
+  padding-left: 8px;
 
   font-family: Circe;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
-  color: #fff;
-  transition: background-color 250ms;
+  color: var(--font-color-light);
+
+  transition: background-color 150ms;
 
   &:hover {
-    background-color: ${props => props.theme.colors.brandPrimary};
-    transition: background-color 250ms;
+    background-color: var(--color-brand-primary);
+    transition: background-color 150ms;
+    cursor: pointer;
   }
   &:focus {
-    background-color: ${props => props.theme.colors.brandPrimary};
-    transition: background-color 250ms;
+    background-color: var(--color-brand-primary);
+    transition: background-color 150ms;
+    outline: none;
   }
 
   &:not(:last-of-type) {
     margin-bottom: 20px;
   }
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    width: 300px;
+  }
 `;
 
 export const PrimaryButton = styled(BaseButton)`
-  background-color: ${props => props.theme.colors.brandSecondary};
+  background-color: var(--color-brand-secondary);
   border: none;
-  color: #fff;
+  color: var(--font-color-light);
 `;
 
 export const SecondaryButton = styled(BaseButton)`
   background-color: transparent;
-  border: 1px solid ${props => props.theme.colors.brandPrimary};
-  color: ${props => props.theme.colors.brandPrimary};
+  border: 1px solid var(--color-brand-primary);
+  color: var(--color-brand-primary);
 
   &:hover,
   &:focus {
-    color: white;
+    color: var(--font-color-light);
   }
 `;
