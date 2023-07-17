@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-export const InputWithIcon = ({ icon, placeholder, hasicon }) => {
+export const InputWithIcon = ({ icon, placeholder }) => {
   return (
     <StyledDiv>
       <BaseInput hasicon="true" placeholder={placeholder} />
