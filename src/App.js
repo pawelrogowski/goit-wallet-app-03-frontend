@@ -1,12 +1,16 @@
 import sprite from './assets/icons/icons.svg';
 import LoginForm from 'components/LoginForm/LoginForm';
 import { Container } from 'components/Container/Container';
+import Transactions from 'components/Transactions/Transactions';
 
 function App() {
   return (
     <>
       <Container>
         <LoginForm />
+      </Container>
+      <Container>
+        <Transactions />
       </Container>
       <h1>WalletAPP</h1>
       <svg width={400} height={400}>
@@ -28,6 +32,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;
