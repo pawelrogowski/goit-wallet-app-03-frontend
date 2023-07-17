@@ -3,11 +3,13 @@ import LoginForm from 'components/LoginForm/LoginForm';
 import { Container } from 'components/Container/Container';
 import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { data } from 'components/DiagramTable/data';
+import Logo from 'components/Logo/Logo';
 
 function App() {
   return (
     <>
       <Container>
+        <Logo></Logo>
         <LoginForm />
         <DiagramTable data={data} />
       </Container>
@@ -26,7 +28,7 @@ function App() {
       </svg>
       <svg width={400} height={400}>
         <use href={sprite + '#icon__logo'}></use>
-      </svg>{' '}
+      </svg>
       WalletAPP
     </>
   );
