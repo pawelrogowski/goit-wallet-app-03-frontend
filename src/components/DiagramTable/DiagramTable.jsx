@@ -3,8 +3,6 @@ import styled from 'styled-components';
 const StyledTable = styled.div`
   max-width: 395px;
   min-width: 280px;
-  background: var(--background-accent);
-  backdrop-filter: blur(25px);
 `;
 
 const BoxHeading = styled.div`
