@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BaseInput } from './BaseInput';
-import icons from '../../assets/icons.svg';
+import icons from '../../assets/icons/icons.svg';
 
 const StyledDiv = styled.div`
   display: inline-block;
