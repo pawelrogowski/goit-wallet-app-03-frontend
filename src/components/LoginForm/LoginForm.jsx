@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { InputWithIcon } from 'components/Inputs/InputWithIcon';
-import { Icon } from 'components/Icon/Icon';
+import Logo from 'components/Logo/Logo';
 const Form = styled.form`
   min-width: 320px;
   width: 100vw;
@@ -15,9 +15,9 @@ const Form = styled.form`
   background: var(--background-light);
   border-radius: 12px;
 
-  // this applies to svg inside Form
-  svg {
-    margin-bottom: 50px; // this is just a guess before I have typograpy
+  // Logo is the first component so this adds margin to logo
+  & > :first-child {
+    margin-bottom: 60px;
   }
 
   //tablet+desktop
@@ -30,7 +30,7 @@ const Form = styled.form`
 const LoginForm = () => {
   return (
     <Form>
-      <Icon icon="icon__logo" width="50" height="50" />
+      <Logo></Logo>
       <InputWithIcon icon="icon__baseline-email" placeholder="Email" />
       <InputWithIcon icon="icon__baseline-lock" placeholder="Password" />
       <PrimaryButton type="button">LOG IN</PrimaryButton>

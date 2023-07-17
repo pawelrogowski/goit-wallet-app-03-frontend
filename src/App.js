@@ -9,7 +9,6 @@ function App() {
   return (
     <>
       <Container>
-        <Logo></Logo>
         <LoginForm />
         <DiagramTable data={data} />
       </Container>
