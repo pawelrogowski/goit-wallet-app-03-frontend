@@ -7,4 +7,11 @@
   --background-accent: #e7eaf2;
   --background-primary: #c5baff;
   --background-secondary: #ffd8d0;
+
+  --font-color-light: #fff;
+  --font-color-dark: #000;
+
+  /* variables for breakpoints are unsuable yet, use the ones from theme.js */
+  --mobile-width: 767px;
+  --tablet-width: 1279px;
 }

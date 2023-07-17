@@ -1,8 +1,18 @@
 import sprite from './assets/icons/icons.svg';
+import LoginForm from 'components/LoginForm/LoginForm';
+import { Container } from 'components/Container/Container';
+import DiagramTable from 'components/DiagramTable/DiagramTable';
+import { data } from 'components/DiagramTable/data';
+import Logo from 'components/Logo/Logo';
 
 function App() {
   return (
     <>
+      <Container>
+        <Logo></Logo>
+        <LoginForm />
+        <DiagramTable data={data} />
+      </Container>
       <h1>WalletAPP</h1>
       <svg width={400} height={400}>
         <use href={sprite + '#icon__big-logo-man1'}></use>
@@ -18,7 +28,7 @@ function App() {
       </svg>
       <svg width={400} height={400}>
         <use href={sprite + '#icon__logo'}></use>
-      </svg>{' '}
+      </svg>
       WalletAPP
     </>
   );
