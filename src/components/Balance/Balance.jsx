@@ -12,7 +12,7 @@ const BalanceParagraph = styled.p`
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  Line height: 17.69px;
+  line-height: 17.69px;
   text-transform: uppercase;
 `;
 const AmountParagraph = styled.p`
