@@ -1,11 +1,13 @@
 import sprite from './assets/icons/icons.svg';
 import LoginForm from 'components/LoginForm/LoginForm';
 import { Container } from 'components/Container/Container';
+import Logo from 'components/Logo/Logo';
 
 function App() {
   return (
     <>
       <Container>
+        <Logo></Logo>
         <LoginForm />
       </Container>
       <h1>WalletAPP</h1>
@@ -28,6 +30,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;
