@@ -10,7 +10,7 @@ const LogoContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 180px;
     height: 40px;
 
@@ -21,12 +21,12 @@ const LogoContainer = styled.div`
   }
 `;
 
-const Text = styled.span`
-  font-family: 'Poppins';
+const LogoText = styled.span`
+  font-family: ${props => props.theme.fonts.poppins};
   font-weight: 700;
   font-size: 23px;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     font-size: 30px;
     line-height: 45px;
     margin-right: 20px;
@@ -37,7 +37,7 @@ const Logo = () => {
   return (
     <LogoContainer>
       <Icon icon="icon__logo" width="30" height="30"></Icon>
-      <Text>Wallet</Text>
+      <LogoText>Wallet</LogoText>
     </LogoContainer>
   );
 };
