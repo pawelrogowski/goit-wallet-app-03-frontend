@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <defs>
-
     <symbol id="icon__baseline-account" viewBox="0 0 33 32">
       <path d="M4.667 6.667v18.667a2.666 2.666 0 0 0 2.667 2.667h18.667c1.467 0 2.667-1.2 2.667-2.667V6.667C28.668 5.2 27.468 4 26.001 4H7.334c-1.48 0-2.667 1.2-2.667 2.667zm16 5.333c0 2.213-1.787 4-4 4s-4-1.787-4-4 1.787-4 4-4 4 1.787 4 4zm-12 10.667c0-2.667 5.333-4.133 8-4.133s8 1.467 8 4.133V24h-16v-1.333z" />
     </symbol>
