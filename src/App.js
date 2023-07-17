@@ -1,12 +1,15 @@
 import sprite from './assets/icons/icons.svg';
 import LoginForm from 'components/LoginForm/LoginForm';
 import { Container } from 'components/Container/Container';
+import DiagramTable from 'components/DiagramTable/DiagramTable';
+import { data } from 'components/DiagramTable/data';
 
 function App() {
   return (
     <>
       <Container>
         <LoginForm />
+        <DiagramTable data={data} />
       </Container>
       <h1>WalletAPP</h1>
       <svg width={400} height={400}>
@@ -28,6 +31,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;
