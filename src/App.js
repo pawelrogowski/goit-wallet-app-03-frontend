@@ -1,8 +1,13 @@
 import sprite from './assets/icons/icons.svg';
+import LoginForm from 'components/LoginForm/LoginForm';
+import { Container } from 'components/Container/Container';
 
 function App() {
   return (
     <>
+      <Container>
+        <LoginForm />
+      </Container>
       <h1>WalletAPP</h1>
       <svg width={400} height={400}>
         <use href={sprite + '#icon__big-logo-man1'}></use>
@@ -23,5 +28,6 @@ function App() {
     </>
   );
 }
+
 
 export default App;
