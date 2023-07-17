@@ -12,7 +12,7 @@ const BoxHeading = styled.div`
   background: var(--background-light);
 
   h3 {
-    color: #000;
+    color: var(--font-color-dark);
     font-family: 'Circe';
     font-size: 18px;
     font-style: normal;
@@ -33,7 +33,7 @@ const ListItem = styled.li`
   justify-content: space-between;
   padding: 0 28px;
   border-bottom: 1px solid #dcdcdf;
-  filter: drop-shadow(0px 1px 0px rgba(255, 255, 255, 0.6));
+  box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
   font-family: Circe;
   font-size: 16px;
   font-style: normal;
