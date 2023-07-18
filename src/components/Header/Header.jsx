@@ -39,10 +39,17 @@ const LogoutDiv = styled.div`
   }
 
   .nameText {
+    margin-right: 4px;
     @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-      border-right: 1px solid ${props => props.theme.colors.logoutButton};
-      padding-right: 12px;
-      margin-right: 4px;
+    }
+  }
+
+  .divider {
+    height: 30px;
+    margin-right: 4px;
+    border: 1px solid ${props => props.theme.colors.logoutButton};
+    @media (max-width: ${props => props.theme.breakpoints.tablet}) {
+      display: none;
     }
   }
 `;
@@ -53,6 +60,7 @@ const Header = () => {
       <Logo></Logo>
       <LogoutDiv>
         <span className="nameText">Name</span>
+        <div className="divider"></div>
         <Icon icon="icon__exit"></Icon>
         <span className="exitText">Exit</span>
       </LogoutDiv>
