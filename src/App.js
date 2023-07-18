@@ -1,4 +1,7 @@
 import sprite from './assets/icons/icons.svg';
+import Chart from 'components/ExampleComponent/Chart';
+
+
 
 function App() {
   return (
@@ -20,6 +23,7 @@ function App() {
         <use href={sprite + '#icon__logo'}></use>
       </svg>{' '}
       WalletAPP
+      <Chart/>
     </>
   );
 }
