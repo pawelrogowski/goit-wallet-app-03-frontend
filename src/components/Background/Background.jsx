@@ -10,7 +10,7 @@ export const Background = styled.div`
   height: 100%;
 
   background: var(--background-accent);
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     &::before {
       content: url(${TopRightIcon});
       position: absolute;
