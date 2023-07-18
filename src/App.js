@@ -5,6 +5,8 @@ import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { data } from 'components/DiagramTable/data';
 import Logo from 'components/Logo/Logo';
 import Currency from 'components/Currency/Currency';
+import Loader from 'components/Loader/Loader';
+import Balance from 'components/Balance/Balance';
 
 function App() {
   return (
@@ -13,8 +15,11 @@ function App() {
         <Logo></Logo>
         <LoginForm />
         <DiagramTable data={data} />
+        <Currency />
+        <Loader />
+        <Balance />
       </Container>
-      <Currency />
+      <br />
       <h1>WalletAPP</h1>
       <svg width={400} height={400}>
         <use href={sprite + '#icon__big-logo-man1'}></use>

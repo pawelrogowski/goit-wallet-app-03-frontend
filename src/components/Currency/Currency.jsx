@@ -5,6 +5,10 @@ import { ReactComponent as Triangles } from './currencyBackground.svg';
 const rows = [
   { currency: 'USD', purchase: 27.55, sale: 27.65 },
   { currency: 'EUR', purchase: 27.55, sale: 27.65 },
+  { currency: 'USD', purchase: 27.55, sale: 27.65 },
+  { currency: 'EUR', purchase: 27.55, sale: 27.65 },
+  { currency: 'USD', purchase: 27.55, sale: 27.65 },
+  { currency: 'EUR', purchase: 27.55, sale: 27.65 },
 ];
 
 const TableStyledContainer = styled.ul`
@@ -12,7 +16,7 @@ const TableStyledContainer = styled.ul`
   padding: 0px;
   width: 100%;
   max-width: 440px;
-  background-color: #4a56e2;
+  background-color: var(--color-brand-primary);
   margin-top: 32px;
   border-radius: 30px;
   overflow: hidden;
@@ -43,7 +47,7 @@ const TableStyledContainer = styled.ul`
 
 const StyledHeaderParagraph = styled.p`
   margin: 0;
-  color: #fff;
+  color: var(--background-light);
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
@@ -53,7 +57,7 @@ const StyledHeaderParagraph = styled.p`
 `;
 const StyledBodyParagraph = styled.p`
   margin: 0;
-  color: #fff;
+  color: var(--background-light);
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -96,6 +100,7 @@ const Currency = () => {
           <StyledBodyParagraph>{item.sale}</StyledBodyParagraph>
         </StyledListElement>
       ))}
+
       <TrianglesBackground />
     </TableStyledContainer>
   );
