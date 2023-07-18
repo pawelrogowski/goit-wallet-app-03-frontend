@@ -19,10 +19,9 @@ const HeaderDiv = styled.header`
 
 const LogoutDiv = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 4px;
   height: 30px;
   align-items: center;
-  color: ${props => props.theme.colors.logoutButton};
   fill: ${props => props.theme.colors.logoutButton};
   font-size: 18px;
   font-weight: 400;
@@ -39,8 +38,17 @@ const LogoutDiv = styled.div`
   }
 
   .nameText {
-    margin-right: 4px;
+    margin-right: -4px;
     @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+      margin-right: 0px;
+    }
+  }
+
+  .exitButton {
+    display: flex;
+
+    span {
+      margin-left: 6px;
     }
   }
 
@@ -52,6 +60,12 @@ const LogoutDiv = styled.div`
       display: none;
     }
   }
+
+  button {
+    border: none;
+    background-color: transparent;
+    color: ${props => props.theme.colors.logoutButton};
+  }
 `;
 
 const Header = () => {
@@ -59,10 +73,15 @@ const Header = () => {
     <HeaderDiv>
       <Logo></Logo>
       <LogoutDiv>
-        <span className="nameText">Name</span>
+        <span className="nameText">
+          <button>Name</button>
+        </span>
         <div className="divider"></div>
-        <Icon icon="icon__exit"></Icon>
-        <span className="exitText">Exit</span>
+
+        <button className="exitButton">
+          <Icon icon="icon__exit"></Icon>
+          <span className="exitText">Exit</span>
+        </button>
       </LogoutDiv>
     </HeaderDiv>
   );
