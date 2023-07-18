@@ -4,12 +4,14 @@ import { Container } from 'components/Container/Container';
 import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { data } from 'components/DiagramTable/data';
 import Logo from 'components/Logo/Logo';
+import Navigation from 'components/Navigation/Navigation';
 
 function App() {
   return (
     <>
       <Container>
         <Logo></Logo>
+        <Navigation />
         <LoginForm />
         <DiagramTable data={data} />
       </Container>
