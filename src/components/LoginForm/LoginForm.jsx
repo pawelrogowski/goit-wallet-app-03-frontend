@@ -31,7 +31,7 @@ const LoginForm = () => {
   return (
     <Form>
       <Logo />
-      <InputWithIcon icon="icon__baseline-email" placeholder="Email" />
+      <InputWithIcon icon="icon__baseline-email" placeholder="E-mail" />
       <InputWithIcon icon="icon__baseline-lock" placeholder="Password" />
       <PrimaryButton type="button">LOG IN</PrimaryButton>
       <SecondaryButton type="button">REGISTER</SecondaryButton>

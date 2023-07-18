@@ -1,23 +1,29 @@
 import styled from 'styled-components';
 import { BaseInput } from './BaseInput';
-import icons from '../../assets/icons/icons.svg';
+import { Icon } from '../Icon/Icon';
 
 const StyledDiv = styled.div`
   display: inline-block;
   position: relative;
-  svg {
+
+  ${Icon} {
     pointer-events: none;
+    background-color: red;
+  }
+  ${BaseInput} {
+    padding-left: 47px;
+  }
+  ${Icon.Icon}[icon="icon__baseline-email"] {
+    fill: blue;
   }
 `;
 
 export const InputWithIcon = ({ icon, placeholder }) => {
   return (
     <StyledDiv>
-      <BaseInput hasicon="true" placeholder={placeholder} />
+      <BaseInput placeholder={placeholder} />
 
-      <svg>
-        <use href={icons + `#${icon}`} />
-      </svg>
+      <Icon icon={icon} />
     </StyledDiv>
   );
 };

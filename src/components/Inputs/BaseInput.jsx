@@ -38,13 +38,6 @@ export const BaseInput = styled.input`
     transition: fill 150ms;
   }
 
-  //this adds a prop check, if its passade as hasicon = true it applies the styles
-  ${({ hasicon }) =>
-    hasicon &&
-    `
-    padding-left: 47px;
-  `}
-
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 409.5px;
   }
