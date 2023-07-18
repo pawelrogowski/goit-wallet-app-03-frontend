@@ -3,6 +3,7 @@ import LoginForm from 'components/LoginForm/LoginForm';
 import { Container } from 'components/Container/Container';
 import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { data } from 'components/DiagramTable/data';
+import TransactionsMobile from 'components/TransactionsMobile/TransactionsMobile';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Container>
         <LoginForm />
         <DiagramTable data={data} />
+        <TransactionsMobile />
       </Container>
       <h1>WalletAPP</h1>
       <svg width={400} height={400}>
