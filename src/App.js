@@ -1,6 +1,7 @@
 import sprite from './assets/icons/icons.svg';
 import LoginForm from 'components/LoginForm/LoginForm';
 import { Container } from 'components/Container/Container';
+import Chart from 'components/Chart/Chart';
 import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { data } from 'components/DiagramTable/data';
 
@@ -9,6 +10,7 @@ function App() {
     <>
       <Container>
         <LoginForm />
+        <Chart/>
         <DiagramTable data={data} />
       </Container>
       <h1>WalletAPP</h1>
