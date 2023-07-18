@@ -6,24 +6,25 @@ const StyledDiv = styled.div`
   display: inline-block;
   position: relative;
 
-  ${Icon} {
-    pointer-events: none;
-    background-color: red;
-  }
   ${BaseInput} {
     padding-left: 47px;
   }
-  ${Icon.Icon}[icon="icon__baseline-email"] {
-    fill: blue;
-  }
 `;
 
-export const InputWithIcon = ({ icon, placeholder }) => {
+const InputWithIconBase = ({ className, name, icon, placeholder, onChange, type }) => {
   return (
     <StyledDiv>
-      <BaseInput placeholder={placeholder} />
+      <BaseInput
+        className={className}
+        placeholder={placeholder}
+        name={name}
+        onChange={onChange}
+        type={type}
+      />
 
       <Icon icon={icon} />
     </StyledDiv>
   );
 };
+
+export const InputWithIcon = styled(InputWithIconBase)``;
