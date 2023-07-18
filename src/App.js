@@ -6,10 +6,10 @@ import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { data } from 'components/DiagramTable/data';
 import { Background } from 'components/Background/Background';
 
-
 function App() {
   return (
     <>
+      <Header />
       <Background />
       <Container>
         <LoginForm />
