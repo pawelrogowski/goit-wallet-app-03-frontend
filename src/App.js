@@ -4,6 +4,7 @@ import { Container } from 'components/Container/Container';
 import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { data } from 'components/DiagramTable/data';
 import Logo from 'components/Logo/Logo';
+import Currency from 'components/Currency/Currency';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <LoginForm />
         <DiagramTable data={data} />
       </Container>
+      <Currency />
       <h1>WalletAPP</h1>
       <svg width={400} height={400}>
         <use href={sprite + '#icon__big-logo-man1'}></use>

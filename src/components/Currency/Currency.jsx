@@ -17,6 +17,10 @@ const TableStyledContainer = styled.ul`
   border-radius: 30px;
   overflow: hidden;
   position: relative;
+  overflow-y: auto;
+  min-height: 210px;
+  height: calc(100vh - 390px);
+  max-height: 550px;
 
   li:first-child {
     background-color: rgb(255 255 255 / 22%);
@@ -31,9 +35,9 @@ const TableStyledContainer = styled.ul`
     height: 100%;
   }
   @media (min-width: 768px) {
-    min-height: 210px;
-    height: calc(100vh - 390px);
-    max-height: 550px;
+  }
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
