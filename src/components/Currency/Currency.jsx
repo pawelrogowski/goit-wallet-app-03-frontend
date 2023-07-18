@@ -32,6 +32,8 @@ const TableStyledContainer = styled.ul`
   }
   @media (min-width: 768px) {
     min-height: 210px;
+    height: calc(100vh - 390px);
+    max-height: 550px;
   }
 `;
 
