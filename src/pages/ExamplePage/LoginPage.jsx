@@ -79,10 +79,10 @@ const LoginFormContainer = styled.div`
   &::after {
     @media (min-width: ${props => props.theme.breakpoints.desktop}) {
       content: '';
-      position: absolute;
+      position: fixed;
       z-index: -1;
-      width: 250%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background-color: #ffffff40;
       backdrop-filter: blur(10px);
     }
@@ -101,17 +101,15 @@ const LoginFormContainer = styled.div`
 
 const LoginPage = () => {
   return (
-    <Background>
-      <LoginPageContainer>
-        <LoginHeaderContainer>
-          <Icon className="loginIcon" icon="icon__big-logo-man1" />
-          <span class="loginText">Finance App</span>
-        </LoginHeaderContainer>
-        <LoginFormContainer>
-          <LoginForm />
-        </LoginFormContainer>
-      </LoginPageContainer>
-    </Background>
+    <LoginPageContainer>
+      <LoginHeaderContainer>
+        <Icon className="loginIcon" icon="icon__big-logo-man1" />
+        <span class="loginText">Finance App</span>
+      </LoginHeaderContainer>
+      <LoginFormContainer>
+        <LoginForm />
+      </LoginFormContainer>
+    </LoginPageContainer>
   );
 };
 
