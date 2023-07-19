@@ -21,13 +21,13 @@ const SwitchText = styled.p`
   align-items: center;
 
   &:first-of-type {
-    color: ${({ isChecked }) =>
-      isChecked ? 'var(--color-brand-secondary)' : 'var(--color-switch-main)'};
+    color: ${props =>
+      props.$isChecked ? 'var(--color-brand-secondary)' : 'var(--color-switch-main)'};
   }
 
   &:last-of-type {
-    color: ${({ isChecked }) =>
-      isChecked ? 'var(--color-switch-main)' : 'var(--color-brand-accent)'};
+    color: ${props =>
+      props.$isChecked ? 'var(--color-switch-main)' : 'var(--color-brand-accent)'};
   }
 `;
 
@@ -46,13 +46,12 @@ const SwitchSlider = styled.label`
     height: 44px;
     position: absolute;
     top: 50%;
-    left: ${({ isChecked }) => (isChecked ? '20%' : '80%')};
+    left: ${props => (props.$isChecked ? '20%' : '80%')};
     transform: translate(-50%, -50%);
     border-radius: 100%;
     transition: all 0.5s;
     box-shadow: 0 10px 20px
-      ${({ isChecked }) =>
-        isChecked ? 'var(--color-brand-secondary)' : 'var(--color-brand-accent)'};
+      ${props => (props.$isChecked ? 'var(--color-brand-secondary)' : 'var(--color-brand-accent)')};
   }
 
   & svg {
@@ -60,20 +59,20 @@ const SwitchSlider = styled.label`
     height: 80px;
     position: absolute;
     top: 70%;
-    left: ${({ isChecked }) => (isChecked ? '20%' : '80%')};
+    left: ${props => (props.$isChecked ? '20%' : '80%')};
     transform: translate(-50%, -50%);
     transition: all 0.5s;
     fill: var(--color-brand-secondary);
     z-index: 1000;
 
     &:first-of-type {
-      opacity: ${({ isChecked }) => (isChecked ? '1' : '0')};
+      opacity: ${props => (props.$isChecked ? '1' : '0')};
       fill: var(--color-brand-secondary);
     }
 
     &:last-of-type {
       opacity: 0;
-      opacity: ${({ isChecked }) => (isChecked ? '0' : '1')};
+      opacity: ${props => (props.$isChecked ? '0' : '1')};
       fill: var(--color-brand-accent);
     }
   }
@@ -94,14 +93,14 @@ const Switch = () => {
   };
 
   return (
-    <StyledSwitch isChecked={isChecked}>
-      <SwitchText isChecked={isChecked}>Income</SwitchText>
-      <SwitchSlider isChecked={isChecked}>
+    <StyledSwitch>
+      <SwitchText $isChecked={isChecked}>Income</SwitchText>
+      <SwitchSlider $isChecked={isChecked}>
         <SwitchCheckbox type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-        <Icon icon="icon__btn-plus" isChecked={isChecked} />
-        <Icon icon="icon__btn-minus" isChecked={isChecked} />
+        <Icon icon="icon__btn-plus" $isChecked={isChecked} />
+        <Icon icon="icon__btn-minus" $isChecked={isChecked} />
       </SwitchSlider>
-      <SwitchText isChecked={isChecked}>Expense</SwitchText>
+      <SwitchText $isChecked={isChecked}>Expense</SwitchText>
     </StyledSwitch>
   );
 };
