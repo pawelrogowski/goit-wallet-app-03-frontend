@@ -1,6 +1,7 @@
 import LoginForm from 'components/LoginForm/LoginForm';
 import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
+import { Heading } from 'components/Heading/Heading';
 
 const LoginPageContainer = styled.div`
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
@@ -26,9 +27,7 @@ const LoginPageContainer = styled.div`
     margin: 0;
   }
 
-  .loginText {
-    font-weight: 400;
-    font-size: 30px;
+  ${Heading} {
     margin: 0 40px 0 0;
 
     @media (min-width: ${props => props.theme.breakpoints.desktop}) {
@@ -103,7 +102,7 @@ const LoginPage = () => {
     <LoginPageContainer>
       <LoginHeaderContainer>
         <Icon className="loginIcon" icon="icon__big-logo-man1" />
-        <span class="loginText">Finance App</span>
+        <Heading as="h1">Finance App</Heading>
       </LoginHeaderContainer>
       <LoginFormContainer>
         <LoginForm />
