@@ -104,7 +104,7 @@ const TransactionsMobile = () => {
     <TransactionsList>
       {data.map((item, index) => (
         <TransactionsElement key={index}>
-          <TransactionList type={item.type === '+'}>
+          <TransactionList type={item.type === '+' ? 1 : 0}>
             <TransactionElement>
               <TransactionHeader>{headers[0]}</TransactionHeader>
               <TransactionText>{item.date}</TransactionText>
