@@ -1,37 +1,54 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { data } from '../DiagramTable/data';
+import styled from 'styled-components';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const json = {
-  one: 5423,
-  two: 8721,
-  three: 3154,
-  four: 6432,
-  five: 9267,
-  six: 1889,
-  seven: 4866,
-  eight: 7854,
-  nine: 2591,
-  ten: 6678,
-};
+const ChartContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  width: 280px;
+  height: 280px;
+  padding: 0px;
 
-function getRandomHexColor() {
-  return `#${Math.floor(Math.random() * 16777215)
-    .toString(16)
-    .padStart(6, 0)}`;
-}
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    width: 336px;
+    height: 336px;
+  };
+
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    width: 288px;
+    height: 288px;
+  };
+`;
+
+const Balance = styled.span`
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Circe';
+  font-style: normal;
+  line-height: normal;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 const Chart = () => {
-  const labels = Object.keys(json);
-  const dataValues = Object.values(json);
-  const backgroundColors = dataValues.map(() => getRandomHexColor());
+  const labels = data.map(item => item.category);
+  const dataValues = data.map(item => parseFloat(item.sum.replace(/\s+/g, '')));
+  const backgroundColors = data.map(item => item.color);
+  const sum = dataValues.reduce((total, value) => total + value, 0).toFixed(2);
 
-  const data = {
+  const chartData = {
     labels: labels,
     datasets: [
       {
-        label: 'Amount of Votes',
+        label: 'Amount of spending',
         data: dataValues,
         backgroundColor: backgroundColors,
         borderWidth: 0,
@@ -40,7 +57,7 @@ const Chart = () => {
   };
 
   const options = {
-    responsive: false,
+    responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
@@ -49,7 +66,12 @@ const Chart = () => {
     },
     cutout: '70%',
   };
-  return <Doughnut data={data} options={options} width={288} height={288} />;
+  return (
+    <ChartContainer>
+      <Doughnut data={chartData} options={options}/>
+      <Balance>{sum}</Balance>
+    </ChartContainer>
+  );
 };
 
 export default Chart;
