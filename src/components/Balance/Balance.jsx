@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const BalanceSection = styled.div`
   max-width: 400px;
-  background-color: #fff;
+  background-color: var(--background-light);
   border-radius: 30px;
   padding: 4px 0px 11px 40px;
 `;
@@ -17,7 +17,7 @@ const BalanceParagraph = styled.p`
 `;
 const AmountParagraph = styled.p`
   margin: 0;
-  color: #000;
+  color: var(--font-color-dark);
   font-family: Poppins;
   font-size: 30px;
   font-style: normal;
