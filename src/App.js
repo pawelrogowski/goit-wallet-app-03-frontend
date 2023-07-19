@@ -4,6 +4,7 @@ import { Container } from 'components/Container/Container';
 import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { data } from 'components/DiagramTable/data';
 import TransactionsMobile from 'components/TransactionsMobile/TransactionsMobile';
+import RemoveThis from 'components/TransactionsMobile/RemoveThis';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <LoginForm />
         <DiagramTable data={data} />
         <TransactionsMobile />
+        <RemoveThis />
       </Container>
       <h1>WalletAPP</h1>
       <svg width={400} height={400}>
