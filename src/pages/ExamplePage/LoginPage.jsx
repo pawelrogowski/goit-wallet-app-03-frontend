@@ -22,12 +22,9 @@ const LoginPageHeader = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0;
-    padding: 150px 0px 150px 100px;
-    /* margin-top: 0;
-    margin-bottom: 50px;
-    margin-right: 38px; */
+    padding-right: 38px;
 
     svg {
       width: 435px;
@@ -51,7 +48,7 @@ const LoginPageDiv = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0;
   }
 
@@ -59,19 +56,34 @@ const LoginPageDiv = styled.div`
     font-weight: 400;
     font-size: 30px;
     margin-right: 40px;
-
-    @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-      margin: 28px 0 77.5px 0;
-    }
   }
 `;
 
 const LoginFormContainer = styled.div`
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    background-color: #ffffff71;
-    backdrop-filter: blur(10px);
+    /* padding: 136px 0px 116px 107px; */
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
 
-    padding: 136px 91px 116px 107px;
+  &::after {
+    @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+      position: absolute;
+      top: -400px;
+      z-index: -1;
+      content: '';
+      width: 400%;
+      height: 400%;
+      background-color: #ffffff71;
+      backdrop-filter: blur(10px);
+    }
+  }
+
+  form {
+    @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+      margin-left: 107px;
+    }
   }
 `;
 
