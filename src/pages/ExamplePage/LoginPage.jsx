@@ -3,8 +3,8 @@ import { Background } from 'components/Background/Background';
 import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
 
-const LoginPageDiv = styled.div`
-  @media (max-width: ${props => props.theme.breakpoints.tablet}) {
+const LoginPageContainer = styled.div`
+  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     form {
       padding-bottom: 107px;
     }
@@ -38,8 +38,9 @@ const LoginPageDiv = styled.div`
   }
 `;
 
-const LoginPageHeader = styled.div`
+const LoginHeaderContainer = styled.div`
   display: none;
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     display: flex;
     align-items: center;
@@ -70,26 +71,25 @@ const LoginPageHeader = styled.div`
 
 const LoginFormContainer = styled.div`
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    position: relative;
     display: flex;
     align-items: center;
+    position: relative;
   }
 
   &::after {
     @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-      position: absolute;
-      top: -400px;
-      z-index: -1;
       content: '';
-      width: 400%;
-      height: 400%;
-      background-color: #ffffff71;
+      position: absolute;
+      z-index: -1;
+      width: 250%;
+      height: 100%;
+      background-color: #ffffff40;
       backdrop-filter: blur(10px);
     }
   }
 
   form {
-    @media (max-width: ${props => props.theme.breakpoints.tablet}) {
+    @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
       border-radius: 0px;
     }
 
@@ -102,15 +102,15 @@ const LoginFormContainer = styled.div`
 const LoginPage = () => {
   return (
     <Background>
-      <LoginPageDiv>
-        <LoginPageHeader>
+      <LoginPageContainer>
+        <LoginHeaderContainer>
           <Icon className="loginIcon" icon="icon__big-logo-man1" />
           <span class="loginText">Finance App</span>
-        </LoginPageHeader>
+        </LoginHeaderContainer>
         <LoginFormContainer>
           <LoginForm />
         </LoginFormContainer>
-      </LoginPageDiv>
+      </LoginPageContainer>
     </Background>
   );
 };
