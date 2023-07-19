@@ -8,10 +8,10 @@ const getCurrencyData = () => {
   if (oldCurrencyData) {
     // Checks if data is saved in localStorage less than an hour ago.
     const oldTime = oldCurrencyData.find(item => item.timestamp)?.timestamp;
-    const isMoreThenHourAge = time - oldTime < hour;
+    const isMoreThanHourAge = time - oldTime < hour;
 
     // If data is saved less than an hour ago, filter the old data, remove the timestamp, and then return the data.
-    if (isMoreThenHourAge) {
+    if (isMoreThanHourAge) {
       const dataWithoutTimestamp = oldCurrencyData.filter(item => item.currency);
       return dataWithoutTimestamp;
     }
