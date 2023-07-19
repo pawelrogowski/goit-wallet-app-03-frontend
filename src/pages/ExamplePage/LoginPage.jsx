@@ -3,6 +3,35 @@ import { Background } from 'components/Background/Background';
 import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
 
+const LoginPageDiv = styled.div`
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    max-width: 538px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .loginText {
+    font-weight: 400;
+    font-size: 30px;
+    margin: 0 40px 0 0;
+
+    @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+      margin: 28px 0 0 0;
+    }
+  }
+`;
+
 const LoginPageHeader = styled.div`
   display: none;
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
@@ -33,35 +62,8 @@ const LoginPageHeader = styled.div`
   }
 `;
 
-const LoginPageDiv = styled.div`
-  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    max-width: 538px;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    /* margin: 0 118px 196px 118px; */
-  }
-
-  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    width: 100vw;
-    max-width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 0;
-  }
-
-  .loginText {
-    font-weight: 400;
-    font-size: 30px;
-    margin-right: 40px;
-  }
-`;
-
 const LoginFormContainer = styled.div`
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    /* padding: 136px 0px 116px 107px; */
     position: relative;
     display: flex;
     align-items: center;
@@ -81,6 +83,10 @@ const LoginFormContainer = styled.div`
   }
 
   form {
+    @media (max-width: ${props => props.theme.breakpoints.desktop}) {
+      border-radius: 0px;
+    }
+
     @media (min-width: ${props => props.theme.breakpoints.desktop}) {
       margin-left: 107px;
     }
