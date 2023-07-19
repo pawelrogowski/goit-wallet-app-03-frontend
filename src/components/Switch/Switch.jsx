@@ -19,6 +19,7 @@ const SwitchText = styled.p`
   line-height: normal;
   margin: 0;
   align-items: center;
+  transition: color 0.5s;
 
   &:first-of-type {
     color: ${props =>
@@ -32,7 +33,6 @@ const SwitchText = styled.p`
 `;
 
 const SwitchSlider = styled.label`
-  display: block;
   width: 80px;
   height: 40px;
   border-radius: 30px;
@@ -71,7 +71,6 @@ const SwitchSlider = styled.label`
     }
 
     &:last-of-type {
-      opacity: 0;
       opacity: ${props => (props.$isChecked ? '0' : '1')};
       fill: var(--color-brand-accent);
     }
