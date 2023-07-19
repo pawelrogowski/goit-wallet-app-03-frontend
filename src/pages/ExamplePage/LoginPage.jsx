@@ -23,9 +23,11 @@ const LoginPageHeader = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    margin-top: 0;
+    margin: 0;
+    padding: 150px 0px 150px 100px;
+    /* margin-top: 0;
     margin-bottom: 50px;
-    margin-right: 38px;
+    margin-right: 38px; */
 
     svg {
       width: 435px;
@@ -44,12 +46,13 @@ const LoginPageDiv = styled.div`
   }
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: row;
-    max-width: 1280px;
-    padding-top: 150px;
-    /* margin: 0 auto; */
-    /* margin: 0 118px 196px 118px; */
+    justify-content: space-between;
+    margin: 0;
   }
 
   .loginText {
@@ -63,6 +66,15 @@ const LoginPageDiv = styled.div`
   }
 `;
 
+const LoginFormContainer = styled.div`
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    background-color: #ffffff71;
+    backdrop-filter: blur(10px);
+
+    padding: 136px 91px 116px 107px;
+  }
+`;
+
 const LoginPage = () => {
   return (
     <Background>
@@ -71,7 +83,9 @@ const LoginPage = () => {
           <Icon className="loginIcon" icon="icon__big-logo-man1" />
           <span class="loginText">Finance App</span>
         </LoginPageHeader>
-        <LoginForm />
+        <LoginFormContainer>
+          <LoginForm />
+        </LoginFormContainer>
       </LoginPageDiv>
     </Background>
   );
