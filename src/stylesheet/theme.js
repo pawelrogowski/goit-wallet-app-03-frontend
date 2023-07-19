@@ -8,6 +8,7 @@ export const theme = {
     brandPrimary: 'var(--color-brand-primary)',
     brandSecondary: 'var(--color-brand-secondary)',
     brandAccent: 'var(--color-brand-accent)',
+    logoutButton: 'var(--color-logout-button)',
   },
 
   background: {
