@@ -1,3 +1,4 @@
+import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
 
 const StyledTable = styled.div`
@@ -5,6 +6,24 @@ const StyledTable = styled.div`
   min-width: 280px;
 `;
 
+const BoxInputs = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  div {
+    width: 100%;
+  }
+
+  //tablet+desktop
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    flex-direction: row;
+    div {
+      width: 182px;
+    }
+  }
+`;
 const BoxHeading = styled.div`
   display: flex;
   justify-content: space-between;
@@ -83,30 +102,72 @@ const Income = styled.p`
   }
 `;
 
+const months = [
+  { id: 1, name: 'January' },
+  { id: 2, name: 'February' },
+  { id: 3, name: 'March' },
+  { id: 4, name: 'April' },
+  { id: 5, name: 'May' },
+  { id: 6, name: 'June' },
+  { id: 7, name: 'July' },
+  { id: 8, name: 'August' },
+  { id: 9, name: 'September' },
+  { id: 10, name: 'October' },
+  { id: 11, name: 'November' },
+  { id: 12, name: 'December' },
+];
+
+const monthsOptions = months.map(option => ({
+  ...option,
+  label: option.name,
+  value: option.name,
+}));
+
+const year = [
+  { year: '2019' },
+  { year: '2020' },
+  { year: '2021' },
+  { year: '2022' },
+  { year: '2023' },
+  { year: '2024' },
+];
+
+const yearOptions = year.map(option => ({
+  ...option,
+  label: option.year,
+  value: option.year,
+}));
+
 const DiagramTable = ({ data }) => (
-  <StyledTable>
-    <BoxHeading>
-      <h3>Category</h3>
-      <h3>Sum</h3>
-    </BoxHeading>
-    <List>
-      {data.map((item, index) => (
-        <ListItem key={index}>
-          <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
-          <Category>{item.category}</Category>
-          <Sum>{item.sum}</Sum>
-        </ListItem>
-      ))}
-    </List>
-    <BoxFooter>
-      <Expenses>
-        Expenses: <span>22 549.24</span>
-      </Expenses>
-      <Income>
-        Income: <span>27 350.00</span>
-      </Income>
-    </BoxFooter>
-  </StyledTable>
+  <>
+    <StyledTable>
+      <BoxInputs>
+        <InputDropdown title={'Select Month'} options={monthsOptions} />
+        <InputDropdown title={'Select Year'} options={yearOptions} />
+      </BoxInputs>
+      <BoxHeading>
+        <h3>Category</h3>
+        <h3>Sum</h3>
+      </BoxHeading>
+      <List>
+        {data.map((item, index) => (
+          <ListItem key={index}>
+            <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
+            <Category>{item.category}</Category>
+            <Sum>{item.sum}</Sum>
+          </ListItem>
+        ))}
+      </List>
+      <BoxFooter>
+        <Expenses>
+          Expenses: <span>22 549.24</span>
+        </Expenses>
+        <Income>
+          Income: <span>27 350.00</span>
+        </Income>
+      </BoxFooter>
+    </StyledTable>
+  </>
 );
 
 export default DiagramTable;
