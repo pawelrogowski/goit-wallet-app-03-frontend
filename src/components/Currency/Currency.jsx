@@ -1,15 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Triangles } from './currencyBackground.svg';
-
-const rows = [
-  { currency: 'USD', purchase: 27.55, sale: 27.65 },
-  { currency: 'EUR', purchase: 27.55, sale: 27.65 },
-  { currency: 'USD', purchase: 27.55, sale: 27.65 },
-  { currency: 'EUR', purchase: 27.55, sale: 27.65 },
-  { currency: 'USD', purchase: 27.55, sale: 27.65 },
-  { currency: 'EUR', purchase: 27.55, sale: 27.65 },
-];
+import getCurrencyData from './CurrencyFetchData';
 
 const TableStyledContainer = styled.ul`
   list-style: none;
@@ -86,6 +78,7 @@ const TrianglesBackground = styled(Triangles)`
 `;
 
 const Currency = () => {
+  const currencyData = getCurrencyData();
   return (
     <TableStyledContainer>
       <StyledListElement>
@@ -93,8 +86,8 @@ const Currency = () => {
         <StyledHeaderParagraph>Purchase</StyledHeaderParagraph>
         <StyledHeaderParagraph>Sale</StyledHeaderParagraph>
       </StyledListElement>
-      {rows.map(item => (
-        <StyledListElement>
+      {currencyData.map((item, index) => (
+        <StyledListElement key={item.currency + index}>
           <StyledBodyParagraph>{item.currency}</StyledBodyParagraph>
           <StyledBodyParagraph>{item.purchase}</StyledBodyParagraph>
           <StyledBodyParagraph>{item.sale}</StyledBodyParagraph>
