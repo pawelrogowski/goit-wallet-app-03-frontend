@@ -13,6 +13,7 @@ const TransactionsList = styled.ul`
 const TransactionsElement = styled.li``;
 
 const TransactionList = styled.ul`
+  background-color: var(--font-color-light);
   list-style: none;
   padding: 0;
   margin: 0;
@@ -41,7 +42,7 @@ const TransactionElement = styled.li`
   padding: 15px 20px;
 
   &:not(:last-child) {
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--border-transactions);
   }
 `;
 
