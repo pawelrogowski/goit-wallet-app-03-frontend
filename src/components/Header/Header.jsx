@@ -74,11 +74,11 @@ const Header = () => {
       <Logo></Logo>
       <LogoutDiv>
         <span className="nameText">
-          <button>Name</button>
+          <button type="button">Name</button>
         </span>
         <div className="divider"></div>
 
-        <button className="exitButton">
+        <button type="button" className="exitButton">
           <Icon icon="icon__exit"></Icon>
           <span className="exitText">Exit</span>
         </button>
