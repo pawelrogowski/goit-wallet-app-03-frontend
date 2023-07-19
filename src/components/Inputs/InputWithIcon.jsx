@@ -11,12 +11,23 @@ const StyledDiv = styled.div`
   }
 `;
 
-const InputWithIconBase = ({ className, name, icon, placeholder, onChange, type }) => {
+const InputWithIconBase = ({
+  className,
+  name,
+  icon,
+  placeholder,
+  onChange,
+  type,
+  required,
+  title,
+}) => {
   return (
     <StyledDiv>
       <BaseInput
         className={className}
         placeholder={placeholder}
+        title={title}
+        required={required}
         name={name}
         onChange={onChange}
         type={type}
