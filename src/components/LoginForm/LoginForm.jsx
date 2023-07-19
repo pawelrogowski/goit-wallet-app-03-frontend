@@ -6,6 +6,7 @@ import { InputWithIcon } from 'components/Inputs/InputWithIcon';
 import Logo from 'components/Logo/Logo';
 
 const Form = styled.form`
+  height: 100vh;
   min-width: 320px;
   width: 100%;
   padding: 107px 20px 36px 20px;
@@ -25,6 +26,7 @@ const Form = styled.form`
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 533px;
     padding: 40px 58.5px 62px 65px;
+    height: auto;
   }
 `;
 
