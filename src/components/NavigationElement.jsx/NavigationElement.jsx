@@ -2,24 +2,23 @@ import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
 
 const StyledDiv = styled.div`
-  cursor:pointer;
+  cursor: pointer;
   display: flex;
-   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
     background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-   svg {
+  svg {
+    fill: #6e78e8;
     border-radius: 2px;
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
     width: 44px;
     height: 44px;
-}
-    svg {
     &:hover,
-    &:focus {
+    &:focus,
+    &:active {
+      fill: var(--color-brand-primary);
       filter: drop-shadow(0px 3px 10px rgba(74, 86, 226, 0.5));
-    }}
+    }
   }
-
-
 `;
 
 const NavLink = styled.a`
