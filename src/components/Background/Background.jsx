@@ -14,6 +14,7 @@ export const Background = styled.div`
     &::before {
       content: url(${TopRightIcon});
       position: absolute;
+      z-index: -1;
       top: 0px;
       right: 0px;
     }
@@ -21,6 +22,7 @@ export const Background = styled.div`
     &::after {
       content: url(${BottomLeftIcon});
       position: absolute;
+      z-index: -1;
       bottom: -5px;
       left: 0px;
     }
