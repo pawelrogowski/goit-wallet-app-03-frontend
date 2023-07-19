@@ -18,9 +18,14 @@ export const theme = {
     secondary: 'var(--background-secondary)',
   },
 
+  //added max media breakpoints for when you want to use breakpoints with max-width instead of min-width in media queries, they only differ by one pixel
+
   breakpoints: {
     mobile: '320px',
+    mobileForMaxMedia: '319px',
     tablet: '768px',
+    tabletForMaxMedia: '767px',
     desktop: '1280px',
+    desktopForMaxMedia: '1279px',
   },
 };
