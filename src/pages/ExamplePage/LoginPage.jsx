@@ -4,6 +4,12 @@ import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
 
 const LoginPageDiv = styled.div`
+  @media (max-width: ${props => props.theme.breakpoints.tablet}) {
+    form {
+      padding-bottom: 107px;
+    }
+  }
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     max-width: 538px;
     display: flex;
@@ -83,7 +89,7 @@ const LoginFormContainer = styled.div`
   }
 
   form {
-    @media (max-width: ${props => props.theme.breakpoints.desktop}) {
+    @media (max-width: ${props => props.theme.breakpoints.tablet}) {
       border-radius: 0px;
     }
 
