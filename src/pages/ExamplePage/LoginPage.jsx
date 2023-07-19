@@ -1,5 +1,4 @@
 import LoginForm from 'components/LoginForm/LoginForm';
-import { Background } from 'components/Background/Background';
 import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
 
