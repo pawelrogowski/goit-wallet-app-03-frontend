@@ -29,6 +29,7 @@ const LogoutDiv = styled.div`
   svg {
     width: 18px;
     height: 18px;
+    transition: fill 150ms;
   }
 
   .exitText {
@@ -46,9 +47,21 @@ const LogoutDiv = styled.div`
 
   .exitButton {
     display: flex;
+    cursor: pointer;
+    transition: color 150ms;
 
     span {
       margin-left: 6px;
+    }
+
+    &:hover,
+    &:focus {
+      transition: color 150ms;
+      color: var(--color-brand-primary);
+      svg {
+        transition: fill 150ms;
+        fill: var(--color-brand-primary);
+      }
     }
   }
 
@@ -62,6 +75,7 @@ const LogoutDiv = styled.div`
   }
 
   button {
+    outline: none;
     border: none;
     background-color: transparent;
     color: ${props => props.theme.colors.logoutButton};
