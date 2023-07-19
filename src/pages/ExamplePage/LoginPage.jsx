@@ -46,7 +46,7 @@ const LoginPageDiv = styled.div`
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     display: flex;
     flex-direction: row;
-    max-width: 1280;
+    max-width: 1280px;
     padding-top: 150px;
     /* margin: 0 auto; */
     /* margin: 0 118px 196px 118px; */
@@ -70,7 +70,7 @@ const LoginPage = () => {
         <LoginPageHeader>
           <Icon className="loginIcon" icon="icon__big-logo-man1" />
           <span class="loginText">Finance App</span>
-              </LoginPageHeader>
+        </LoginPageHeader>
         <LoginForm />
       </LoginPageDiv>
     </Background>
