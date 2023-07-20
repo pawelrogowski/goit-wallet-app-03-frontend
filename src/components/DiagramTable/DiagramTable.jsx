@@ -1,5 +1,6 @@
 import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
+import { data } from './data';
 
 const StyledTable = styled.div`
   max-width: 395px;
@@ -53,7 +54,7 @@ const ListItem = styled.li`
   padding: 0 28px;
   border-bottom: 1px solid #dcdcdf;
   box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
-  font-family: Circe;
+  font-family: 'Circe';
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -138,7 +139,7 @@ const yearOptions = year.map(option => ({
   value: option.year,
 }));
 
-const DiagramTable = ({ data }) => (
+const DiagramTable = () => (
   <>
     <StyledTable>
       <BoxInputs>
