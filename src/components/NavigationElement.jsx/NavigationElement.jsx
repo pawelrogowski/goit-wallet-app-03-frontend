@@ -55,6 +55,7 @@ const StyledDiv = styled.li`
 
 const StyledBox = styled.ul`
   margin: 0;
+  padding: 0;
   display: flex;
   gap: 30px;
   justify-content: center;
