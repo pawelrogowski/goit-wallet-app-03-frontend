@@ -1,23 +1,41 @@
 import styled from 'styled-components';
 import { BaseInput } from './BaseInput';
-import icons from '../../assets/icons/icons.svg';
+import { Icon } from '../Icon/Icon';
 
 const StyledDiv = styled.div`
   display: inline-block;
   position: relative;
-  svg {
-    pointer-events: none;
+
+  ${BaseInput} {
+    padding-left: 47px;
   }
 `;
 
-export const InputWithIcon = ({ icon, placeholder }) => {
+const InputWithIconBase = ({
+  className,
+  name,
+  icon,
+  placeholder,
+  onChange,
+  type,
+  required,
+  title,
+}) => {
   return (
     <StyledDiv>
-      <BaseInput hasicon="true" placeholder={placeholder} />
+      <BaseInput
+        className={className}
+        placeholder={placeholder}
+        title={title}
+        required={required}
+        name={name}
+        onChange={onChange}
+        type={type}
+      />
 
-      <svg>
-        <use href={icons + `#${icon}`} />
-      </svg>
+      <Icon icon={icon} />
     </StyledDiv>
   );
 };
+
+export const InputWithIcon = styled(InputWithIconBase)``;
