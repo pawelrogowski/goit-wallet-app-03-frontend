@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
 
+// KOMPONENT DO REFACTORU, WRZUCONY ŻEBY MOŻNA GO BYŁO UŻYĆ W LAYOUCIE
 const NavLink = styled.a`
   display: none;
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
