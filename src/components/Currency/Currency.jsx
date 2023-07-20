@@ -40,6 +40,7 @@ const TableStyledContainer = styled.ul`
 const StyledHeaderParagraph = styled.p`
   margin: 0;
   color: var(--background-light);
+  font-family: 'Circe';
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
@@ -50,6 +51,7 @@ const StyledHeaderParagraph = styled.p`
 const StyledBodyParagraph = styled.p`
   margin: 0;
   color: var(--background-light);
+  font-family: 'Circe';
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
