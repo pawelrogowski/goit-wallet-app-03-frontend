@@ -12,6 +12,8 @@ icon__edit
 icon__exit
 icon__logo
 icon__slash
+icon__arrow-up
+icon__arrow-down
 icon__big-logo-man1
 icon__big-logo-man2
 icon__big-logo-woman1

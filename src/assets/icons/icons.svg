@@ -48,7 +48,12 @@
     <symbol id="icon__slash" viewBox="0 0 16 32">
       <path stroke="#e0e0e0" stroke-width="2.909" d="M13.529 1.597 2.471 30.403" />
     </symbol>
-    
+    <symbol id="icon__arrow-up" viewBox="0 0 58 32" fill="none">
+      <path  stroke="#000" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2.9091" d="M55.273 29.091l-26.182-26.182-26.182 26.182"></path>
+    </symbol>
+    <symbol id="icon__arrow-down" viewBox="0 0 58 32" fill="none">
+      <path stroke="#000" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2.9091" d="M55.273 2.909l-26.182 26.182-26.182-26.182"></path>
+      </symbol>
   <symbol fill="none" viewBox="0 0 436 420" id="icon__big-logo-man1">
     <path d="M412.4 7.6L412.6 88.1C412.6 92.6 409 96.3 404.5 96.3L276.8 96.6C272.3 96.6 268.6 93 268.6 88.5L268.4 8C268.4 3.8 271.8 0.4 276 0.4L404.8 0C409 0 412.4 3.4 412.4 7.6Z" fill="#4A56E2"></path>
     <path d="M391.8 76.8C391.8 80.9 388.5 84.3 384.3 84.3C380.2 84.3 376.8 81 376.8 76.8C376.8 72.7 380.1 69.3 384.3 69.3C388.5 69.3 391.8 72.6 391.8 76.8Z" fill="#A6A6A6"></path>
