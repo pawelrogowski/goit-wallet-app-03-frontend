@@ -6,6 +6,12 @@ const StyledTable = styled.div`
   max-width: 395px;
   min-width: 280px;
   width: 100%;
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    max-width: 336px;
+  }
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    max-width: 500px;
+  }
 `;
 
 const BoxInputs = styled.div`
@@ -18,11 +24,16 @@ const BoxInputs = styled.div`
     width: 100%;
   }
 
-  //tablet+desktop
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     flex-direction: row;
     div {
-      width: 182px;
+      width: 160px;
+    }
+  }
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    flex-direction: row;
+    div {
+      width: 220px;
     }
   }
 `;
@@ -44,6 +55,7 @@ const BoxHeading = styled.div`
   }
 `;
 const List = styled.ul`
+  margin: 0;
   list-style: none;
   padding: 0;
 `;
@@ -150,8 +162,8 @@ const DiagramTable = () => {
     <>
       <StyledTable>
         <BoxInputs>
-          <InputDropdown title={'Select Month'} options={monthsOptions} />
-          <InputDropdown title={'Select Year'} options={yearOptions} />
+          <InputDropdown title={'Month'} options={monthsOptions} />
+          <InputDropdown title={'Year'} options={yearOptions} />
         </BoxInputs>
         <BoxHeading>
           <h3>Category</h3>
