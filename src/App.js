@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { lazy } from 'react';
 import Layout from 'pages/Layout';
 const Dashboard = lazy(() => import('pages/DashboardPage'));
-const Register = lazy(() => import('pages/RegisterPage'));
+const Register = lazy(() => import('pages/RegistrationPage'));
 const Login = lazy(() => import('pages/LoginPage'));
 const Statistic = lazy(() => import('pages/StatisticPage'));
 const Currency = lazy(() => import('pages/CurrencyPage'));
