@@ -1,4 +1,5 @@
 import LoginForm from 'components/LoginForm/LoginForm';
+import RegistrationForm from 'components/RegistrationForm/RegistrationForm';
 import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
 import { Heading } from 'components/Heading/Heading';
@@ -106,6 +107,7 @@ const LoginPage = () => {
       </LoginHeaderContainer>
       <LoginFormContainer>
         <LoginForm />
+        <RegistrationForm />
       </LoginFormContainer>
     </LoginPageContainer>
   );

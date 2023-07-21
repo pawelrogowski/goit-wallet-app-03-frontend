@@ -2,18 +2,18 @@ import styled from 'styled-components';
 
 export const BaseInput = styled.input`
   border: none;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-switch-main);
   font-family: Circe;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   color: var(--font-color-dark);
-  margin-bottom: 40px;
   max-width: 100%;
+  margin-bottom: 10px;
   width: 280px;
 
   &::placeholder {
-    color: #bdbdbd;
+    color: var(--color-logout-button);
   }
 
   &:focus {
@@ -34,7 +34,7 @@ export const BaseInput = styled.input`
     height: 20px;
     position: absolute;
     left: 10px;
-    fill: #e0e0e0;
+    fill: var(--color-switch-main);
     transition: fill 150ms;
   }
 

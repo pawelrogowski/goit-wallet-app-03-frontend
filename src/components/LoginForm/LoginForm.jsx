@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { InputWithIcon } from 'components/Inputs/InputWithIcon';
 import Logo from 'components/Logo/Logo';
+import { Formik, Form } from 'formik';
+import { object, string } from 'yup';
+import Loader from './../Loader/Loader';
 
-const Form = styled.form`
+const FormikForm = styled(Form)`
   height: 100vh;
   min-width: 320px;
   width: 100%;
@@ -17,12 +19,14 @@ const Form = styled.form`
   background: var(--background-light);
   border-radius: 12px;
 
-  // Logo is the first component so this adds margin to logo
   & > :first-child {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
   }
 
-  //tablet+desktop
+  & > :nth-last-child(2) {
+    margin-top: 40px;
+  }
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 533px;
     padding: 40px 58.5px 62px 65px;
@@ -31,59 +35,46 @@ const Form = styled.form`
 `;
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleEmailChange = e => setEmail(e.target.value);
-  const handlePasswordChange = e => setPassword(e.target.value);
-
-  const handleFormSubmit = e => {
-    e.preventDefault();
-
-    const formData = {
-      email: e.target.elements.email.value,
-      password: e.target.elements.password.value,
-    };
-    console.log('Form Data:', formData);
-    console.log('React email state:', email);
-    console.log('React password state:', password);
-  };
-
   return (
-    <Form onSubmit={handleFormSubmit}>
-      <Logo />
-      <InputWithIcon
-        icon="icon__baseline-email"
-        placeholder="E-mail"
-        title="Plase fill out your e-mail"
-        required
-        name="email"
-        value=""
-        onChange={handleEmailChange}
-      />
-      <InputWithIcon
-        icon="icon__baseline-lock"
-        placeholder="Password"
-        title="The password must have at least 6 and max 12 characters"
-        required
-        name="password"
-        type="password"
-        value=""
-        onChange={handlePasswordChange}
-      />
-      <PrimaryButton type="submit">LOG IN</PrimaryButton>
-      <SecondaryButton type="button">REGISTER</SecondaryButton>
-      {/* not sure yet how to implement routing on SecondaryButton */}
-    </Form>
+    <Formik
+      initialValues={{ email: '', password: '' }}
+      validationSchema={object({
+        email: string().email('Invalid email address.').required('Please provide your email.'),
+        password: string().required('No password provided.'),
+      })}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        console.log(values);
+        resetForm();
+        setSubmitting(false);
+      }}
+      validateOnMount
+    >
+      {({ isValid, isSubmitting }) => (
+        <FormikForm>
+          <Logo />
+          {isSubmitting && <Loader />}
+          <InputWithIcon
+            icon="icon__baseline-email"
+            placeholder="E-mail"
+            title="Plase fill out your e-mail"
+            name="email"
+            type="email"
+          />
+          <InputWithIcon
+            icon="icon__baseline-lock"
+            placeholder="Password"
+            title="The password must have at least 6 and max 12 characters"
+            name="password"
+            type="password"
+          />
+          <PrimaryButton type="submit" disabled={!isValid}>
+            LOG IN
+          </PrimaryButton>
+          <SecondaryButton type="button">REGISTER</SecondaryButton>
+        </FormikForm>
+      )}
+    </Formik>
   );
 };
 
 export default LoginForm;
-
-// Wykonanie walidacji pola formularza, wykorzystywać: 1) bibliotekę formik i yup lub 2) indicative. Hasło i e-mail są polami wymaganymi
-// e-mail jest sprawdzany pod kątem prawidłowości, hasło ma 6 lub więcej, do 12 znaków włącznie
-// Klasowy lub komponent hook, który przechowuje w swoim stanie stany wejść.
-// Napisz operację dla logowania, powinna być wywoływana na przesłanie formularza
-// Jeśli odpowiedź z serwera jest udana, w odpowiedź otrzymasz token i obiekt użytkownika. Zapisz token i obiekt użytkownika w redux store, a także zmień klucz w session.isAuth na true
-// Jeśli w odpowiedź z serwera przychodzi błąd, trzeba go zdefiniować w redux store session.error i przewidzieć wyświetlenie tego błędu
-// Link "Rejestracja" to komponent Link z react-router-dom i przejście do "/register"
