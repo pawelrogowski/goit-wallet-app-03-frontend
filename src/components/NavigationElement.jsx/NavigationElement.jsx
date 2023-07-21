@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
+import { NavLink } from 'react-router-dom';
 
 // KOMPONENT DO REFACTORU, WRZUCONY ŻEBY MOŻNA GO BYŁO UŻYĆ W LAYOUCIE
-const NavLink = styled.a`
+const Nav = styled(NavLink)`
   display: none;
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     display: flex;
@@ -40,7 +41,7 @@ const StyledDiv = styled.li`
       box-shadow: 0px 3px 10px rgba(74, 86, 226, 0.5); /* Apply the box-shadow directly */
     }
 
-    ${NavLink} {
+    ${Nav} {
       /* Remove the transform property to eliminate text scaling */
     }
   }
@@ -78,14 +79,15 @@ const NavigationElement = () => {
     <StyledBox>
       <StyledDiv>
         <Icon icon="icon__baseline-home" />
-        <NavLink href="#">Home</NavLink>
+        <Nav to={'/'}>Home</Nav>
       </StyledDiv>
       <StyledDiv>
         <Icon icon="icon__baseline-timeline" />
-        <NavLink href="#">Statistics</NavLink>
+        <Nav to={'/statistic'}>Statistic</Nav>
       </StyledDiv>
       <StyledDiv>
         <Icon icon="icon__baseline-dolar" />
+        <Nav to={'/currency'}></Nav>
       </StyledDiv>
     </StyledBox>
   );

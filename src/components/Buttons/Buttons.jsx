@@ -35,6 +35,12 @@ export const BaseButton = styled.button`
   &:not(:last-of-type) {
     margin-bottom: 20px;
   }
+
+  &:disabled {
+    background-color: var(--color-logout-button);
+    cursor: auto;
+  }
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 300px;
   }
