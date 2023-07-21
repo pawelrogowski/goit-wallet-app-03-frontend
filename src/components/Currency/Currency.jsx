@@ -5,17 +5,17 @@ import getCurrencyData from './CurrencyFetchData';
 
 const TableStyledContainer = styled.ul`
   list-style: none;
+  margin: 0;
   padding: 0px;
   width: 100%;
   max-width: 440px;
   background-color: var(--color-brand-primary);
-  margin-top: 32px;
   border-radius: 30px;
   overflow: hidden;
   position: relative;
   overflow-y: auto;
-  min-height: 210px;
-  height: calc(100vh - 390px);
+  height: auto;
+  min-height: 185px;
   max-height: 550px;
 
   li:first-child {
@@ -30,7 +30,18 @@ const TableStyledContainer = styled.ul`
     margin-top: 0;
     height: 100%;
   }
-  @media (min-width: 768px) {
+  @media (min-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
+    height: calc(100vh - 390px);
+    margin-top: 32px;
+  }
+  @media (ma-width: ${props => props.theme.breakpoints.tablet}) {
+    min-height: 210px;
+    height: auto;
+    max-height: 550px;
+  }
+  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+    display: none;
+    height: 0;
   }
   &::-webkit-scrollbar {
     display: none;
