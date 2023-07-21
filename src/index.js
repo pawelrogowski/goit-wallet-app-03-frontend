@@ -7,12 +7,18 @@ import './index.css';
 import App from './App';
 import { theme } from './stylesheet/theme';
 import { ThemeProvider } from 'styled-components';
+import { BrowserRouter } from 'react-router-dom';
+import { Background } from 'components/Background/Background';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Background>
+          <App />
+        </Background>
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
 );
