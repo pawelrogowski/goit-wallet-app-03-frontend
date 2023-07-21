@@ -47,9 +47,9 @@ const StyledSelect = styled(Select)`
   .react-dropdown-select-dropdown {
     height: 182px;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.7);
+
     box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(25px);
+
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     ::-webkit-scrollbar {
