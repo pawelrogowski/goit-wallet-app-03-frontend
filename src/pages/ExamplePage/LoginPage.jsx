@@ -107,7 +107,6 @@ const LoginPage = () => {
       </LoginHeaderContainer>
       <LoginFormContainer>
         <LoginForm />
-        <RegistrationForm />
       </LoginFormContainer>
     </LoginPageContainer>
   );
