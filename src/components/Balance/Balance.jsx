@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 
 const BalanceSection = styled.div`
-  max-width: 400px;
+  max-width: 440px;
+  min-width: 280px;
+  width: 100%;
   background-color: var(--background-light);
   border-radius: 30px;
   padding: 4px 0px 11px 40px;
+  margin-top: 28px;
+  @media (max-width: ${props => props.theme.breakpoints.tablet}) {
+    margin-top: 13px;
+  }
 `;
 const BalanceParagraph = styled.p`
   color: #a6a6a6;
