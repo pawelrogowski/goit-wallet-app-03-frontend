@@ -5,6 +5,7 @@ import { data } from './data';
 const StyledTable = styled.div`
   max-width: 395px;
   min-width: 280px;
+  width: 100%;
 `;
 
 const BoxInputs = styled.div`
@@ -139,36 +140,43 @@ const yearOptions = year.map(option => ({
   value: option.year,
 }));
 
-const DiagramTable = () => (
-  <>
-    <StyledTable>
-      <BoxInputs>
-        <InputDropdown title={'Select Month'} options={monthsOptions} />
-        <InputDropdown title={'Select Year'} options={yearOptions} />
-      </BoxInputs>
-      <BoxHeading>
-        <h3>Category</h3>
-        <h3>Sum</h3>
-      </BoxHeading>
-      <List>
-        {data.map((item, index) => (
-          <ListItem key={index}>
-            <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
-            <Category>{item.category}</Category>
-            <Sum>{item.sum}</Sum>
-          </ListItem>
-        ))}
-      </List>
-      <BoxFooter>
-        <Expenses>
-          Expenses: <span>22 549.24</span>
-        </Expenses>
-        <Income>
-          Income: <span>27 350.00</span>
-        </Income>
-      </BoxFooter>
-    </StyledTable>
-  </>
-);
+const DiagramTable = () => {
+  const sumExpenses = data
+    .map(item => parseFloat(item.sum.replace(/\s+/g, '')))
+    .reduce((total, value) => total + value, 0)
+    .toFixed(2);
+
+  return (
+    <>
+      <StyledTable>
+        <BoxInputs>
+          <InputDropdown title={'Select Month'} options={monthsOptions} />
+          <InputDropdown title={'Select Year'} options={yearOptions} />
+        </BoxInputs>
+        <BoxHeading>
+          <h3>Category</h3>
+          <h3>Sum</h3>
+        </BoxHeading>
+        <List>
+          {data.map((item, index) => (
+            <ListItem key={index}>
+              <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
+              <Category>{item.category}</Category>
+              <Sum>{item.sum}</Sum>
+            </ListItem>
+          ))}
+        </List>
+        <BoxFooter>
+          <Expenses>
+            Expenses: <span>{sumExpenses}</span>
+          </Expenses>
+          <Income>
+            Income: <span>27 350.00</span>
+          </Income>
+        </BoxFooter>
+      </StyledTable>
+    </>
+  );
+};
 
 export default DiagramTable;
