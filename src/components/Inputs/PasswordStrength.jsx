@@ -25,6 +25,11 @@ const StrengthBar = styled.progress`
     border-radius: 7px;
     box-shadow: 0px 1px 6px 0.1px var(--color-brand-secondary);
   }
+
+  //tablet+desktop
+  @media (max-width: ${props => props.theme.breakpoints.tablet}) {
+    width: 280px;
+  }
 `;
 
 const PasswordStrength = props => {
