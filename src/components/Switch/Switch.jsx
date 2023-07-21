@@ -66,7 +66,6 @@ const SwitchSlider = styled.label`
     z-index: 1000;
 
     &:first-of-type {
-      opacity: ${props => (props.$isChecked ? '1' : '0')};
       fill: var(--color-brand-secondary);
     }
 
