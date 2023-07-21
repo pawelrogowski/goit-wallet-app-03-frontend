@@ -75,7 +75,7 @@ const RegistrationForm = () => {
       validateOnMount
     >
       {({ values, isValid, isSubmitting }) => (
-        <FormikForm>
+        <FormikForm autoComplete="off">
           {isSubmitting && <Loader />}
           <Logo />
           <InputWithIcon
@@ -84,6 +84,7 @@ const RegistrationForm = () => {
             title="Plase fill out your e-mail"
             name="email"
             type="email"
+            autoComplete="off"
           />
           <InputWithIcon
             icon="icon__baseline-lock"
@@ -91,6 +92,7 @@ const RegistrationForm = () => {
             title="The password must have at least 6 and max 12 characters"
             name="password"
             type="password"
+            autoComplete="off"
           />
           <InputWithIcon
             icon="icon__baseline-lock"
@@ -98,6 +100,7 @@ const RegistrationForm = () => {
             title="The confirm password must match your password"
             name="confirmPassword"
             type="password"
+            autoComplete="off"
           />
           <PasswordStrength value={values.password} />
           <InputWithIcon
@@ -106,6 +109,7 @@ const RegistrationForm = () => {
             title="Plase fill out your e-mail"
             name="firstName"
             type="text"
+            autoComplete="off"
           />
           <PrimaryButton type="submit" disabled={!isValid}>
             REGISTER

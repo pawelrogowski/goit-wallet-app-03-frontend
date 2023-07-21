@@ -50,7 +50,7 @@ const LoginForm = () => {
       validateOnMount
     >
       {({ isValid, isSubmitting }) => (
-        <FormikForm>
+        <FormikForm autoComplete="off">
           <Logo />
           {isSubmitting && <Loader />}
           <InputWithIcon
@@ -59,6 +59,7 @@ const LoginForm = () => {
             title="Plase fill out your e-mail"
             name="email"
             type="email"
+            autoComplete="off"
           />
           <InputWithIcon
             icon="icon__baseline-lock"
@@ -66,6 +67,7 @@ const LoginForm = () => {
             title="The password must have at least 6 and max 12 characters"
             name="password"
             type="password"
+            autoComplete="off"
           />
           <PrimaryButton type="submit" disabled={!isValid}>
             LOG IN
