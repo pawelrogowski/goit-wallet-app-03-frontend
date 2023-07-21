@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
 import { NavLink } from 'react-router-dom';
 
-// KOMPONENT DO REFACTORU, WRZUCONY ŻEBY MOŻNA GO BYŁO UŻYĆ W LAYOUCIE
-const Nav = styled(NavLink)`
-  display: none;
+const StyledNavLink = styled(NavLink)`
+display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+p {display: none};
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -17,78 +18,58 @@ const Nav = styled(NavLink)`
     text-decoration: none;
     margin-left: 20px;
     margin-top: 0px;
-  }
-`;
-
-const StyledDiv = styled.li`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: box-shadow 150ms, transform 150ms; /* Add box-shadow to the transition */
-
-  svg {
-    border-radius: 4px;
-    fill: #6e78e8;
-    width: 44px;
-    height: 44px;
-    transition: box-shadow 150ms; /* Modify the transition property for svg */
-  }
-
-  &:hover,
-  &:focus {
-    svg {
-      fill: var(--color-brand-primary);
-      box-shadow: 0px 3px 10px rgba(74, 86, 226, 0.5); /* Apply the box-shadow directly */
-    }
-
-    ${Nav} {
-      /* Remove the transform property to eliminate text scaling */
-    }
-  }
-
-  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    display: flex;
-    &:last-child {
+    gap:0px;
+ &:last-child {
       display: none;
     }
-  }
+    p {display: flex;
+    margin-left:20px;
+    };
+ &:hover,
+ &:active {
+    filter: drop-shadow(0px 3px 10px rgba(74, 86, 226, 0.5));
+ }
+ &.active>p{
+font-size: 18px;
+font-weight: 700; 
+ }
 `;
 
-const StyledBox = styled.ul`
-  margin: 0;
-  display: flex;
-  gap: 30px;
-  justify-content: center;
-  align-items: center;
+const StyledIcon = styled(Icon)`
+  border-radius: 4px;
+  fill: #6e78e8;
+  width: 44px;
+  height: 44px;
+  transition: box-shadow 150ms;
+  &:hover,
+  &:focus {
+    fill: var(--color-brand-primary);
+    box-shadow: 0px 3px 10px rgba(74, 86, 226, 0.5);
+  }
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0px;
-    svg {
-      width: 24px;
-      height: 24px;
-    }
+    fill: #6e78e8;
+    width: 24px;
+    height: 24px;
+    transition: box-shadow 150ms;
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 `;
-
 const NavigationElement = () => {
   return (
-    <StyledBox>
-      <StyledDiv>
-        <Icon icon="icon__baseline-home" />
-        <Nav to={'/'}>Home</Nav>
-      </StyledDiv>
-      <StyledDiv>
-        <Icon icon="icon__baseline-timeline" />
-        <Nav to={'/statistic'}>Statistic</Nav>
-      </StyledDiv>
-      <StyledDiv>
-        <Icon icon="icon__baseline-dolar" />
-        <Nav to={'/currency'}></Nav>
-      </StyledDiv>
-    </StyledBox>
+    <>
+      <StyledNavLink to={`/`}>
+        <StyledIcon icon="icon__baseline-home" />
+        <p>Home</p>
+      </StyledNavLink>
+      <StyledNavLink to={`/statistic`}>
+        <StyledIcon icon="icon__baseline-timeline" />
+        <p>Statistics</p>
+      </StyledNavLink>
+      <StyledNavLink to={`/currency`}>
+        <StyledIcon icon="icon__baseline-dolar" />
+      </StyledNavLink>
+    </>
   );
 };
 
