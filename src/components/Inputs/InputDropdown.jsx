@@ -9,6 +9,7 @@ const StyledSelect = styled(Select)`
   border: 1px solid var(--font-color-dark);
   transition: all 0.3s ease-out;
   margin-bottom: 20px;
+  height: 50px;
 
   .react-dropdown-select-input {
     font-size: 16px;
@@ -34,6 +35,8 @@ const StyledSelect = styled(Select)`
     font-weight: 400;
     line-height: normal;
     padding: 4px 20px;
+    border-bottom: none;
+    border-top: none;
     :hover {
       background-color: var(--background-light);
     }
@@ -42,14 +45,16 @@ const StyledSelect = styled(Select)`
   .react-dropdown-select-item.react-dropdown-select-item-selected,
   .react-dropdown-select-item.react-dropdown-select-item-active {
     color: var(--font-color-dark);
-    background-color: var(--background-primary);
+    background-color: var(--background-light);
   }
   .react-dropdown-select-dropdown {
     height: 182px;
     border-radius: 20px;
+    background-color: #f1f1f1;
     box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+
     ::-webkit-scrollbar {
       display: none;
     }
