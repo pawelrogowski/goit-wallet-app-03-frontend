@@ -6,14 +6,21 @@ import AsideBar from 'components/AsideBar/AsideBar';
 
 const Section = styled.section`
   display: flex;
+  position: static;
   flex-direction: column;
   justify-content: space-between;
   padding: 0 20px;
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(25px);
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    position: fixed;
+  }
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    position: fixed;
     flex-direction: row;
     padding: 0 16px;
   }
@@ -23,9 +30,10 @@ const MainContainer = styled.main`
   display: flex;
   justify-content: space-between;
   align-content: flex-start;
+
   flex-grow: 1;
   flex-wrap: wrap;
-
+  z-index: 1;
   & > :nth-child(1n + 1) {
     margin-left: auto;
     margin-right: auto;
