@@ -6,6 +6,7 @@ const StyledTable = styled.div`
   max-width: 395px;
   min-width: 280px;
   width: 100%;
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     max-width: 336px;
   }
@@ -58,6 +59,27 @@ const List = styled.ul`
   margin: 0;
   list-style: none;
   padding: 0;
+
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    overflow-y: auto;
+    max-height: 450px;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-logout-button);
+    }
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--color-logout-button);
+    }
+  }
 `;
 
 const ListItem = styled.li`
@@ -81,10 +103,12 @@ const ColorCategory = styled.div`
 `;
 const Category = styled.p`
   color: var(--font-color-dark);
-  margin-left: 16px;
+  margin: 0;
+  padding: 16px 16px;
   flex-grow: 2;
 `;
 const Sum = styled.p`
+  margin: 0;
   color: var(--font-color-dark);
 `;
 const BoxFooter = styled.div`
@@ -102,6 +126,8 @@ const BoxFooter = styled.div`
 const Expenses = styled.p`
   display: inline-flex;
   justify-content: space-between;
+  margin: 0;
+  padding: 16px 0;
   span {
     color: var(--color-brand-accent);
     text-align: right;
@@ -110,6 +136,8 @@ const Expenses = styled.p`
 const Income = styled.p`
   display: inline-flex;
   justify-content: space-between;
+  margin: 0;
+  padding: 16px 0;
   span {
     color: var(--color-brand-secondary);
     text-align: right;
