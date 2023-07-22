@@ -15,9 +15,8 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Background>
-          <App />
-        </Background>
+        <Background />
+        <App />
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
