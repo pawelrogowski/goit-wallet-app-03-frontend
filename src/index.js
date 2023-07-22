@@ -15,6 +15,8 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
+        {/* Background has fixed position, it stays in the viewport with z-index to be at
+        the bottom, no need to wrap the App */}
         <Background />
         <App />
       </BrowserRouter>
