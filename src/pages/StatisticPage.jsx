@@ -13,7 +13,7 @@ const Title = styled(Heading)`
 const StatisticPage = () => {
   return (
     <>
-      <Title as="h1">Statistic</Title>
+      <Title as="h1">Statistics</Title>
       <Chart />
       <DiagramTable />
     </>
