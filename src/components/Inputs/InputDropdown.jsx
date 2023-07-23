@@ -90,6 +90,7 @@ const InputDropdown = ({ options, title }) => {
 
   return (
     <StyledSelect
+      searchable={false}
       placeholder={title}
       options={options}
       values={[]}
