@@ -6,36 +6,29 @@ const StyledTable = styled.div`
   max-width: 395px;
   min-width: 280px;
   width: 100%;
-
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     max-width: 336px;
   }
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    max-width: 500px;
+    max-width: 395px;
   }
 `;
 
 const BoxInputs = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
-
   div {
     width: 100%;
   }
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    gap: 16px;
     flex-direction: row;
-    div {
-      width: 160px;
-    }
   }
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    gap: 32px;
     flex-direction: row;
-    div {
-      width: 220px;
-    }
   }
 `;
 const BoxHeading = styled.div`
@@ -59,27 +52,6 @@ const List = styled.ul`
   margin: 0;
   list-style: none;
   padding: 0;
-
-  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    overflow-y: auto;
-    max-height: 450px;
-
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
-    /* Track */
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    /* Handle */
-    &::-webkit-scrollbar-thumb {
-      background: var(--color-logout-button);
-    }
-    /* Handle on hover */
-    &::-webkit-scrollbar-thumb:hover {
-      background: var(--color-logout-button);
-    }
-  }
 `;
 
 const ListItem = styled.li`
@@ -93,7 +65,7 @@ const ListItem = styled.li`
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 18px;
 `;
 const ColorCategory = styled.div`
   width: 24px;
@@ -104,7 +76,7 @@ const ColorCategory = styled.div`
 const Category = styled.p`
   color: var(--font-color-dark);
   margin: 0;
-  padding: 16px 16px;
+  padding: 14px 16px;
   flex-grow: 2;
 `;
 const Sum = styled.p`
@@ -128,6 +100,7 @@ const Expenses = styled.p`
   justify-content: space-between;
   margin: 0;
   padding: 16px 0;
+  line-height: 18px;
   span {
     color: var(--color-brand-accent);
     text-align: right;
@@ -138,6 +111,7 @@ const Income = styled.p`
   justify-content: space-between;
   margin: 0;
   padding: 16px 0;
+  line-height: 18px;
   span {
     color: var(--color-brand-secondary);
     text-align: right;

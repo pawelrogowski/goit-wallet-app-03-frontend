@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AsideBar from 'components/AsideBar/AsideBar';
+import DiagramTable from 'components/DiagramTable/DiagramTable';
 
 const Section = styled.section`
   display: flex;
@@ -28,37 +29,33 @@ const Section = styled.section`
 
 const MainContainer = styled.main`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-content: flex-start;
-
+  align-items: center;
+  flex-direction: column;
   flex-grow: 1;
   flex-wrap: wrap;
   z-index: 1;
+  margin-top: 32px;
+
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+  }
   & > :nth-child(1n + 1) {
-    margin-left: auto;
-    margin-right: auto;
     margin-bottom: 32px;
+    margin-top: 0;
+
     @media (min-width: ${props => props.theme.breakpoints.desktop}) {
       margin-bottom: 10px;
     }
-    @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-      margin-left: 0px;
-    }
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    & > :last-child {
-      margin-top: -60px;
-    }
-  }
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     margin-left: 70px;
     padding-left: 70px;
-    border-left: 1px solid #dcdcdf;
-    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
-    & > :last-child {
-      margin-top: 0;
-    }
   }
 `;
 
