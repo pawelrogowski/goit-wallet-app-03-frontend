@@ -1,4 +1,6 @@
+import Currency from 'components/Currency/Currency';
+
 const CurrencyPage = () => {
-  return <h1>CurrencyPage PAGE</h1>;
+  return <Currency />;
 };
 export default CurrencyPage;

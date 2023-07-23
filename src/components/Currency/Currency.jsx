@@ -1,21 +1,22 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Triangles } from './currencyBackground.svg';
 import getCurrencyData from './CurrencyFetchData';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const TableStyledContainer = styled.ul`
   list-style: none;
+  margin: 0;
   padding: 0px;
   width: 100%;
   max-width: 440px;
   background-color: var(--color-brand-primary);
-  margin-top: 32px;
   border-radius: 30px;
   overflow: hidden;
   position: relative;
   overflow-y: auto;
-  min-height: 210px;
-  height: calc(100vh - 390px);
+  height: auto;
+  min-height: 185px;
   max-height: 550px;
 
   li:first-child {
@@ -25,12 +26,19 @@ const TableStyledContainer = styled.ul`
   li:last-of-type {
     margin-bottom: 20px;
   }
-
-  @media (max-width: 768px) {
-    margin-top: 0;
-    height: 100%;
+  @media (min-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+    height: calc(100vh - 390px);
+    margin-top: 32px;
   }
-  @media (min-width: 768px) {
+  @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
+    min-height: 210px;
+    height: auto;
+    max-height: 550px;
+  }
+  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+    display: none;
+    margin-top: 15px;
+    min-height: 210px;
   }
   &::-webkit-scrollbar {
     display: none;
@@ -40,6 +48,7 @@ const TableStyledContainer = styled.ul`
 const StyledHeaderParagraph = styled.p`
   margin: 0;
   color: var(--background-light);
+  font-family: 'Circe';
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
@@ -50,6 +59,7 @@ const StyledHeaderParagraph = styled.p`
 const StyledBodyParagraph = styled.p`
   margin: 0;
   color: var(--background-light);
+  font-family: 'Circe';
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -78,9 +88,28 @@ const TrianglesBackground = styled(Triangles)`
 `;
 
 const Currency = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const locationCurrency = location.pathname === '/currency';
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 767 && locationCurrency) {
+        navigate('/');
+      }
+    };
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [navigate, locationCurrency]);
+
   const currencyData = getCurrencyData();
   return (
-    <TableStyledContainer>
+    <TableStyledContainer style={{ display: locationCurrency ? 'block' : '' }}>
       <StyledListElement>
         <StyledHeaderParagraph>Currency</StyledHeaderParagraph>
         <StyledHeaderParagraph>Purchase</StyledHeaderParagraph>
