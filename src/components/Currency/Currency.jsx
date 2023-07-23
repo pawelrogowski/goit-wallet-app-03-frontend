@@ -1,7 +1,8 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Triangles } from './currencyBackground.svg';
 import getCurrencyData from './CurrencyFetchData';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const TableStyledContainer = styled.ul`
   list-style: none;
@@ -87,9 +88,28 @@ const TrianglesBackground = styled(Triangles)`
 `;
 
 const Currency = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const locationCurrency = location.pathname === '/currency';
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 767 && locationCurrency) {
+        navigate('/');
+      }
+    };
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [navigate, locationCurrency]);
+
   const currencyData = getCurrencyData();
   return (
-    <TableStyledContainer>
+    <TableStyledContainer style={{ display: locationCurrency ? 'block' : '' }}>
       <StyledListElement>
         <StyledHeaderParagraph>Currency</StyledHeaderParagraph>
         <StyledHeaderParagraph>Purchase</StyledHeaderParagraph>

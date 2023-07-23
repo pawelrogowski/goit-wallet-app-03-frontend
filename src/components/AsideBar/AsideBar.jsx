@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Balance from 'components/Balance/Balance';
 import Currency from 'components/Currency/Currency';
 import Navigation from 'components/Navigation/Navigation';
+import { useLocation } from 'react-router-dom';
 
 const AsideContainer = styled.aside`
   margin: 0;
@@ -43,13 +44,16 @@ const FlexWrapper = styled.div`
 `;
 
 const AsideMenu = () => {
+  const location = useLocation();
+  const isCurrency = location.pathname === '/currency';
+
   return (
     <AsideContainer>
       <FlexWrapper>
         <Navigation />
         <Balance />
       </FlexWrapper>
-      <Currency />
+      {isCurrency ? '' : <Currency />}
     </AsideContainer>
   );
 };
