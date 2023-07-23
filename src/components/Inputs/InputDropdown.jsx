@@ -9,8 +9,10 @@ const StyledSelect = styled(Select)`
   border: 1px solid var(--font-color-dark);
   transition: all 0.3s ease-out;
   margin-bottom: 20px;
+  height: 50px;
 
   .react-dropdown-select-input {
+    overflow: hidden;
     font-size: 16px;
     ::placeholder {
       color: var(--font-color-dark);
@@ -86,6 +88,7 @@ const InputDropdown = ({ options, title }) => {
       isOpen={open}
       dropdownGap={-2}
       keepSelectedInList={true}
+      onChange={value => console.log(value)}
       dropdownHandleRenderer={({ state }) => (
         <span>
           {state.dropdown ? <Icon icon="icon__arrow-down" /> : <Icon icon="icon__arrow-up" />}
