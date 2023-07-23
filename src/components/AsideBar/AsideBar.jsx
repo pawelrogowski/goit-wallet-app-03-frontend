@@ -6,8 +6,6 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const AsideContainer = styled.aside`
-  margin: 0;
-  margin-bottom: 12px;
   justify-content: flex-start;
   align-items: flex-start;
   flex-grow: 1;
@@ -17,7 +15,6 @@ const AsideContainer = styled.aside`
     flex-grow: 0;
     flex-direction: row;
     width: 100%;
-    padding: 0px;
     height: auto;
     justify-content: center;
     max-width: none;
