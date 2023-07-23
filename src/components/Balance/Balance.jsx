@@ -6,13 +6,18 @@ const BalanceSection = styled.div`
   width: 100%;
   background-color: var(--background-light);
   border-radius: 30px;
-  padding: 4px 0px 11px 40px;
+  padding-left: 40px;
   margin-top: 28px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   @media (max-width: ${props => props.theme.breakpoints.tablet}) {
-    margin-top: 13px;
+    margin-top: 12px;
   }
 `;
 const BalanceParagraph = styled.p`
+  margin: 0;
   color: #a6a6a6;
   font-family: Circe;
   font-size: 12px;

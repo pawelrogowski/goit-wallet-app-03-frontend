@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-
 import Balance from 'components/Balance/Balance';
 import Currency from 'components/Currency/Currency';
 import Navigation from 'components/Navigation/Navigation';
 
 const AsideContainer = styled.aside`
-  margin-top: 40px;
+  margin: 0;
   margin-bottom: 12px;
   justify-content: flex-start;
   align-items: flex-start;
@@ -13,16 +12,13 @@ const AsideContainer = styled.aside`
   display: flex;
   flex-direction: column;
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
-    margin-top: 12px;
     flex-grow: 0;
-    display: flex;
     flex-direction: row;
     width: 100%;
     padding: 0px;
     height: auto;
     justify-content: center;
     max-width: none;
-    align-items: flex-start;
   }
 `;
 
@@ -31,11 +27,18 @@ const FlexWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 40px;
+  justify-content: space-between;
+  height: calc(100% - 40px);
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     align-items: center;
+    margin-top: 15px;
   }
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    margin-right: 20px;
+    margin-right: 32px;
+  }
+  @media (min-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
+    height: auto;
   }
 `;
 

@@ -25,23 +25,17 @@ const TableStyledContainer = styled.ul`
   li:last-of-type {
     margin-bottom: 20px;
   }
-
-  @media (max-width: 768px) {
-    margin-top: 0;
-    height: 100%;
-  }
-  @media (min-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
+  @media (min-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     height: calc(100vh - 390px);
     margin-top: 32px;
   }
-  @media (ma-width: ${props => props.theme.breakpoints.tablet}) {
+  @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
     min-height: 210px;
     height: auto;
     max-height: 550px;
   }
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     display: none;
-    height: 0;
   }
   &::-webkit-scrollbar {
     display: none;
