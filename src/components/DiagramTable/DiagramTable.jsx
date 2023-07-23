@@ -25,10 +25,16 @@ const BoxInputs = styled.div`
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     gap: 16px;
     flex-direction: row;
+    div {
+      max-width: 160px;
+    }
   }
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     gap: 32px;
     flex-direction: row;
+    div {
+      max-width: 182px;
+    }
   }
 `;
 const BoxHeading = styled.div`
