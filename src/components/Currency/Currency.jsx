@@ -36,6 +36,8 @@ const TableStyledContainer = styled.ul`
   }
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     display: none;
+    margin-top: 15px;
+    min-height: 210px;
   }
   &::-webkit-scrollbar {
     display: none;
