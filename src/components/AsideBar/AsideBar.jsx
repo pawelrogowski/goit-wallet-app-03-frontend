@@ -49,7 +49,6 @@ const AsideMenu = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth > 767);
 
   useEffect(() => {
-    console.log(windowWidth);
     const handleResize = () => {
       setWindowWidth(window.innerWidth > 767);
     };
