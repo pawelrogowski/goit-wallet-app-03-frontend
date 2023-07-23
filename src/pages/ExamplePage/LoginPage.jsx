@@ -101,7 +101,6 @@ const LoginFormContainer = styled.div`
 const LoginPage = () => {
   return (
     <>
-      <TransactionModal />
       <LoginPageContainer>
         <LoginHeaderContainer>
           <Icon className="loginIcon" icon="icon__big-logo-man1" />
