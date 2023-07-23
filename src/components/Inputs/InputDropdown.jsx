@@ -14,13 +14,14 @@ const StyledSelect = styled(Select)`
   .react-dropdown-select-input {
     overflow: hidden;
     font-size: 16px;
+
     ::placeholder {
       color: var(--font-color-dark);
     }
   }
 
   .react-dropdown-select-content {
-    padding: 14px 0px 14px 20px;
+    padding: 14px 36px 14px 20px;
     color: var(--font-color-dark);
     font-family: Circe;
     font-size: 16px;
@@ -72,9 +73,14 @@ const StyledSelect = styled(Select)`
   .react-dropdown-select-option {
     transition: all 0.3s ease-out;
   }
+
+  .react-dropdown-select {
+    position: relative;
+  }
   .react-dropdown-select-dropdown-handle {
-    width: auto;
-    padding-right: 20px;
+    position: absolute;
+    width: 20px;
+    right: 20px;
   }
 `;
 
