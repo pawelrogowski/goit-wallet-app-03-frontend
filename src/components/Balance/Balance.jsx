@@ -7,7 +7,6 @@ const BalanceSection = styled.div`
   background-color: var(--background-light);
   border-radius: 30px;
   padding-left: 40px;
-  margin-top: 28px;
   height: 80px;
   display: flex;
   flex-direction: column;

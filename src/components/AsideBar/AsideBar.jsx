@@ -18,6 +18,7 @@ const AsideContainer = styled.aside`
     height: auto;
     justify-content: center;
     max-width: none;
+    gap: 32px;
   }
 `;
 
@@ -29,15 +30,14 @@ const FlexWrapper = styled.div`
   margin-top: 40px;
   justify-content: space-between;
   height: calc(100% - 40px);
+
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     align-items: center;
     margin-top: 15px;
   }
-  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    margin-right: 32px;
-  }
   @media (min-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
     height: auto;
+    gap: 28px;
   }
 `;
 
