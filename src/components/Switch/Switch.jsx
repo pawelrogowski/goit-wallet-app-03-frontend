@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import { Icon } from 'components/Icon/Icon';
+import { useField } from 'formik';
 
 const StyledSwitch = styled.div`
   display: flex;
@@ -67,6 +67,7 @@ const SwitchSlider = styled.label`
 
     &:first-of-type {
       fill: var(--color-brand-secondary);
+      opacity: ${props => (props.$isChecked ? '1' : '0')};
     }
 
     &:last-of-type {
@@ -83,22 +84,18 @@ const SwitchCheckbox = styled.input`
   height: 0;
 `;
 
-const Switch = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
+const Switch = ({ ...props }) => {
+  const [field] = useField(props);
 
   return (
     <StyledSwitch>
-      <SwitchText $isChecked={isChecked}>Income</SwitchText>
-      <SwitchSlider $isChecked={isChecked}>
-        <SwitchCheckbox type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-        <Icon icon="icon__btn-plus" $isChecked={isChecked} />
-        <Icon icon="icon__btn-minus" $isChecked={isChecked} />
+      <SwitchText $isChecked={props.checked}>Income</SwitchText>
+      <SwitchSlider $isChecked={props.checked}>
+        <SwitchCheckbox {...field} {...props} />
+        <Icon icon="icon__btn-plus" $isChecked={props.checked} />
+        <Icon icon="icon__btn-minus" $isChecked={props.checked} />
       </SwitchSlider>
-      <SwitchText $isChecked={isChecked}>Expense</SwitchText>
+      <SwitchText $isChecked={props.checked}>Expense</SwitchText>
     </StyledSwitch>
   );
 };

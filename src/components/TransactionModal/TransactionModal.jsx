@@ -3,11 +3,14 @@ import { Icon } from 'components/Icon/Icon';
 import Switch from './../Switch/Switch';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
-import { Formik, Form } from 'formik';
-import { object, string, date, bool } from 'yup';
+import { Formik, Form, ErrorMessage } from 'formik';
+import { object, string, date, bool, mixed } from 'yup';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { BaseInput } from 'components/Inputs/BaseInput';
 import Loader from './../Loader/Loader';
+import { useState } from 'react';
+import CategorySelect from 'components/CategorySelect/CategorySelect';
+import { options } from './data';
 
 const Backdrop = styled.div`
   display: flex;
@@ -23,6 +26,10 @@ const Backdrop = styled.div`
   visibility: visible;
   padding: 15px;
   z-index: 1000;
+
+  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+    /* background-color: transparent; */
+  }
 `;
 
 const Modal = styled.div`
@@ -35,6 +42,14 @@ const Modal = styled.div`
   background: var(--background-light);
   border-radius: 12px;
   position: relative;
+
+  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    padding: 20px;
+    min-width: 300px;
+  }
 `;
 
 const Heading = styled.h3`
@@ -42,9 +57,7 @@ const Heading = styled.h3`
   text-align: center;
   font-family: Poppins;
   font-size: 30px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
   margin: 0;
 `;
 
@@ -66,6 +79,12 @@ const CloseButton = styled.button`
     height: 20px;
     position: relative;
   }
+
+  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+    & svg {
+      display: none;
+    }
+  }
 `;
 
 const FormikForm = styled(Form)`
@@ -73,7 +92,6 @@ const FormikForm = styled(Form)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   row-gap: 40px;
 `;
 
@@ -85,21 +103,48 @@ const CancelButton = styled(SecondaryButton)`
 const TwoColumnRow = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 47px;
+  gap: 41px;
+  max-width: 410px;
 
   input {
     width: 181px;
   }
 
-  & > :first-child {
+  & > :first-child input {
     font-family: Circe;
     font-size: 18px;
-    font-style: normal;
     font-weight: 700;
-    line-height: normal;
     text-align: center;
     margin-bottom: 3px;
+    outline: none;
+
+    @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+      text-align: left;
+    }
+  }
+
+  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+    flex-direction: column;
+    max-width: 100%;
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+
+  ${BaseInput} {
+    @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+      padding-left: 20px;
+      text-align: left;
+    }
   }
 `;
 
@@ -108,12 +153,24 @@ const CalendarWrapper = styled.div`
 
   svg {
     position: absolute;
-    top: -3px;
+    bottom: 5px;
     right: 0;
     width: 24px;
     height: 24px;
     fill: var(--color-brand-primary);
   }
+
+  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+    svg {
+      right: 20px;
+    }
+  }
+`;
+
+const ErrorText = styled(ErrorMessage)`
+  font-size: 13px;
+  color: var(--color-brand-accent);
+  margin-bottom: 10px;
 `;
 
 const StyledDatetime = styled(Datetime)`
@@ -122,20 +179,23 @@ const StyledDatetime = styled(Datetime)`
     border-bottom: 1px solid var(--color-switch-main);
     font-family: Circe;
     font-size: 18px;
-    font-style: normal;
     font-weight: 400;
     color: var(--font-color-dark);
     padding-left: 30px;
+
+    &:focus-visible {
+      outline: 0 !important;
+    }
   }
 
   &.rdt {
     position: relative;
   }
+
   &.rdtPicker {
     position: absolute;
     min-width: 250px;
     padding: 4px;
-    margin-top: 1px;
   }
 
   .rdtPicker td.rdtToday:before {
@@ -145,16 +205,42 @@ const StyledDatetime = styled(Datetime)`
   .rdtPicker td.rdtActive:hover {
     background-color: var(--color-brand-primary);
   }
+
+  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+    input {
+      padding-left: 20px;
+    }
+  }
 `;
 
 const TransactionModal = () => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(isChecked => !isChecked);
+  };
+
   return (
     <Backdrop>
       <Modal>
+        <CloseButton>
+          <Icon icon="icon__close" />
+        </CloseButton>
         <Formik
-          initialValues={{ value: '', date: '', comment: '' }}
+          initialValues={{
+            type: isChecked,
+            category: null,
+            value: '',
+            date: `${new Date()}`,
+            comment: '',
+          }}
           validationSchema={object({
-            switch: bool(),
+            type: bool(),
+            category: mixed().when('type', {
+              is: type => !type,
+              then: () => mixed().required('Please choose transaction category.'),
+              otherwise: () => mixed().notRequired(),
+            }),
             value: string().required('Please provide transaction value.'),
             date: date().required('Please provide transaction date.'),
             comment: string().required('Please provide provide transaction description.'),
@@ -164,45 +250,69 @@ const TransactionModal = () => {
             resetForm();
             setSubmitting(false);
           }}
+          validateOnMount
+          enableReinitialize
         >
-          {({ isValid, isSubmitting, errors }) => (
+          {({ values, isValid, isSubmitting, setFieldValue }) => (
             <FormikForm>
               <Heading>Add transaction</Heading>
               {isSubmitting && <Loader />}
-              <Switch name="switch" />
+              <Switch
+                name="type"
+                checked={isChecked}
+                onClick={handleCheckboxChange}
+                type="checkbox"
+              />
+              {!isChecked && (
+                <InputWrapper>
+                  <CategorySelect
+                    name="category"
+                    placeholder="Select a category"
+                    value={values.category}
+                    onChange={category => setFieldValue('category', category)}
+                    options={options}
+                  />
+                  <ErrorText name="category" component="div" />
+                </InputWrapper>
+              )}
               <TwoColumnRow>
-                <BaseInput
-                  placeholder="0.00"
-                  title="Please put the transaction value"
-                  name="value"
-                  type="text"
-                  autoComplete="off"
-                />
-                {errors.value && <p>{errors.value}</p>}
+                <InputWrapper>
+                  <BaseInput
+                    placeholder="0.00"
+                    title="Please put the transaction value"
+                    name="value"
+                    type="text"
+                    autoComplete="off"
+                    value={values.value}
+                    onChange={value => setFieldValue('value', value.target.value)}
+                  />
+                  <ErrorText name="value" component="div" className="error" />
+                </InputWrapper>
                 <CalendarWrapper>
                   <StyledDatetime
                     dateFormat="DD.MM.YYYY"
                     name="date"
                     type="date"
                     timeFormat={false}
-                    initialValue={new Date().toLocaleDateString('pl-PL', {
-                      month: 'numeric',
-                      day: 'numeric',
-                      year: 'numeric',
-                    })}
+                    initialValue={new Date()}
+                    onChange={date => setFieldValue('date', date._d)}
                   />
-                  {errors.date && <p>{errors.date}</p>}
+                  <ErrorText name="date" component="div" />
                   <Icon icon="icon__baseline-date_range" />
                 </CalendarWrapper>
               </TwoColumnRow>
-              <BaseInput
-                placeholder="Comment"
-                title="Please describe your transaction."
-                name="comment"
-                type="text"
-                autoComplete="off"
-              />
-              {errors.comment && <p>{errors.comment}</p>}
+              <InputWrapper>
+                <BaseInput
+                  placeholder="Comment"
+                  title="Please describe your transaction."
+                  name="comment"
+                  type="text"
+                  autoComplete="off"
+                  value={values.comment}
+                  onChange={comment => setFieldValue('comment', comment.target.value)}
+                />
+                <ErrorText name="comment" component="div" />
+              </InputWrapper>
               <PrimaryButton type="submit" disabled={!isValid}>
                 ADD
               </PrimaryButton>
@@ -210,9 +320,6 @@ const TransactionModal = () => {
               Add
             </PrimaryButton> */}
               <CancelButton type="button">CANCEL</CancelButton>
-              <CloseButton>
-                <Icon icon="icon__close" />
-              </CloseButton>
             </FormikForm>
           )}
         </Formik>

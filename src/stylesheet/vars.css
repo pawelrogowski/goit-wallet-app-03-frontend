@@ -19,6 +19,8 @@
   --background-progress-bar: #e5f1ef;
   --shadow-progress-bar: #24cca880;
   --background-overlay-modal: #00000040;
+  --background-category-select: #00000008;
+  --shadow-cayegory-select: #0000001a;
 
   /* variables for breakpoints are unsuable yet, use the ones from theme.js */
   --mobile-width: 767px;
