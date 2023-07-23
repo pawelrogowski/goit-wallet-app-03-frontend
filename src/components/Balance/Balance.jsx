@@ -1,4 +1,3 @@
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const BalanceSection = styled.div`
@@ -40,11 +39,8 @@ const AmountParagraph = styled.p`
 const getBalance = 15000;
 
 const Balance = () => {
-  const location = useLocation();
-  const locationHome = location.pathname === '/';
-
   return (
-    <BalanceSection style={{ display: locationHome ? 'flex' : 'none' }}>
+    <BalanceSection>
       <BalanceParagraph>Your Balance</BalanceParagraph>
       <AmountParagraph>$ {getBalance} </AmountParagraph>
     </BalanceSection>
