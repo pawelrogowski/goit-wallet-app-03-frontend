@@ -35,7 +35,7 @@ const MainContainer = styled.main`
   flex-grow: 1;
   flex-wrap: wrap;
   z-index: 1;
-  margin-top: 32px;
+  padding-top: 32px;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     justify-content: space-between;
@@ -53,7 +53,6 @@ const MainContainer = styled.main`
   }
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    margin-left: 70px;
     padding-left: 70px;
   }
 `;
