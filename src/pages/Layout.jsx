@@ -29,7 +29,7 @@ const Section = styled.section`
 const MainContainer = styled.main`
   display: flex;
   justify-content: center;
-  align-content: flex-start;
+  align-content: center;
   align-items: center;
   flex-direction: column;
   flex-grow: 1;
@@ -41,6 +41,7 @@ const MainContainer = styled.main`
     justify-content: space-between;
     flex-direction: row;
     align-items: flex-start;
+    align-content: flex-start;
     gap: 32px;
   }
   & > :nth-child(1n + 1) {
