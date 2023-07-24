@@ -17,8 +17,8 @@ const App = () => {
       <Route path="/register" element={<Register />} />
       <Route element={<WithAuthRedirect children={<Layout />} />}>
         <Route index element={<Dashboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/statistics" element={<Statistic />} />
+        <Route path="/home" element={<Dashboard />} />
+        <Route path="/diagram" element={<Statistic />} />
         <Route path="/currency" element={<Currency />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" />} />
