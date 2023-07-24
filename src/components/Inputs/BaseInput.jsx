@@ -7,6 +7,7 @@ export const BaseInput = styled.input`
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
+  line-height: 1.33;
   color: var(--font-color-dark);
   max-width: 100%;
   margin-bottom: 10px;
@@ -30,10 +31,11 @@ export const BaseInput = styled.input`
   }
 
   + svg {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     position: absolute;
     left: 10px;
+    top: -2px;
     fill: var(--color-switch-main);
     transition: fill 150ms;
   }
