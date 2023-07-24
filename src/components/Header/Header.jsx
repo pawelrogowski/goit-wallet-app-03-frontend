@@ -75,7 +75,7 @@ const LogoutDiv = styled.div`
     }
   }
 
-  button {
+  .button {
     outline: none;
     border: none;
     background-color: transparent;
@@ -115,10 +115,12 @@ const Header = () => {
       <LogoButton />
       <LogoutDiv>
         <span className="nameText">
-          <button type="button">Name</button>
+          <button className="button" type="button">
+            Name
+          </button>
         </span>
-        <div className="divider"></div>
-        <button type="button" className="exitButton" onClick={openModal}>
+        <div className="divider button"></div>
+        <button type="button" className="exitButton button" onClick={openModal}>
           <Icon icon="icon__exit"></Icon>
           <span className="exitText">Exit</span>
         </button>
