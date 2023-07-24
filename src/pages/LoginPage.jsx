@@ -2,7 +2,6 @@ import LoginForm from 'components/LoginForm/LoginForm';
 import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
 import { Heading } from 'components/Heading/Heading';
-import TransactionModal from './../../components/TransactionModal/TransactionModal';
 
 const LoginPageContainer = styled.div`
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
