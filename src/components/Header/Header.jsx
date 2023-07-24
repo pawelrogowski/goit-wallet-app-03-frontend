@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
 import { LogoButton } from 'components/Buttons/Buttons';
+import ModalLogout from 'components/ModalLogout/ModalLogout';
 
 const HeaderDiv = styled.header`
   display: flex;
@@ -83,6 +84,32 @@ const LogoutDiv = styled.div`
 `;
 
 const Header = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    const handleEscapeKey = e => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    if (isModalOpen) {
+      window.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isModalOpen]);
+
   return (
     <HeaderDiv>
       <LogoButton />
@@ -91,11 +118,11 @@ const Header = () => {
           <button type="button">Name</button>
         </span>
         <div className="divider"></div>
-
-        <button type="button" className="exitButton">
+        <button type="button" className="exitButton" onClick={openModal}>
           <Icon icon="icon__exit"></Icon>
           <span className="exitText">Exit</span>
         </button>
+        {isModalOpen && <ModalLogout onClose={closeModal} />}
       </LogoutDiv>
     </HeaderDiv>
   );
