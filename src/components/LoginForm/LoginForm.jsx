@@ -27,6 +27,13 @@ const FormikForm = styled(Form)`
     margin-top: 40px;
   }
 
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
+    box-shadow: 0 0 0px 40rem #ffff inset;
+  }
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 533px;
     padding: 40px 58.5px 62px 65px;
@@ -49,7 +56,7 @@ const LoginForm = () => {
       }}
       validateOnMount
     >
-      {({ isValid, isSubmitting }) => (
+      {({ isValid, isSubmitting, handleBlur }) => (
         <FormikForm autoComplete="off">
           <Logo />
           {isSubmitting && <Loader />}
@@ -60,6 +67,7 @@ const LoginForm = () => {
             name="email"
             type="email"
             autoComplete="off"
+            onKeyUp={handleBlur}
           />
           <InputWithIcon
             icon="icon__baseline-lock"
@@ -68,6 +76,7 @@ const LoginForm = () => {
             name="password"
             type="password"
             autoComplete="off"
+            onKeyUp={handleBlur}
           />
           <PrimaryButton type="submit" disabled={!isValid}>
             LOG IN

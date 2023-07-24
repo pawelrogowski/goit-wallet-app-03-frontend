@@ -1,11 +1,13 @@
 import React from 'react';
 import Select from 'react-select';
 import { useField } from 'formik';
+import styled from 'styled-components';
 
 const customStyles = {
   container: provided => ({
     ...provided,
     width: '100%',
+    maxWidth: '409px',
     border: 'none',
     fontFamily: 'Circe',
     fontSize: '18px',
@@ -57,9 +59,19 @@ const customStyles = {
   }),
 };
 
+const CategoryWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+
 const CategorySelect = ({ ...props }) => {
   const [field] = useField(props);
-  return <Select styles={customStyles} {...field} {...props} />;
+  return (
+    <CategoryWrapper>
+      <Select styles={customStyles} {...field} {...props} />
+    </CategoryWrapper>
+  );
 };
 
 export default CategorySelect;
