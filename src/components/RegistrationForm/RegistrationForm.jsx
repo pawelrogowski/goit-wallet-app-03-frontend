@@ -8,6 +8,7 @@ import { object, string, ref } from 'yup';
 import PasswordStrength from './../Inputs/PasswordStrength';
 import Loader from 'components/Loader/Loader';
 import { getCharacterValidationError } from 'utils/formaters';
+import { useNavigate } from 'react-router-dom';
 
 const FormikForm = styled(Form)`
   height: 100vh;
@@ -50,6 +51,8 @@ const FormikForm = styled(Form)`
 `;
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={{
@@ -123,10 +126,12 @@ const RegistrationForm = () => {
             autoComplete="off"
             onKeyUp={handleBlur}
           />
-          <PrimaryButton type="submit" disabled={!isValid}>
+          <PrimaryButton type="submit" disabled={!isValid} onClick={() => navigate('/')}>
             REGISTER
           </PrimaryButton>
-          <SecondaryButton type="button">LOG IN</SecondaryButton>
+          <SecondaryButton type="button" onClick={() => navigate('/login')}>
+            LOG IN
+          </SecondaryButton>
         </FormikForm>
       )}
     </Formik>
