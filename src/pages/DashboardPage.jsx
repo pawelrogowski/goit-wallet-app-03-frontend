@@ -5,6 +5,7 @@ import Transactions from 'components/Transactions/Transactions';
 import TransactionsMobile from 'components/TransactionsMobile/TransactionsMobile';
 
 import styled from 'styled-components';
+import ButtonAddTransaction from 'components/ButtonAddTransaction/ButtonAddTransaction';
 
 const Title = styled(Heading)`
   display: none;
@@ -29,6 +30,7 @@ const DashboardPage = () => {
     <>
       <Title as="h1">DashboardPage</Title>
       {windowWidth ? <Transactions /> : <TransactionsMobile />}
+      <ButtonAddTransaction />
     </>
   );
 };

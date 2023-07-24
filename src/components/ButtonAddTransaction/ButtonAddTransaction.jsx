@@ -4,15 +4,16 @@ import { useState } from 'react';
 
 const StyledButton = styled.button`
   position: fixed;
+  background: transparent;
   right: 20px;
   bottom: 20px;
   cursor: pointer;
-  transition: all 0.5s;
+  transition: transform 0.5s;
   width: 44px;
   height: 44px;
   border-radius: 100%;
-  border: 1px solid var(--color-brand-secondary);
-  box-shadow: 0 10px 20px var(--color-brand-secondary);
+  border-style: none;
+  box-shadow: 0px 3px 10px rgba(36, 204, 167, 0.8);
   &:hover {
     transform: scale(1.2);
   }
