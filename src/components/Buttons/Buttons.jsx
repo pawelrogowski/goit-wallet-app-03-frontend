@@ -74,7 +74,7 @@ export const StyledNavLink = styled(NavLink)`
 
 export const LogoButton = () => {
   return (
-    <StyledNavLink to="/">
+    <StyledNavLink to="/home">
       <Logo />
     </StyledNavLink>
   );
