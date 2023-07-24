@@ -35,7 +35,7 @@ export const BaseInput = styled.input`
     height: 24px;
     position: absolute;
     left: 10px;
-    top: -2px;
+    top: -1px;
     fill: var(--color-switch-main);
     transition: fill 150ms;
   }
