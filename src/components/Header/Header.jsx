@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
-import Logo from 'components/Logo/Logo';
+import { LogoButton } from 'components/Buttons/Buttons';
 
 const HeaderDiv = styled.header`
   display: flex;
@@ -85,7 +85,7 @@ const LogoutDiv = styled.div`
 const Header = () => {
   return (
     <HeaderDiv>
-      <Logo></Logo>
+      <LogoButton />
       <LogoutDiv>
         <span className="nameText">
           <button type="button">Name</button>
