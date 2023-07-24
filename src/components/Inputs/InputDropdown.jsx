@@ -9,16 +9,19 @@ const StyledSelect = styled(Select)`
   border: 1px solid var(--font-color-dark);
   transition: all 0.3s ease-out;
   margin-bottom: 20px;
+  height: 50px;
 
   .react-dropdown-select-input {
+    overflow: hidden;
     font-size: 16px;
+
     ::placeholder {
       color: var(--font-color-dark);
     }
   }
 
   .react-dropdown-select-content {
-    padding: 14px 0px 14px 20px;
+    padding: 14px 36px 14px 20px;
     color: var(--font-color-dark);
     font-family: Circe;
     font-size: 16px;
@@ -34,6 +37,8 @@ const StyledSelect = styled(Select)`
     font-weight: 400;
     line-height: normal;
     padding: 4px 20px;
+    border-bottom: none;
+    border-top: none;
     :hover {
       background-color: var(--background-light);
     }
@@ -42,16 +47,16 @@ const StyledSelect = styled(Select)`
   .react-dropdown-select-item.react-dropdown-select-item-selected,
   .react-dropdown-select-item.react-dropdown-select-item-active {
     color: var(--font-color-dark);
-    background-color: var(--background-primary);
+    background-color: var(--background-light);
   }
   .react-dropdown-select-dropdown {
     height: 182px;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.7);
+    background-color: #f1f1f1;
     box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(25px);
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+
     ::-webkit-scrollbar {
       display: none;
     }
@@ -68,9 +73,14 @@ const StyledSelect = styled(Select)`
   .react-dropdown-select-option {
     transition: all 0.3s ease-out;
   }
+
+  .react-dropdown-select {
+    position: relative;
+  }
   .react-dropdown-select-dropdown-handle {
-    width: auto;
-    padding-right: 20px;
+    position: absolute;
+    width: 20px;
+    right: 20px;
   }
 `;
 
@@ -80,12 +90,14 @@ const InputDropdown = ({ options, title }) => {
 
   return (
     <StyledSelect
+      searchable={false}
       placeholder={title}
       options={options}
       values={[]}
       isOpen={open}
       dropdownGap={-2}
       keepSelectedInList={true}
+      onChange={value => console.log(value)}
       dropdownHandleRenderer={({ state }) => (
         <span>
           {state.dropdown ? <Icon icon="icon__arrow-down" /> : <Icon icon="icon__arrow-up" />}

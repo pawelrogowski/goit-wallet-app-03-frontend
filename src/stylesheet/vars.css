@@ -22,6 +22,9 @@
   --background-category-select: #00000008;
   --shadow-cayegory-select: #0000001a;
 
+  --nav-color-active: #4e58dd;
+  --nav-color-inactive: #7079e3;
+
   /* variables for breakpoints are unsuable yet, use the ones from theme.js */
   --mobile-width: 767px;
   --tablet-width: 1279px;

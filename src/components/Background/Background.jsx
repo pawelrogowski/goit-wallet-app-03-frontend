@@ -8,7 +8,6 @@ export const Background = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-
   background: var(--background-accent);
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     &::before {
