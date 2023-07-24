@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AsideBar from 'components/AsideBar/AsideBar';
-import Loader from 'components/Loader/Loader';
+import LoaderV2 from 'components/Loader/Loaderv2';
 
 const Section = styled.section`
   display: flex;
@@ -66,7 +66,7 @@ const Layout = () => {
       <Section>
         <AsideBar />
         <MainContainer>
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={null}>
             <Outlet />
           </Suspense>
         </MainContainer>
