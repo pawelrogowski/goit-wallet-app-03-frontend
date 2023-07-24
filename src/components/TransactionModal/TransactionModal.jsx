@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
 import Switch from './../Switch/Switch';
-import Datetime from 'react-datetime';
-import 'react-datetime/css/react-datetime.css';
 import { Formik, Form, ErrorMessage } from 'formik';
-import { object, string, date, bool, mixed } from 'yup';
+import { object, string, date, bool, mixed, number } from 'yup';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { BaseInput } from 'components/Inputs/BaseInput';
 import Loader from './../Loader/Loader';
 import { useState } from 'react';
 import CategorySelect from 'components/CategorySelect/CategorySelect';
 import { options } from './data';
+import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
+import { formatDate } from 'utils/formaters';
+import { dateTransformer } from 'utils/formaters';
 
 const Backdrop = styled.div`
   display: flex;
@@ -26,6 +27,10 @@ const Backdrop = styled.div`
   visibility: visible;
   padding: 15px;
   z-index: 1000;
+
+  .category {
+    top: 44px;
+  }
 
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     /* background-color: transparent; */
@@ -135,6 +140,7 @@ const TwoColumnRow = styled.div`
 `;
 
 const InputWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -168,49 +174,11 @@ const CalendarWrapper = styled.div`
 `;
 
 const ErrorText = styled(ErrorMessage)`
+  position: absolute;
+  top: 28px;
+  left: 0px;
   font-size: 13px;
   color: var(--color-brand-accent);
-  margin-bottom: 10px;
-`;
-
-const StyledDatetime = styled(Datetime)`
-  input {
-    border: none;
-    border-bottom: 1px solid var(--color-switch-main);
-    font-family: Circe;
-    font-size: 18px;
-    font-weight: 400;
-    color: var(--font-color-dark);
-    padding-left: 30px;
-
-    &:focus-visible {
-      outline: 0 !important;
-    }
-  }
-
-  &.rdt {
-    position: relative;
-  }
-
-  &.rdtPicker {
-    position: absolute;
-    min-width: 250px;
-    padding: 4px;
-  }
-
-  .rdtPicker td.rdtToday:before {
-    border-bottom: 7px solid var(--color-brand-primary);
-  }
-  .rdtPicker td.rdtActive,
-  .rdtPicker td.rdtActive:hover {
-    background-color: var(--color-brand-primary);
-  }
-
-  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
-    input {
-      padding-left: 20px;
-    }
-  }
 `;
 
 const TransactionModal = () => {
@@ -231,7 +199,7 @@ const TransactionModal = () => {
             type: isChecked,
             category: null,
             value: '',
-            date: `${new Date()}`,
+            date: `${formatDate(new Date())}`,
             comment: '',
           }}
           validationSchema={object({
@@ -241,9 +209,14 @@ const TransactionModal = () => {
               then: () => mixed().required('Please choose transaction category.'),
               otherwise: () => mixed().notRequired(),
             }),
-            value: string().required('Please provide transaction value.'),
-            date: date().required('Please provide transaction date.'),
-            comment: string().required('Please provide provide transaction description.'),
+            value: number()
+              .typeError('Transaction value must be a number')
+              .required('Please provide transaction value.'),
+            date: date()
+              .transform(dateTransformer)
+              .typeError('Please enter a valid date')
+              .required('Please provide transaction date.'),
+            comment: string().notRequired(),
           })}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             console.log(values);
@@ -253,7 +226,7 @@ const TransactionModal = () => {
           validateOnMount
           enableReinitialize
         >
-          {({ values, isValid, isSubmitting, setFieldValue }) => (
+          {({ values, isValid, isSubmitting, setFieldValue, handleBlur }) => (
             <FormikForm>
               <Heading>Add transaction</Heading>
               {isSubmitting && <Loader />}
@@ -272,7 +245,7 @@ const TransactionModal = () => {
                     onChange={category => setFieldValue('category', category)}
                     options={options}
                   />
-                  <ErrorText name="category" component="div" />
+                  <ErrorText name="category" component="div" className="category" />
                 </InputWrapper>
               )}
               <TwoColumnRow>
@@ -285,17 +258,17 @@ const TransactionModal = () => {
                     autoComplete="off"
                     value={values.value}
                     onChange={value => setFieldValue('value', value.target.value)}
+                    onBlur={handleBlur}
+                    onKeyUp={handleBlur}
                   />
                   <ErrorText name="value" component="div" className="error" />
                 </InputWrapper>
                 <CalendarWrapper>
-                  <StyledDatetime
+                  <DatetimePicker
                     dateFormat="DD.MM.YYYY"
                     name="date"
                     type="date"
                     timeFormat={false}
-                    initialValue={new Date()}
-                    onChange={date => setFieldValue('date', date._d)}
                   />
                   <ErrorText name="date" component="div" />
                   <Icon icon="icon__baseline-date_range" />
@@ -310,6 +283,7 @@ const TransactionModal = () => {
                   autoComplete="off"
                   value={values.comment}
                   onChange={comment => setFieldValue('comment', comment.target.value)}
+                  onBlur={comment => setFieldValue('comment', comment.target.value)}
                 />
                 <ErrorText name="comment" component="div" />
               </InputWrapper>
