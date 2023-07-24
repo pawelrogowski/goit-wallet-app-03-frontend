@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { PrimaryButton } from 'components/Buttons/Buttons';
-import Morpheus from './morfi.png'
+import { PrimaryButton, SecondaryButton } from 'components/Buttons/Buttons';
 
 const ModalGeneral = styled.div`
   position: fixed;
@@ -13,54 +12,35 @@ const ModalGeneral = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   & > div {
-    background-color: #fff;
     padding: 20px;
     border-radius: 8px;
   }
 `;
 
+const ButtonDecline = styled(SecondaryButton)`
+  width: 60px;
+  height: 40px;
+`;
+
+const ButtonAccept = styled(PrimaryButton)`
+  width: 60px;
+  height: 40px;
+`;
+
 const ModalContainer = styled.div`
-  backgroundcolor: white;
-  width: 600px;
-  height: 620px;
+  background-color: var(--background-light);
+  width: 420px;
+  height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const SmallButtonRed = styled(PrimaryButton)`
-  width: 67px;
-  height: 26px;
-  font-size: 14px;
-  letter-spacing: normal;
-  padding: 0;
-  &:hover {
-    background-color: red;
-    color: white;
-  }
-`;
-
-const SmallButtonBlue = styled(PrimaryButton)`
-  width: 67px;
-  height: 26px;
-  font-size: 14px;
-  letter-spacing: normal;
-  padding: 0;
-  &:hover {
-    background-color: blue;
-    color: white;
-  }
+  z-index: 10;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
-`;
-
-const Picture = styled.img`
-//
 `;
 
 const ModalLogout = ({ onClose }) => {
@@ -82,14 +62,13 @@ const ModalLogout = ({ onClose }) => {
 
   return (
     <div>
-      <ModalGeneral isModalOpen={true}>
+      <ModalGeneral>
         <ModalContainer ref={modalRef}>
-          <p>Czy na pewno chcesz wyjść?</p>
+          <p>Are you sure you want to leave this page?</p>
           <ButtonContainer>
-            <SmallButtonBlue onClick={onClose}>Nie</SmallButtonBlue>
-            <SmallButtonRed>Tak</SmallButtonRed>
+            <ButtonDecline onClick={onClose}>No</ButtonDecline>
+            <ButtonAccept>Yes</ButtonAccept>
           </ButtonContainer>
-          <Picture src={Morpheus} alt='Morpheus'/>
         </ModalContainer>
       </ModalGeneral>
     </div>
