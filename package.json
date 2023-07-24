@@ -1,7 +1,7 @@
 {
   "name": "goit-wallet-app-03-frontend",
   "version": "0.1.0",
-  "homepage": "https://pawelrogowski.github.io/goit-wallet-app-03-frontend/",
+  "homepage": "/",
   "private": true,
   "dependencies": {
     "@emotion/core": "^11.0.0",
