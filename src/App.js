@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import Layout from 'pages/Layout';
 import WithAuthRedirect from './routes/WithAuthRedirect';
 
@@ -11,18 +11,20 @@ const Currency = lazy(() => import('pages/CurrencyPage'));
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route element={<WithAuthRedirect children={<Layout />} />}>
-        <Route index element={<Dashboard />} />
-        <Route path="/home" element={<Dashboard />} />
-        <Route path="/diagram" element={<Statistic />} />
-        <Route path="/currency" element={<Currency />} />
-      </Route>
-      <Route path="*" element={<Navigate to="/login" />} />
-    </Routes>
+    <Suspense fallback={null}>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<WithAuthRedirect children={<Layout />} />}>
+          <Route index element={<Dashboard />} />
+          <Route path="/home" element={<Dashboard />} />
+          <Route path="/diagram" element={<Statistic />} />
+          <Route path="/currency" element={<Currency />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </Suspense>
   );
 };
 

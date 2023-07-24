@@ -6,6 +6,7 @@ import Logo from 'components/Logo/Logo';
 import { Formik, Form } from 'formik';
 import { object, string } from 'yup';
 import Loader from './../Loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const FormikForm = styled(Form)`
   height: 100vh;
@@ -42,6 +43,8 @@ const FormikForm = styled(Form)`
 `;
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -78,10 +81,12 @@ const LoginForm = () => {
             autoComplete="off"
             onKeyUp={handleBlur}
           />
-          <PrimaryButton type="submit" disabled={!isValid}>
+          <PrimaryButton type="submit" disabled={!isValid} onClick={() => navigate('/')}>
             LOG IN
           </PrimaryButton>
-          <SecondaryButton type="button">REGISTER</SecondaryButton>
+          <SecondaryButton type="button" onClick={() => navigate('/register')}>
+            REGISTER
+          </SecondaryButton>
         </FormikForm>
       )}
     </Formik>
