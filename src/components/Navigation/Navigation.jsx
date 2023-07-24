@@ -97,14 +97,14 @@ const NavigationBase = () => {
     <NavContainer>
       <NavList>
         <NavItem>
-          <StyledNavLink to={`/`}>
+          <StyledNavLink to={`/dashboard`}>
             <Icon icon="icon__baseline-home" />
             <NavItemText>Home</NavItemText>
           </StyledNavLink>
         </NavItem>
 
         <NavItem>
-          <StyledNavLink to={`/statistic`}>
+          <StyledNavLink to={`/statistics`}>
             <Icon icon="icon__baseline-timeline" />
             <NavItemText>Statistics</NavItemText>
           </StyledNavLink>
