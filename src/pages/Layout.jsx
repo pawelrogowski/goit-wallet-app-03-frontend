@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AsideBar from 'components/AsideBar/AsideBar';
-import LoaderV2 from 'components/Loader/Loaderv2';
 
 const Section = styled.section`
   display: flex;
