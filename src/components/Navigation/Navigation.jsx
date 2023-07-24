@@ -65,8 +65,9 @@ const StyledNavLink = styled(NavLink)`
   }
   &:focus {
     span {
-      color: var(--nav-color-active);
       transition: color 150ms;
+      text-shadow: -1px 0 black;
+      color: var(--font-color-dark);
     }
   }
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
