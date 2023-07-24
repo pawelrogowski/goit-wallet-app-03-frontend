@@ -1,4 +1,4 @@
-import Loader from 'components/Loader/Loader';
+import LoaderV2 from 'components/Loader/Loaderv2';
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ const WithAuthRedirect = ({ children }) => {
   }, []);
 
   if (loading) {
-    return <Loader />;
+    return <LoaderV2 />;
   }
 
   //auto redirect
