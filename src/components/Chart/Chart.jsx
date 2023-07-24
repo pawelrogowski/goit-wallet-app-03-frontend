@@ -11,19 +11,19 @@ const ChartContainer = styled.div`
   align-items: center;
   flex-direction: column;
   position: relative;
-  width: 280px;
-  height: 280px;
+  min-width: 280px;
+  min-height: 280px;
   padding: 0px;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 336px;
     height: 336px;
-  };
+  }
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     width: 288px;
     height: 288px;
-  };
+  }
 `;
 
 const Balance = styled.span`
@@ -68,7 +68,7 @@ const Chart = () => {
   };
   return (
     <ChartContainer>
-      <Doughnut data={chartData} options={options}/>
+      <Doughnut data={chartData} options={options} />
       <Balance>{sum}</Balance>
     </ChartContainer>
   );

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
-import Logo from 'components/Logo/Logo';
+import { LogoButton } from 'components/Buttons/Buttons';
+import ModalLogout from 'components/ModalLogout/ModalLogout';
 
 const HeaderDiv = styled.header`
   display: flex;
@@ -74,7 +75,7 @@ const LogoutDiv = styled.div`
     }
   }
 
-  button {
+  .button {
     outline: none;
     border: none;
     background-color: transparent;
@@ -83,19 +84,47 @@ const LogoutDiv = styled.div`
 `;
 
 const Header = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    const handleEscapeKey = e => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    if (isModalOpen) {
+      window.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isModalOpen]);
+
   return (
     <HeaderDiv>
-      <Logo></Logo>
+      <LogoButton />
       <LogoutDiv>
         <span className="nameText">
-          <button type="button">Name</button>
+          <button className="button" type="button">
+            Name
+          </button>
         </span>
-        <div className="divider"></div>
-
-        <button type="button" className="exitButton">
+        <div className="divider button"></div>
+        <button type="button" className="exitButton button" onClick={openModal}>
           <Icon icon="icon__exit"></Icon>
           <span className="exitText">Exit</span>
         </button>
+        {isModalOpen && <ModalLogout onClose={closeModal} />}
       </LogoutDiv>
     </HeaderDiv>
   );

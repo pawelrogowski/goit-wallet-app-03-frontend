@@ -7,6 +7,8 @@ import { Formik, Form } from 'formik';
 import { object, string, ref } from 'yup';
 import PasswordStrength from './../Inputs/PasswordStrength';
 import Loader from 'components/Loader/Loader';
+import { getCharacterValidationError } from 'utils/formaters';
+import { useNavigate } from 'react-router-dom';
 
 const FormikForm = styled(Form)`
   height: 100vh;
@@ -29,6 +31,17 @@ const FormikForm = styled(Form)`
     margin-bottom: 40px;
   }
 
+  & > :nth-child(4) .error {
+    top: 47px;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
+    box-shadow: 0 0 0px 40rem #ffff inset;
+  }
+
   //tablet+desktop
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 533px;
@@ -37,11 +50,9 @@ const FormikForm = styled(Form)`
   }
 `;
 
-const getCharacterValidationError = str => {
-  return `Password must have at least 1 ${str} character.`;
-};
-
 const RegistrationForm = () => {
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={{
@@ -74,7 +85,7 @@ const RegistrationForm = () => {
       }}
       validateOnMount
     >
-      {({ values, isValid, isSubmitting }) => (
+      {({ values, isValid, isSubmitting, handleBlur }) => (
         <FormikForm autoComplete="off">
           {isSubmitting && <Loader />}
           <Logo />
@@ -85,6 +96,7 @@ const RegistrationForm = () => {
             name="email"
             type="email"
             autoComplete="off"
+            onKeyUp={handleBlur}
           />
           <InputWithIcon
             icon="icon__baseline-lock"
@@ -93,6 +105,7 @@ const RegistrationForm = () => {
             name="password"
             type="password"
             autoComplete="off"
+            onKeyUp={handleBlur}
           />
           <InputWithIcon
             icon="icon__baseline-lock"
@@ -101,6 +114,7 @@ const RegistrationForm = () => {
             name="confirmPassword"
             type="password"
             autoComplete="off"
+            onKeyUp={handleBlur}
           />
           <PasswordStrength value={values.password} />
           <InputWithIcon
@@ -110,11 +124,14 @@ const RegistrationForm = () => {
             name="firstName"
             type="text"
             autoComplete="off"
+            onKeyUp={handleBlur}
           />
-          <PrimaryButton type="submit" disabled={!isValid}>
+          <PrimaryButton type="submit" disabled={!isValid} onClick={() => navigate('/')}>
             REGISTER
           </PrimaryButton>
-          <SecondaryButton type="button">LOG IN</SecondaryButton>
+          <SecondaryButton type="button" onClick={() => navigate('/login')}>
+            LOG IN
+          </SecondaryButton>
         </FormikForm>
       )}
     </Formik>

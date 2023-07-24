@@ -6,6 +6,7 @@ import Logo from 'components/Logo/Logo';
 import { Formik, Form } from 'formik';
 import { object, string } from 'yup';
 import Loader from './../Loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const FormikForm = styled(Form)`
   height: 100vh;
@@ -27,6 +28,13 @@ const FormikForm = styled(Form)`
     margin-top: 40px;
   }
 
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
+    box-shadow: 0 0 0px 40rem #ffff inset;
+  }
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 533px;
     padding: 40px 58.5px 62px 65px;
@@ -35,6 +43,8 @@ const FormikForm = styled(Form)`
 `;
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -49,7 +59,7 @@ const LoginForm = () => {
       }}
       validateOnMount
     >
-      {({ isValid, isSubmitting }) => (
+      {({ isValid, isSubmitting, handleBlur }) => (
         <FormikForm autoComplete="off">
           <Logo />
           {isSubmitting && <Loader />}
@@ -60,6 +70,7 @@ const LoginForm = () => {
             name="email"
             type="email"
             autoComplete="off"
+            onKeyUp={handleBlur}
           />
           <InputWithIcon
             icon="icon__baseline-lock"
@@ -68,11 +79,14 @@ const LoginForm = () => {
             name="password"
             type="password"
             autoComplete="off"
+            onKeyUp={handleBlur}
           />
-          <PrimaryButton type="submit" disabled={!isValid}>
+          <PrimaryButton type="submit" disabled={!isValid} onClick={() => navigate('/')}>
             LOG IN
           </PrimaryButton>
-          <SecondaryButton type="button">REGISTER</SecondaryButton>
+          <SecondaryButton type="button" onClick={() => navigate('/register')}>
+            REGISTER
+          </SecondaryButton>
         </FormikForm>
       )}
     </Formik>
