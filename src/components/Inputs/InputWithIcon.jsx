@@ -14,6 +14,9 @@ const StyledDiv = styled.div`
 `;
 
 const ErrorMessage = styled.div`
+  position: absolute;
+  top: 30px;
+  left: 0;
   font-size: 13px;
   color: var(--color-brand-accent);
   margin-bottom: 10px;
@@ -26,19 +29,11 @@ const InputWithIconBase = ({ icon, ...props }) => {
       <BaseInput {...field} {...props} />
       <Icon icon={icon} />
 
-      {meta.touched && meta.error ? <ErrorMessage>{meta.error}</ErrorMessage> : null}
+      {meta.touched && meta.error ? (
+        <ErrorMessage className="error">{meta.error}</ErrorMessage>
+      ) : null}
     </StyledDiv>
   );
 };
 
 export const InputWithIcon = styled(InputWithIconBase)``;
-
-// PROPS
-// className,
-// name,
-// icon,
-// placeholder,
-// onChange,
-// type,
-// required,
-// title,
