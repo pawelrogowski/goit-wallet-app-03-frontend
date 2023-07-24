@@ -44,7 +44,7 @@ const FlexWrapper = styled.div`
 const AsideMenu = () => {
   const location = useLocation();
   const isCurrency = location.pathname === '/currency';
-  const isHome = location.pathname === '/';
+  const isHome = location.pathname === '/home';
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth > 767);
 
