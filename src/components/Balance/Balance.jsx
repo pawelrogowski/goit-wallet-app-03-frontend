@@ -1,12 +1,22 @@
 import styled from 'styled-components';
 
 const BalanceSection = styled.div`
-  max-width: 400px;
+  max-width: 440px;
+  min-width: 280px;
+  width: 100%;
   background-color: var(--background-light);
   border-radius: 30px;
-  padding: 4px 0px 11px 40px;
+  padding-left: 40px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @media (max-width: ${props => props.theme.breakpoints.tablet}) {
+    margin-top: 12px;
+  }
 `;
 const BalanceParagraph = styled.p`
+  margin: 0;
   color: #a6a6a6;
   font-family: Circe;
   font-size: 12px;

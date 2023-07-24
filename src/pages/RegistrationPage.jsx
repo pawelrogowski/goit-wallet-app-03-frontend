@@ -1,9 +1,9 @@
-import LoginForm from 'components/LoginForm/LoginForm';
+import RegistrationForm from 'components/RegistrationForm/RegistrationForm';
 import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
 import { Heading } from 'components/Heading/Heading';
 
-const LoginPageContainer = styled.div`
+const RegistrationPageContainer = styled.div`
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     form {
       padding-bottom: 107px;
@@ -36,7 +36,7 @@ const LoginPageContainer = styled.div`
   }
 `;
 
-const LoginHeaderContainer = styled.div`
+const RegistrationHeaderContainer = styled.div`
   display: none;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
@@ -67,7 +67,7 @@ const LoginHeaderContainer = styled.div`
   }
 `;
 
-const LoginFormContainer = styled.div`
+const RegistrationFormContainer = styled.div`
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     display: flex;
     align-items: center;
@@ -97,18 +97,18 @@ const LoginFormContainer = styled.div`
   }
 `;
 
-const LoginPage = () => {
+const RegistrationPage = () => {
   return (
-    <LoginPageContainer>
-      <LoginHeaderContainer>
+    <RegistrationPageContainer>
+      <RegistrationHeaderContainer>
         <Icon className="loginIcon" icon="icon__big-logo-man1" />
         <Heading as="h1">Finance App</Heading>
-      </LoginHeaderContainer>
-      <LoginFormContainer>
-        <LoginForm />
-      </LoginFormContainer>
-    </LoginPageContainer>
+      </RegistrationHeaderContainer>
+      <RegistrationFormContainer>
+        <RegistrationForm />
+      </RegistrationFormContainer>
+    </RegistrationPageContainer>
   );
 };
 
-export default LoginPage;
+export default RegistrationPage;

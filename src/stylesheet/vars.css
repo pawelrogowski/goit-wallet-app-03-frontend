@@ -1,6 +1,6 @@
 :root {
   --color-brand-primary: #4a56e2;
-  --color-brand-secondary: #24cca7;
+  --color-brand-secondary: #24cca8;
   --color-brand-accent: #ff6596;
   --color-logout-button: #bdbdbd;
 
@@ -16,6 +16,14 @@
   --font-color-dark: #000;
 
   --border-transactions: #dcdcdf;
+  --background-progress-bar: #e5f1ef;
+  --shadow-progress-bar: #24cca880;
+  --background-overlay-modal: #00000040;
+  --background-category-select: #00000008;
+  --shadow-cayegory-select: #0000001a;
+
+  --nav-color-active: #4e58dd;
+  --nav-color-inactive: #7079e3;
 
   /* variables for breakpoints are unsuable yet, use the ones from theme.js */
   --mobile-width: 767px;

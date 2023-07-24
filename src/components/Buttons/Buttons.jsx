@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-
+import Logo from 'components/Logo/Logo';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 //Example Ussage:
 
 /* <PrimaryButton type="button">LOG IN</PrimaryButton>
@@ -35,6 +37,12 @@ export const BaseButton = styled.button`
   &:not(:last-of-type) {
     margin-bottom: 20px;
   }
+
+  &:disabled {
+    background-color: var(--color-logout-button);
+    cursor: auto;
+  }
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 300px;
   }
@@ -56,3 +64,18 @@ export const SecondaryButton = styled(BaseButton)`
     color: var(--font-color-light);
   }
 `;
+
+export const StyledNavLink = styled(NavLink)`
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  color: var(--font-color-dark);
+`;
+
+export const LogoButton = () => {
+  return (
+    <StyledNavLink to="/home">
+      <Logo />
+    </StyledNavLink>
+  );
+};
