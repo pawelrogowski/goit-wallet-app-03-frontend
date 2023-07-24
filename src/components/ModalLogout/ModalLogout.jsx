@@ -12,6 +12,7 @@ const ModalGeneral = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
   & > div {
     padding: 20px;
     border-radius: 8px;
@@ -35,7 +36,7 @@ const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 10;
+  z-index: 2;
 `;
 
 const ButtonContainer = styled.div`
