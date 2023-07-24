@@ -8,9 +8,11 @@ import { useEffect, useState } from 'react';
 const AsideContainer = styled.aside`
   justify-content: flex-start;
   align-items: flex-start;
-  flex-grow: 1;
+  width: 100%;
+  max-width: 462px;
   display: flex;
   flex-direction: column;
+  position: relative;
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
     flex-grow: 0;
     flex-direction: row;
@@ -20,6 +22,22 @@ const AsideContainer = styled.aside`
     max-width: none;
     gap: 32px;
   }
+`;
+const BoxShadow = styled.div`
+  position: absolute;
+  height: 100vh;
+  width: 1px;
+  top: 0;
+  right: 0;
+  background: #e7e5f2;
+  filter: drop-shadow(-1px 0px 0px rgba(0, 0, 0, 0.05));
+  &::after{
+    filter: drop-shadow(1px 0px 0px rgba(255, 255, 255, 0.6));
+  }
+  @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}){
+    display: none;
+  } );
+  
 `;
 
 const FlexWrapper = styled.div`
@@ -65,6 +83,7 @@ const AsideMenu = () => {
         {windowWidth || isHome ? <Balance /> : ''}
       </FlexWrapper>
       {isCurrency ? '' : <Currency />}
+      <BoxShadow />
     </AsideContainer>
   );
 };

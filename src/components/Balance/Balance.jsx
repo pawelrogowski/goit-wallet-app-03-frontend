@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const BalanceSection = styled.div`
-  max-width: 440px;
+  max-width: 395px;
   min-width: 280px;
   width: 100%;
   background-color: var(--background-light);
