@@ -2,6 +2,7 @@ import LoginForm from 'components/LoginForm/LoginForm';
 import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
 import { Heading } from 'components/Heading/Heading';
+import TransactionModal from './../../components/TransactionModal/TransactionModal';
 
 const LoginPageContainer = styled.div`
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
@@ -99,15 +100,17 @@ const LoginFormContainer = styled.div`
 
 const LoginPage = () => {
   return (
-    <LoginPageContainer>
-      <LoginHeaderContainer>
-        <Icon className="loginIcon" icon="icon__big-logo-man1" />
-        <Heading as="h1">Finance App</Heading>
-      </LoginHeaderContainer>
-      <LoginFormContainer>
-        <LoginForm />
-      </LoginFormContainer>
-    </LoginPageContainer>
+    <>
+      <LoginPageContainer>
+        <LoginHeaderContainer>
+          <Icon className="loginIcon" icon="icon__big-logo-man1" />
+          <Heading as="h1">Finance App</Heading>
+        </LoginHeaderContainer>
+        <LoginFormContainer>
+          <LoginForm />
+        </LoginFormContainer>
+      </LoginPageContainer>
+    </>
   );
 };
 
