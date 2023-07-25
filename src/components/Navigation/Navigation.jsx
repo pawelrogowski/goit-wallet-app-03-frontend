@@ -66,12 +66,24 @@ const StyledNavLink = styled(NavLink)`
   &:focus {
     span {
       transition: color 150ms;
-      text-shadow: -1px 0 black;
-      color: var(--font-color-dark);
     }
   }
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     gap: 20px;
+
+    &.active {
+      ${Icon} {
+        fill: var(--nav-color-active);
+        transition: fill 150ms, box-shadow 150ms;
+        box-shadow: 0px 3px 10px rgba(74, 86, 226, 0.5);
+      }
+      span {
+        color: var(--font-color-dark);
+        font-size: 18px;
+        font-weight: 700;
+        font-style: normal;
+      }
+    }
   }
 `;
 
@@ -98,7 +110,10 @@ const NavigationBase = () => {
     <NavContainer>
       <NavList>
         <NavItem>
-          <StyledNavLink to={`/home`}>
+          <StyledNavLink
+            to={`/home`}
+            className={({ isActive }) => (isActive ? StyledNavLink.active : NavContainer)}
+          >
             <Icon icon="icon__baseline-home" />
             <NavItemText>Home</NavItemText>
           </StyledNavLink>
