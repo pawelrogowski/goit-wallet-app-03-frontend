@@ -5,8 +5,8 @@ import { useState } from 'react';
 const StyledButton = styled.button`
   position: fixed;
   background: transparent;
-  right: 20px;
-  bottom: 20px;
+  right: 0;
+  bottom: 0;
   cursor: pointer;
   transition: transform 0.5s;
   width: 44px;
@@ -14,9 +14,11 @@ const StyledButton = styled.button`
   border-radius: 100%;
   border-style: none;
   box-shadow: 0px 3px 10px rgba(36, 204, 167, 0.8);
+
   &:hover {
     transform: scale(1.2);
   }
+
   & svg {
     width: 79px;
     height: 79px;
@@ -26,11 +28,12 @@ const StyledButton = styled.button`
     transform: translate(-50%, -50%);
     transition: all 0.5s;
     fill: var(--color-brand-secondary);
-    @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-      position: absolute;
-      right: 40px;
-      bottom: 40px;
-    }
+  }
+
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
   }
 `;
 
