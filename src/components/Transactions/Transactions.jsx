@@ -5,7 +5,7 @@ import { data } from './data';
 import { headers } from './data';
 
 const TransactionContainer = styled.div`
-  height: 520px;
+  height: 100%;
   overflow-y: auto;
   width: 100%;
   &::-webkit-scrollbar {
@@ -64,6 +64,7 @@ const TransactionsTableHead = styled.thead`
 
 const TransactionsTableHeadRow = styled.tr`
   vertical-align: middle;
+  overflow: hidden;
 `;
 
 const TransactionsTableHeader = styled.th`

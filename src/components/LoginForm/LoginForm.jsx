@@ -7,7 +7,6 @@ import { Formik, Form } from 'formik';
 import { object, string } from 'yup';
 import Loader from './../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
-import { TestLogin } from 'components/TestLogin/TestLogin';
 
 const FormikForm = styled(Form)`
   height: 100vh;
@@ -88,7 +87,6 @@ const LoginForm = () => {
           <SecondaryButton type="button" onClick={() => navigate('/register')}>
             REGISTER
           </SecondaryButton>
-          <TestLogin />
         </FormikForm>
       )}
     </Formik>
