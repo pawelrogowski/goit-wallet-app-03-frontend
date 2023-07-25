@@ -21,7 +21,6 @@ root.render(
           {/* Background has fixed position, it stays in the viewport with z-index to be at
         the bottom, no need to wrap the App */}
           <Background />
-          <TestLogin />
           <App />
         </BrowserRouter>
       </ThemeProvider>
