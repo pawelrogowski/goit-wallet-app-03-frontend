@@ -21,9 +21,9 @@ const AsideContainer = styled.aside`
     max-width: none;
     gap: 32px;
   }
-  @media (min-width: ${props => props.theme.breakpoints.desktopForMaxMedia}){
-    border-right: 2px solid #E7E5F2;
-    box-shadow: box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.6);
+  @media (min-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
+    border-right: 2px solid #e7e5f2;
+    box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.6);
   }
 `;
 
