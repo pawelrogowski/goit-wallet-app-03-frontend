@@ -12,7 +12,6 @@ const AsideContainer = styled.aside`
   max-width: 462px;
   display: flex;
   flex-direction: column;
-  position: relative;
   border-right: 2px solid #E7E5F2;
   box-shadow: box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.6);
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
@@ -24,22 +23,6 @@ const AsideContainer = styled.aside`
     max-width: none;
     gap: 32px;
   }
-`;
-const BoxShadow = styled.div`
-  position: absolute;
-  height: 100vh;
-  width: 1px;
-  top: 0;
-  right: 0;
-  background: #e7e5f2;
-  filter: drop-shadow(-1px 0px 0px rgba(0, 0, 0, 0.05));
-  &::after{
-    filter: drop-shadow(1px 0px 0px rgba(255, 255, 255, 0.6));
-  }
-  @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}){
-    display: none;
-  } );
-
 `;
 
 const FlexWrapper = styled.div`
@@ -85,7 +68,6 @@ const AsideMenu = () => {
         {windowWidth || isHome ? <Balance /> : ''}
       </FlexWrapper>
       {isCurrency ? '' : <Currency />}
-      {/* <BoxShadow /> */}
     </AsideContainer>
   );
 };
