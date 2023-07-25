@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const BalanceSection = styled.div`
-  max-width: 440px;
+  max-width: 395px;
   min-width: 280px;
   width: 100%;
   background-color: var(--background-light);
@@ -11,9 +11,9 @@ const BalanceSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  @media (max-width: ${props => props.theme.breakpoints.tablet}) {
-    margin-top: 12px;
-  }
+  // @media (max-width: ${props => props.theme.breakpoints.tablet}) {
+  //   margin-top: 12px;
+  // }
 `;
 const BalanceParagraph = styled.p`
   margin: 0;
@@ -22,7 +22,7 @@ const BalanceParagraph = styled.p`
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  line-height: 17.69px;
+  line-height: 13px;
   text-transform: uppercase;
 `;
 const AmountParagraph = styled.p`
@@ -32,7 +32,10 @@ const AmountParagraph = styled.p`
   font-size: 30px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
+  line-height: 36px;
+`;
+const DollarHolder = styled.span`
+  font-weight: 400;
 `;
 
 const getBalance = 15000;
@@ -41,7 +44,9 @@ const Balance = () => {
   return (
     <BalanceSection>
       <BalanceParagraph>Your Balance</BalanceParagraph>
-      <AmountParagraph>$ {getBalance} </AmountParagraph>
+      <AmountParagraph>
+        <DollarHolder>$</DollarHolder> {getBalance}
+      </AmountParagraph>
     </BalanceSection>
   );
 };

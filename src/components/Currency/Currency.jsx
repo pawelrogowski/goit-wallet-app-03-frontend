@@ -9,16 +9,15 @@ const TableStyledContainer = styled.ul`
   margin: 0;
   padding: 0px;
   width: 100%;
-  max-width: 440px;
+  max-width: 393px;
   background-color: var(--color-brand-primary);
   border-radius: 30px;
   overflow: hidden;
   position: relative;
   overflow-y: auto;
   height: auto;
-  min-height: 185px;
-  max-height: 550px;
-
+  min-height: 174px;
+  max-height: 331px;
   li:first-child {
     background-color: rgb(255 255 255 / 22%);
     margin-bottom: 16px;
@@ -29,16 +28,16 @@ const TableStyledContainer = styled.ul`
   @media (min-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     height: calc(100vh - 390px);
     margin-top: 32px;
+    min-height: 182px;
   }
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
-    min-height: 210px;
     height: auto;
     max-height: 550px;
+    max-width: 333px;
   }
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     display: none;
     margin-top: 15px;
-    min-height: 210px;
   }
   &::-webkit-scrollbar {
     display: none;
