@@ -4,27 +4,31 @@ import { registerUser, loginUser } from '../../utils/api';
 
 export const register = createAsyncThunk('users/register', async userData => {
   const response = await registerUser(userData);
-  return response.user;
+  return { token: response.token, user: response.user };
 });
 
 export const login = createAsyncThunk('users/login', async loginData => {
   const response = await loginUser(loginData);
-  return response.user;
-});
 
-export const usersSlice = createSlice({
-  name: 'users',
+  // localStorage.setItem('token', response.token);
+
+  return response;
+});
+export const sessionSlice = createSlice({
+  name: 'session',
 
   initialState: {
-    user: null,
+    token: null,
+    user: {},
     error: null,
+    isAuth: false,
     isLoading: false,
   },
-
   extraReducers: builder => {
     builder.addCase(register.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.user = action.payload;
+      state.token = action.payload.token;
+      state.user = action.payload.user;
     });
 
     builder.addCase(register.rejected, (state, action) => {
@@ -37,8 +41,10 @@ export const usersSlice = createSlice({
     });
 
     builder.addCase(login.fulfilled, (state, action) => {
+      state.token = action.payload.token;
+      state.user = action.payload.user;
+      state.isAuth = true;
       state.isLoading = false;
-      state.user = action.payload;
     });
 
     builder.addCase(login.rejected, (state, action) => {
@@ -48,4 +54,4 @@ export const usersSlice = createSlice({
   },
 });
 
-export default usersSlice.reducer;
+export default sessionSlice.reducer;

@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import usersReducer from './slices/usersSlice';
+import sessionReducer from './slices/sessionSlice';
 
 export const store = configureStore({
   reducer: {
-    users: usersReducer,
+    session: sessionReducer,
   },
 
   middleware: getDefaultMiddleware =>
