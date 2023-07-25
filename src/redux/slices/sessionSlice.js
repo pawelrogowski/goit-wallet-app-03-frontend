@@ -3,17 +3,32 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { registerUser, loginUser } from '../../utils/api';
 
 export const register = createAsyncThunk('users/register', async userData => {
-  const response = await registerUser(userData);
-  return { token: response.token, user: response.user };
+  try {
+    const response = await registerUser(userData);
+    return { token: response.token, user: response.user };
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw error;
+    }
+  }
 });
 
 export const login = createAsyncThunk('users/login', async loginData => {
-  const response = await loginUser(loginData);
-
-  // localStorage.setItem('token', response.token);
-
-  return response;
+  try {
+    const response = await loginUser(loginData);
+    // localStorage.setItem('token', response.token);
+    return response;
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw error;
+    }
+  }
 });
+
 export const sessionSlice = createSlice({
   name: 'session',
 
@@ -25,6 +40,10 @@ export const sessionSlice = createSlice({
     isLoading: false,
   },
   extraReducers: builder => {
+    builder.addCase(register.pending, state => {
+      state.isLoading = true;
+    });
+
     builder.addCase(register.fulfilled, (state, action) => {
       state.isLoading = false;
       state.token = action.payload.token;
@@ -53,5 +72,4 @@ export const sessionSlice = createSlice({
     });
   },
 });
-
 export default sessionSlice.reducer;

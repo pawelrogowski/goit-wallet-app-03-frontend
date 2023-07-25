@@ -2,12 +2,6 @@ import { useEffect, useState } from 'react';
 import { login, register } from '../../redux/slices/sessionSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-// TEST USER:
-// {
-//   email: 'test@test.com',
-//   password: 'password12345',
-// }
-
 export const TestLogin = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
@@ -19,31 +13,25 @@ export const TestLogin = () => {
 
   useEffect(() => {
     if (loginTriggered && user && Object.keys(user).length > 0) {
-      console.log('USER:', user);
+      console.log('user object saved in redux');
     }
     if (token) {
-      console.log('Token', token);
+      console.log('token saved in redux');
     }
     if (isAuth) {
-      console.log('isAuth', isAuth);
+      console.log('isAuth flag changed to', isAuth);
     }
-  }, [loginTriggered, user, token, isAuth]);
+  }, [loginTriggered, registerTriggered, user, token, isAuth]);
 
-  const handleLogin = async (email, password) => {
-    dispatch(
-      login({
-        email,
-        password,
-      })
-    );
+  const handleLogin = async () => {
+    dispatch(login({ email: 'test@test.com', password: 'password12345' })); // change this to login different accounts
     setLoginTriggered(true);
   };
 
   const handleRegister = async () => {
-    const email = 'test2566@test.com'; // Replace with new user's email after each try
-    const password = 'password12345'; // Replace with new user's password after each try
+    const email = 'test256677@test.com'; // Replace with new user's email after each register
+    const password = 'password12345';
 
-    // Dispatch the register action
     await dispatch(
       register({
         name: 'TEST',
@@ -52,11 +40,6 @@ export const TestLogin = () => {
       })
     );
     setRegisterTriggered(true);
-
-    // After successful registration, automatically log in the user
-    if (registerTriggered && !isAuth) {
-      handleLogin(email, password); // Use the email and password from the registration data
-    }
   };
 
   return (
