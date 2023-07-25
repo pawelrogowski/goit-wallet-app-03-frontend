@@ -255,9 +255,9 @@ const EditTransactionModal = () => {
                 type="checkbox"
               /> */}
               <TransactionTypeDiv>
-                <IncomeSpan active={transaction.isIncome}>Income</IncomeSpan>
+                <IncomeSpan $active={transaction.isIncome}>Income</IncomeSpan>
                 <Icon icon="icon__slash"></Icon>
-                <ExpenseSpan active={!transaction.isIncome}>Expense</ExpenseSpan>
+                <ExpenseSpan $active={!transaction.isIncome}>Expense</ExpenseSpan>
               </TransactionTypeDiv>
               {!transaction.isIncome && (
                 <InputWrapper>
