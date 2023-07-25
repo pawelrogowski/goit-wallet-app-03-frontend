@@ -4,6 +4,43 @@ import { PrimaryButton } from 'components/Buttons/Buttons';
 import { data } from './data';
 import { headers } from './data';
 
+const TransactionContainer = styled.div`
+  height: 520px;
+  overflow-y: auto;
+  width: 100%;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    margin-top: 57px;
+    background: transparent;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-logout-button);
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--color-logout-button);
+  }
+
+  mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 4px, black 4px);
+  mask-size: 100% 20000px;
+  mask-position: left bottom;
+  -webkit-mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 4px, black 4px);
+  -webkit-mask-size: 100% 20000px;
+  -webkit-mask-position: left bottom;
+  transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+
+  &:hover {
+    -webkit-mask-position: left top;
+    mask-position: left top;
+  }
+`;
+
 const TransactionsTable = styled.table`
   border-collapse: collapse;
   border-spacing: 0;
@@ -12,20 +49,25 @@ const TransactionsTable = styled.table`
   color: var(--font-color-dark);
   font-family: Circe;
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 1;
+  width: 100%;
 `;
 
 const TransactionsTableHead = styled.thead`
   font-size: 18px;
   font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 `;
 
-const TransactionsTableHeadRow = styled.tr``;
+const TransactionsTableHeadRow = styled.tr`
+  vertical-align: middle;
+`;
 
 const TransactionsTableHeader = styled.th`
-  padding: 15px 0px 15px 20px;
+  padding: 20px 0px 20px 20px;
   text-align: left;
   background-color: var(--background-light);
 
@@ -51,7 +93,7 @@ const TransactionsTableHeader = styled.th`
 const TransactionsTableBody = styled.tbody``;
 
 const TransactionTableData = styled.td`
-  padding: 15px 0px 15px 20px;
+  padding: 12.5px 0px 12.5px 20px;
   border: none;
   border-bottom: solid 1px var(--background-gray);
   box-shadow: 0px 1px 0px var(--background-light);
@@ -90,6 +132,7 @@ const EditButton = styled.button`
     transform: translate(-50%, -50%);
     width: 14px;
     height: 14px;
+    z-index: 10;
   }
 `;
 
@@ -98,7 +141,8 @@ const SmallButton = styled(PrimaryButton)`
   height: 26px;
   color: var(--background-light);
   font-size: 14px;
-  letter-spacing: normal;
+  letter-spacing: 1px;
+  line-height: 1;
   padding: 0;
 `;
 
@@ -106,40 +150,42 @@ const TransactionsBodyHeadRow = styled.tr``;
 
 const Transactions = () => {
   return (
-    <TransactionsTable>
-      <TransactionsTableHead>
-        <TransactionsTableHeadRow>
-          {headers.map((item, index) => (
-            <TransactionsTableHeader key={index}>{item}</TransactionsTableHeader>
+    <TransactionContainer>
+      <TransactionsTable>
+        <TransactionsTableHead>
+          <TransactionsTableHeadRow>
+            {headers.map((item, index) => (
+              <TransactionsTableHeader key={index}>{item}</TransactionsTableHeader>
+            ))}
+          </TransactionsTableHeadRow>
+        </TransactionsTableHead>
+        <TransactionsTableBody>
+          {data.map((item, index) => (
+            <TransactionsBodyHeadRow key={index}>
+              <TransactionTableData>{item.date}</TransactionTableData>
+              <TransactionTableData>{item.type}</TransactionTableData>
+              <TransactionTableData>{item.category}</TransactionTableData>
+              <TransactionTableData>{item.comment}</TransactionTableData>
+              <TransactionTableData
+                style={{
+                  color: `${
+                    item.type === '-' ? 'var(--color-brand-accent)' : 'var(--color-brand-secondary)'
+                  }`,
+                }}
+              >
+                {item.sum}
+              </TransactionTableData>
+              <TransactionTableData>
+                <EditButton>
+                  <Icon icon="icon__edit" />
+                </EditButton>{' '}
+                <SmallButton>Delete</SmallButton>
+              </TransactionTableData>
+            </TransactionsBodyHeadRow>
           ))}
-        </TransactionsTableHeadRow>
-      </TransactionsTableHead>
-      <TransactionsTableBody>
-        {data.map((item, index) => (
-          <TransactionsBodyHeadRow key={index}>
-            <TransactionTableData>{item.date}</TransactionTableData>
-            <TransactionTableData>{item.type}</TransactionTableData>
-            <TransactionTableData>{item.category}</TransactionTableData>
-            <TransactionTableData>{item.comment}</TransactionTableData>
-            <TransactionTableData
-              style={{
-                color: `${
-                  item.type === '-' ? 'var(--color-brand-accent)' : 'var(--color-brand-secondary)'
-                }`,
-              }}
-            >
-              {item.sum}
-            </TransactionTableData>
-            <TransactionTableData>
-              <EditButton>
-                <Icon icon="icon__edit" />
-              </EditButton>{' '}
-              <SmallButton>Delete</SmallButton>
-            </TransactionTableData>
-          </TransactionsBodyHeadRow>
-        ))}
-      </TransactionsTableBody>
-    </TransactionsTable>
+        </TransactionsTableBody>
+      </TransactionsTable>
+    </TransactionContainer>
   );
 };
 
