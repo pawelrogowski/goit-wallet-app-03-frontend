@@ -9,7 +9,7 @@ const StyledDiv = styled.div`
   margin-top: 30px;
 
   ${BaseInput} {
-    padding-left: 47px;
+    padding-left: 54.5px;
   }
 `;
 
