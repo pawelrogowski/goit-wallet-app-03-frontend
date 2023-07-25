@@ -65,15 +65,16 @@ const ModalLogout = ({ onClose }) => {
     };
   }, [onClose]);
 
-  const handleLogout = () => {
-    onClose();
-    const logoutSuccess = true;
-
-    if (logoutSuccess) {
+  const handleLogout = async () => {
+    try {
+      await toast.promise(new Promise(resolve => setTimeout(resolve, 1000)), {
+        pending: 'Logging out...',
+        success: 'You have logged out',
+        error: 'Logout error',
+      });
       navigate('/login');
-      toast.info('You have logged out', { autoClose: 3000 });
-    } else {
-      toast.error('Logout error', { autoClose: 3000 });
+    } catch (error) {
+      console.error('Error during logout:', error);
     }
   };
 
