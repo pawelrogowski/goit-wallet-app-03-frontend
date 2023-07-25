@@ -11,8 +11,8 @@ const ChartContainer = styled.div`
   align-items: center;
   flex-direction: column;
   position: relative;
-  min-width: 280px;
-  min-height: 280px;
+  height: 100%;
+  width: 100%;
   padding: 0px;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
