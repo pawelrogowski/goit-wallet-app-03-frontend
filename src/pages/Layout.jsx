@@ -12,9 +12,10 @@ const Section = styled.section`
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(25px);
   width: 100%;
-  height: 100%;
+  min-height: calc(100vh - 60px);
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    min-height: calc(100vh - 80px);
     height: calc(100vh - 80px);
     padding: 20px 20px 100px 20px;
   }
@@ -34,13 +35,14 @@ const MainContainer = styled.main`
   flex-wrap: wrap;
   z-index: 1;
   padding-top: 46px;
+  gap: 32px;
+  height: 100%;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     justify-content: space-between;
     flex-direction: row;
     align-items: flex-start;
     align-content: flex-start;
-    gap: 32px;
     padding-top: 20px;
     height: calc(100% - 400px);
   }
