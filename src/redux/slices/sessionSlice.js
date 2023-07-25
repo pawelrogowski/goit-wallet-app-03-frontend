@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { registerUser, loginUser, logoutUser, setAuthToken } from '../../utils/api';
+import { registerUser, loginUser, logoutUser, setAuthToken, getUserProfile } from '../../utils/api';
 
-export const register = createAsyncThunk('users/register', async userData => {
+export const register = createAsyncThunk('session/register', async userData => {
   try {
     const response = await registerUser(userData);
     return { token: response.token, user: response.user };
@@ -15,7 +15,7 @@ export const register = createAsyncThunk('users/register', async userData => {
   }
 });
 
-export const login = createAsyncThunk('users/login', async loginData => {
+export const login = createAsyncThunk('session/login', async loginData => {
   try {
     const response = await loginUser(loginData);
     return response;
@@ -39,12 +39,27 @@ export const logout = createAsyncThunk('session/logout', async () => {
     }
   }
 });
+
+export const fetchUserProfile = createAsyncThunk('users/fetchUserProfile', async () => {
+  try {
+    const response = await getUserProfile();
+    return response;
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw error;
+    }
+  }
+});
+
 export const sessionSlice = createSlice({
   name: 'session',
 
   initialState: {
     token: null,
     user: {},
+    currentUser: {}, // not sure if this even should be here, the user object exists anwyay
     error: null,
     isAuth: false,
     isLoading: false,
@@ -98,11 +113,29 @@ export const sessionSlice = createSlice({
     builder.addCase(logout.fulfilled, state => {
       state.token = null;
       state.user = {};
+      state.currentUser = {};
       state.isAuth = false;
       state.error = null;
     });
 
     builder.addCase(logout.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+
+    // Fetch User Profile
+
+    builder.addCase(fetchUserProfile.pending, state => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.currentUser = action.payload;
+      state.error = null;
+    });
+
+    builder.addCase(fetchUserProfile.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });
