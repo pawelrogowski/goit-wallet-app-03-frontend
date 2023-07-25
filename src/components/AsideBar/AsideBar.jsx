@@ -12,8 +12,6 @@ const AsideContainer = styled.aside`
   max-width: 462px;
   display: flex;
   flex-direction: column;
-  border-right: 2px solid #E7E5F2;
-  box-shadow: box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.6);
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
     flex-grow: 0;
     flex-direction: row;
@@ -23,6 +21,10 @@ const AsideContainer = styled.aside`
     max-width: none;
     gap: 32px;
   }
+  @media (min-width: ${props => props.theme.breakpoints.desktopForMaxMedia}){
+    border-right: 2px solid #E7E5F2;
+    box-shadow: box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.6);
+  }
 `;
 
 const FlexWrapper = styled.div`
@@ -30,24 +32,24 @@ const FlexWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 40px;
-  justify-content: space-between;
-  height: calc(100% - 40px);
-
+  justify-content: flex-end;
+  height: 100%;
+  gap: 28px;
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     align-items: center;
     margin-top: 15px;
+    gap: 12px;
   }
   @media (min-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
     height: auto;
-    gap: 28px;
+    margin-top: 40px;
   }
 `;
 
 const AsideMenu = () => {
   const location = useLocation();
   const isCurrency = location.pathname === '/currency';
-  const isHome = location.pathname === '/home';
+  const isHome = location.pathname === '/home' || location.pathname === '/';
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth > 767);
 
