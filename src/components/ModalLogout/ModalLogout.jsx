@@ -1,6 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { PrimaryButton, SecondaryButton } from 'components/Buttons/Buttons';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ModalGeneral = styled.div`
   position: fixed;
@@ -46,6 +49,7 @@ const ButtonContainer = styled.div`
 
 const ModalLogout = ({ onClose }) => {
   const modalRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = e => {
@@ -61,6 +65,19 @@ const ModalLogout = ({ onClose }) => {
     };
   }, [onClose]);
 
+  const handleLogout = async () => {
+    try {
+      await toast.promise(new Promise(resolve => setTimeout(resolve, 1000)), {
+        pending: 'Logging out...',
+        success: 'You have logged out',
+        error: 'Logout error',
+      });
+      navigate('/login');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
+
   return (
     <div>
       <ModalGeneral>
@@ -68,7 +85,7 @@ const ModalLogout = ({ onClose }) => {
           <p>Are you sure you want to leave this page?</p>
           <ButtonContainer>
             <ButtonDecline onClick={onClose}>No</ButtonDecline>
-            <ButtonAccept>Yes</ButtonAccept>
+            <ButtonAccept onClick={handleLogout}>Yes</ButtonAccept>
           </ButtonContainer>
         </ModalContainer>
       </ModalGeneral>
