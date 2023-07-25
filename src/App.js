@@ -2,6 +2,8 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import Layout from 'pages/Layout';
 import WithAuthRedirect from './routes/WithAuthRedirect';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = lazy(() => import('pages/DashboardPage'));
 const Register = lazy(() => import('pages/RegistrationPage'));
@@ -24,6 +26,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
+      <ToastContainer/>
     </Suspense>
   );
 };
