@@ -20,7 +20,7 @@ export const BaseButton = styled.button`
   font-style: normal;
   font-weight: 400;
   color: var(--font-color-light);
-
+  line-height: 1.33;
   transition: background-color 150ms;
 
   &:hover {
