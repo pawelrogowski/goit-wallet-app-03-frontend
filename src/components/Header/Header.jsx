@@ -6,7 +6,7 @@ import ModalLogout from 'components/ModalLogout/ModalLogout';
 
 const HeaderDiv = styled.header`
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 60px;
   background-color: ${props => props.theme.background.light};
   padding: 15px 20px 15px 20px;
