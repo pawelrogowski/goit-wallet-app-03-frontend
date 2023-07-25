@@ -4,30 +4,41 @@ const { styled } = require('styled-components');
 
 const LoaderBox = styled.div`
   position: absolute;
+  display: inline-flex;
+  align-items: stretch;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 `;
 const IconLoader = styled(Icon)`
   margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    width: 48px;
+    height: 48px;
+  }
 `;
 const Loader = styled.span`
-  font-size: 48px;
+  font-size: 40px;
   display: inline-block;
   font-family: ${props => props.theme.fonts.poppins};
   font-weight: 700;
-  color: #fff;
+  color: var(--font-color-light);
   box-sizing: border-box;
-  text-shadow: 0 0 2px #000, 0 0 1px #000, 0 0 1px #000;
+  text-shadow: 0 0 2px var(--font-color-dark), 0 0 1px var(--font-color-dark),
+    0 0 1px var(--font-color-dark);
   letter-spacing: 2px;
   position: relative;
-
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    font-size: 48px;
+  }
   &::after {
     content: 'WalletAPP';
     position: absolute;
     left: 0;
     top: 0;
-    color: #000;
+    color: var(--font-color-dark);
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -51,7 +62,7 @@ const Loader = styled.span`
 const LoaderV2 = () => {
   return (
     <LoaderBox>
-      <IconLoader icon="icon__logo" width="50" height="50"></IconLoader>
+      <IconLoader icon="icon__logo"></IconLoader>
       <Loader>WalletAPP</Loader>
     </LoaderBox>
   );
