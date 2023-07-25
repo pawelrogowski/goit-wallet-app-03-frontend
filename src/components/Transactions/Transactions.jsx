@@ -5,7 +5,7 @@ import { data } from './data';
 import { headers } from './data';
 
 const TransactionContainer = styled.div`
-  height: 450px;
+  height: 520px;
   overflow-y: auto;
   width: 100%;
   &::-webkit-scrollbar {
@@ -48,10 +48,8 @@ const TransactionsTable = styled.table`
   color: var(--font-color-dark);
   font-family: Circe;
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
-
+  line-height: 1;
   width: 100%;
 `;
 
@@ -63,10 +61,12 @@ const TransactionsTableHead = styled.thead`
   z-index: 1000;
 `;
 
-const TransactionsTableHeadRow = styled.tr``;
+const TransactionsTableHeadRow = styled.tr`
+  vertical-align: middle;
+`;
 
 const TransactionsTableHeader = styled.th`
-  padding: 15px 0px 15px 20px;
+  padding: 20px 0px 20px 20px;
   text-align: left;
   background-color: var(--background-light);
 
@@ -92,7 +92,7 @@ const TransactionsTableHeader = styled.th`
 const TransactionsTableBody = styled.tbody``;
 
 const TransactionTableData = styled.td`
-  padding: 15px 0px 15px 20px;
+  padding: 12.5px 0px 12.5px 20px;
   border: none;
   border-bottom: solid 1px var(--background-gray);
   box-shadow: 0px 1px 0px var(--background-light);
@@ -140,7 +140,8 @@ const SmallButton = styled(PrimaryButton)`
   height: 26px;
   color: var(--background-light);
   font-size: 14px;
-  letter-spacing: normal;
+  letter-spacing: 1px;
+  line-height: 1;
   padding: 0;
 `;
 
