@@ -13,6 +13,8 @@ const AsideContainer = styled.aside`
   display: flex;
   flex-direction: column;
   position: relative;
+  border-right: 2px solid #E7E5F2;
+  box-shadow: box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.6);
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
     flex-grow: 0;
     flex-direction: row;
@@ -37,7 +39,7 @@ const BoxShadow = styled.div`
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}){
     display: none;
   } );
-  
+
 `;
 
 const FlexWrapper = styled.div`
@@ -83,7 +85,7 @@ const AsideMenu = () => {
         {windowWidth || isHome ? <Balance /> : ''}
       </FlexWrapper>
       {isCurrency ? '' : <Currency />}
-      <BoxShadow />
+      {/* <BoxShadow /> */}
     </AsideContainer>
   );
 };
