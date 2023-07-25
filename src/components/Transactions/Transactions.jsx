@@ -64,6 +64,7 @@ const TransactionsTableHead = styled.thead`
 
 const TransactionsTableHeadRow = styled.tr`
   vertical-align: middle;
+  overflow: hidden;
 `;
 
 const TransactionsTableHeader = styled.th`
