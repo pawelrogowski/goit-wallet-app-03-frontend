@@ -13,6 +13,7 @@ const TransactionContainer = styled.div`
   }
   /* Track */
   &::-webkit-scrollbar-track {
+    margin-top: 57px;
     background: transparent;
   }
   /* Handle */
