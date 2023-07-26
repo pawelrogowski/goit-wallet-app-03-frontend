@@ -19,8 +19,11 @@ const TableStyledContainer = styled.ul`
   min-height: 174px;
   max-height: 331px;
   li:first-child {
-    background-color: rgb(255 255 255 / 22%);
+    background-color: #6e78e8;
     margin-bottom: 16px;
+    position: sticky;
+    top: 0;
+    right: 0;
   }
   li:last-of-type {
     margin-bottom: 20px;
@@ -36,6 +39,7 @@ const TableStyledContainer = styled.ul`
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     display: none;
     margin-top: 15px;
+    max-height: 331px;
   }
 
   &::-webkit-scrollbar {
