@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { InputWithIcon } from 'components/Inputs/InputWithIcon';
@@ -9,7 +9,7 @@ import PasswordStrength from './../Inputs/PasswordStrength';
 import Loader from 'components/Loader/Loader';
 import { getCharacterValidationError } from 'utils/formaters';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/slices/sessionSlice';
 
 const FormikForm = styled(Form)`
@@ -54,6 +54,14 @@ const FormikForm = styled(Form)`
 const RegistrationForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const isAuth = useSelector(state => state.session.isAuth);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/home');
+    }
+  }, [isAuth, navigate]);
 
   const handleRegister = values => {
     dispatch(
