@@ -16,11 +16,13 @@ const TableStyledContainer = styled.ul`
   position: relative;
   overflow-y: auto;
   height: 100%;
-  min-height: 174px;
+  min-height: 333px;
 
   li:first-child {
-    background-color: rgb(255 255 255 / 22%);
+    background-color: #6e78e8;
     margin-bottom: 16px;
+    position: sticky;
+    top: 0;
   }
   li:last-of-type {
     margin-bottom: 20px;
@@ -31,7 +33,7 @@ const TableStyledContainer = styled.ul`
     max-height: 331px;
   }
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
-    max-height: 210px;
+    max-height: 182px;
     max-width: 333px;
   }
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
@@ -73,7 +75,7 @@ const StyledListElement = styled.li`
 `;
 
 const TrianglesBackground = styled(Triangles)`
-  position: absolute;
+  position: sticky;
   bottom: 0;
   left: 0;
   width: 100%;

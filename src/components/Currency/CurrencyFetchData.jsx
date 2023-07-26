@@ -13,11 +13,12 @@ const fetchCurrency = async () => {
     //
     const { USD, PLN, EUR, GBP, CHF } = currencyDataFetch;
     const newRates = { USD, PLN, EUR, GBP, CHF };
+    const baseCurrency = newRates.USD;
 
     const rates = Object.entries(newRates).map(([currency, rate]) => ({
       currency,
       purchase: rate.toFixed(2),
-      sale: (newRates.USD / rate).toFixed(2),
+      sale: (baseCurrency / rate).toFixed(2),
     }));
 
     return rates;
