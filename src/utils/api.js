@@ -3,7 +3,7 @@ import axios from 'axios';
 const WalletInstance = axios.create();
 
 export const API_URL = 'https://wallet-lzvg.onrender.com/api';
-
+// export const API_URL = 'https://wallet-pr-6-rje9.onrender.com/api';
 export const setAuthToken = token => {
   if (token) {
     WalletInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
