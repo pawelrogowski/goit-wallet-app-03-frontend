@@ -8,7 +8,6 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px 20px;
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(25px);
   width: 100%;
@@ -17,12 +16,10 @@ const Section = styled.section`
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     min-height: calc(100vh - 80px);
     height: calc(100vh - 80px);
-    padding: 20px 20px 100px 20px;
   }
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     flex-direction: row;
-    padding: 16px 16px;
   }
 `;
 
@@ -34,7 +31,7 @@ const MainContainer = styled.main`
   flex-grow: 1;
   flex-wrap: wrap;
   z-index: 1;
-  padding-top: 46px;
+  padding: 32px 20px;
   gap: 32px;
   height: 100%;
 
@@ -43,12 +40,12 @@ const MainContainer = styled.main`
     flex-direction: row;
     align-items: flex-start;
     align-content: flex-start;
-    padding-top: 20px;
+    padding: 20px 32px 120px 32px;
     height: calc(100% - 400px);
   }
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    padding-left: 70px;
+    padding: 46px 16px 20px 69px;
     height: calc(100% - 90px);
   }
 `;
