@@ -3,14 +3,18 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AsideBar from 'components/AsideBar/AsideBar';
+import { Container } from 'components/Container/Container';
+
+const Background = styled.div`
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(25px);
+`;
 
 const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 20px 20px;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(25px);
   width: 100%;
   min-height: calc(100vh - 60px);
 
@@ -55,17 +59,19 @@ const MainContainer = styled.main`
 
 const Layout = () => {
   return (
-    <>
+    <Background>
       <Header />
-      <Section>
-        <AsideBar />
-        <MainContainer>
-          <Suspense fallback={null}>
-            <Outlet />
-          </Suspense>
-        </MainContainer>
-      </Section>
-    </>
+      <Container>
+        <Section>
+          <AsideBar />
+          <MainContainer>
+            <Suspense fallback={null}>
+              <Outlet />
+            </Suspense>
+          </MainContainer>
+        </Section>
+      </Container>
+    </Background>
   );
 };
 
