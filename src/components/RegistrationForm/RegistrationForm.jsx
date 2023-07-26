@@ -55,7 +55,7 @@ const RegistrationForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleRegister = async values => {
+  const handleRegister = values => {
     dispatch(
       register({
         name: values.firstName,
@@ -90,8 +90,8 @@ const RegistrationForm = () => {
           .required('Please provide your name')
           .max(30, 'First name is too long - should be 30 characters or less.'),
       })}
-      onSubmit={async (values, { setSubmitting, resetForm }) => {
-        await handleRegister(values);
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        handleRegister(values);
         resetForm();
         setSubmitting(false);
       }}
