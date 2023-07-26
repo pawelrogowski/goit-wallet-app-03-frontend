@@ -48,7 +48,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = async values => {
+  const handleLogin = values => {
     dispatch(login({ email: values.email, password: values.password }));
   };
 
@@ -59,8 +59,8 @@ const LoginForm = () => {
         email: string().email('Invalid email address.').required('Please provide your email.'),
         password: string().required('No password provided.'),
       })}
-      onSubmit={async (values, { setSubmitting, resetForm }) => {
-        await handleLogin(values);
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        handleLogin(values);
         resetForm();
         setSubmitting(false);
       }}
