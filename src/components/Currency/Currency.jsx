@@ -15,9 +15,9 @@ const TableStyledContainer = styled.ul`
   overflow: hidden;
   position: relative;
   overflow-y: auto;
-  height: auto;
+  height: 100%;
   min-height: 174px;
-  max-height: 331px;
+
   li:first-child {
     background-color: rgb(255 255 255 / 22%);
     margin-bottom: 16px;
@@ -26,13 +26,12 @@ const TableStyledContainer = styled.ul`
     margin-bottom: 20px;
   }
   @media (min-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
-    height: calc(100vh - 390px);
     margin-top: 32px;
     min-height: 182px;
+    max-height: 331px;
   }
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
-    height: auto;
-    max-height: 550px;
+    max-height: 210px;
     max-width: 333px;
   }
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
@@ -85,7 +84,7 @@ const TrianglesBackground = styled(Triangles)`
     left: 0;
   }
 `;
-
+const currencyData = await getCurrencyData();
 const Currency = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -106,7 +105,6 @@ const Currency = () => {
     };
   }, [navigate, locationCurrency]);
 
-  const currencyData = getCurrencyData();
   return (
     <TableStyledContainer style={{ display: locationCurrency ? 'block' : '' }}>
       <StyledListElement>
