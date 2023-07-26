@@ -26,21 +26,48 @@ const TableStyledContainer = styled.ul`
     margin-bottom: 20px;
   }
   @media (min-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
-    height: calc(100vh - 390px);
     margin-top: 32px;
     min-height: 182px;
   }
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
-    height: auto;
-    max-height: 550px;
+    max-height: 210px;
     max-width: 333px;
   }
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     display: none;
     margin-top: 15px;
   }
+
   &::-webkit-scrollbar {
-    display: none;
+    width: 4px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    margin-top: 57px;
+    background: transparent;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-logout-button);
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--color-logout-button);
+  }
+
+  mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 4px, black 4px);
+  mask-size: 100% 20000px;
+  mask-position: left bottom;
+  -webkit-mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 4px, black 4px);
+  -webkit-mask-size: 100% 20000px;
+  -webkit-mask-position: left bottom;
+  transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+
+  &:hover {
+    -webkit-mask-position: left top;
+    mask-position: left top;
   }
 `;
 
@@ -74,7 +101,7 @@ const StyledListElement = styled.li`
 `;
 
 const TrianglesBackground = styled(Triangles)`
-  position: absolute;
+  position: sticky;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -85,6 +112,8 @@ const TrianglesBackground = styled(Triangles)`
     left: 0;
   }
 `;
+
+const currencyData = await getCurrencyData();
 
 const Currency = () => {
   const location = useLocation();
@@ -106,7 +135,6 @@ const Currency = () => {
     };
   }, [navigate, locationCurrency]);
 
-  const currencyData = getCurrencyData();
   return (
     <TableStyledContainer style={{ display: locationCurrency ? 'block' : '' }}>
       <StyledListElement>
