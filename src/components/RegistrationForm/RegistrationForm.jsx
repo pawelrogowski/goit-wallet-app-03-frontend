@@ -9,6 +9,8 @@ import PasswordStrength from './../Inputs/PasswordStrength';
 import Loader from 'components/Loader/Loader';
 import { getCharacterValidationError } from 'utils/formaters';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { register } from 'redux/slices/sessionSlice';
 
 const FormikForm = styled(Form)`
   height: 100vh;
@@ -22,7 +24,6 @@ const FormikForm = styled(Form)`
   background: var(--background-light);
   border-radius: 12px;
 
-  // Logo is the first component so this adds margin to logo
   & > :first-child {
     margin-bottom: 30px;
   }
@@ -52,6 +53,17 @@ const FormikForm = styled(Form)`
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleRegister = async values => {
+    dispatch(
+      register({
+        name: values.firstName,
+        email: values.email,
+        password: values.password,
+      })
+    );
+  };
 
   return (
     <Formik
@@ -78,8 +90,8 @@ const RegistrationForm = () => {
           .required('Please provide your name')
           .max(30, 'First name is too long - should be 30 characters or less.'),
       })}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
-        console.log(values);
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
+        await handleRegister(values);
         resetForm();
         setSubmitting(false);
       }}
@@ -126,7 +138,7 @@ const RegistrationForm = () => {
             autoComplete="off"
             onKeyUp={handleBlur}
           />
-          <PrimaryButton type="submit" disabled={!isValid} onClick={() => navigate('/')}>
+          <PrimaryButton type="submit" disabled={!isValid}>
             REGISTER
           </PrimaryButton>
           <SecondaryButton type="button" onClick={() => navigate('/login')}>
