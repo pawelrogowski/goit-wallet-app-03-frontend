@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { InputWithIcon } from 'components/Inputs/InputWithIcon';
@@ -7,7 +7,7 @@ import { Formik, Form } from 'formik';
 import { object, string } from 'yup';
 import Loader from './../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'redux/slices/sessionSlice';
 
 const FormikForm = styled(Form)`
@@ -47,6 +47,13 @@ const FormikForm = styled(Form)`
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isAuth = useSelector(state => state.session.isAuth);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/home');
+    }
+  }, [isAuth, navigate]);
 
   const handleLogin = values => {
     dispatch(login({ email: values.email, password: values.password }));

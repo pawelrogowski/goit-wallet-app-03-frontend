@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { PrimaryButton, SecondaryButton } from 'components/Buttons/Buttons';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { logout } from 'redux/slices/sessionSlice';
 
 const ModalGeneral = styled.div`
   position: fixed;
@@ -49,7 +51,8 @@ const ButtonContainer = styled.div`
 
 const ModalLogout = ({ onClose }) => {
   const modalRef = useRef(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleClickOutside = e => {
@@ -67,12 +70,15 @@ const ModalLogout = ({ onClose }) => {
 
   const handleLogout = async () => {
     try {
+      await dispatch(logout());
+
       await toast.promise(new Promise(resolve => setTimeout(resolve, 1000)), {
         pending: 'Logging out...',
         success: 'You have logged out',
         error: 'Logout error',
       });
-      navigate('/login');
+
+      // navigate('/login');
     } catch (error) {
       console.error('Error during logout:', error);
     }

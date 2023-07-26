@@ -119,6 +119,11 @@ export const sessionSlice = createSlice({
     });
 
     builder.addCase(logout.rejected, (state, action) => {
+      state.token = null;
+      state.user = {};
+      state.currentUser = {};
+      state.isAuth = false;
+      state.error = null;
       state.isLoading = false;
       state.error = action.error.message;
     });
