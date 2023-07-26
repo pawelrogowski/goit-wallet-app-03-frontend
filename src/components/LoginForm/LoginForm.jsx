@@ -66,7 +66,7 @@ const LoginForm = () => {
       }}
       validateOnMount
     >
-      {({ isValid, isSubmitting, handleBlur }) => (
+      {({ isSubmitting, handleBlur }) => (
         <FormikForm autoComplete="off">
           <Logo />
           {isSubmitting && <Loader />}
@@ -88,9 +88,7 @@ const LoginForm = () => {
             autoComplete="off"
             onKeyUp={handleBlur}
           />
-          <PrimaryButton type="submit" disabled={!isValid}>
-            LOG IN
-          </PrimaryButton>
+          <PrimaryButton type="submit">LOG IN</PrimaryButton>
           <SecondaryButton type="button" onClick={() => navigate('/register')}>
             REGISTER
           </SecondaryButton>
