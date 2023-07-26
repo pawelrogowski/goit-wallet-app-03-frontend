@@ -23,11 +23,6 @@ const Section = styled.section`
   }
 `;
 
-// padding - top;
-// padding - right;
-// padding - bottom;
-// padding - left;
-
 const MainContainer = styled.main`
   display: flex;
   justify-content: center;
