@@ -159,7 +159,11 @@ const SmallButton = styled(PrimaryButton)`
   padding: 0;
 `;
 
-const TransactionsBodyHeadRow = styled.tr``;
+const TransactionsBodyHeadRow = styled.tr`
+  &:hover {
+    background-color: var(--background-transactions-el);
+  }
+`;
 
 const Transactions = () => {
   return (
