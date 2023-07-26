@@ -3,19 +3,23 @@ import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
 import { LogoButton } from 'components/Buttons/Buttons';
 import ModalLogout from 'components/ModalLogout/ModalLogout';
+import { Container } from 'components/Container/Container';
 
 const HeaderDiv = styled.header`
-  display: flex;
-  width: 100%;
   height: 60px;
   background-color: ${props => props.theme.background.light};
-  padding: 15px 20px 15px 20px;
-  align-items: center;
-  justify-content: space-between;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     height: 80px;
   }
+`;
+const ContainerHeader = styled(Container)`
+  display: flex;
+  width: 100%;
+  padding: 15px 20px 15px 20px;
+  max-width: 1400px;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const LogoutDiv = styled.div`
@@ -112,20 +116,22 @@ const Header = () => {
 
   return (
     <HeaderDiv>
-      <LogoButton />
-      <LogoutDiv>
-        <span className="nameText">
-          <button className="button" type="button">
-            Name
+      <ContainerHeader>
+        <LogoButton />
+        <LogoutDiv>
+          <span className="nameText">
+            <button className="button" type="button">
+              Name
+            </button>
+          </span>
+          <div className="divider button"></div>
+          <button type="button" className="exitButton button" onClick={openModal}>
+            <Icon icon="icon__exit"></Icon>
+            <span className="exitText">Exit</span>
           </button>
-        </span>
-        <div className="divider button"></div>
-        <button type="button" className="exitButton button" onClick={openModal}>
-          <Icon icon="icon__exit"></Icon>
-          <span className="exitText">Exit</span>
-        </button>
-        {isModalOpen && <ModalLogout onClose={closeModal} />}
-      </LogoutDiv>
+          {isModalOpen && <ModalLogout onClose={closeModal} />}
+        </LogoutDiv>
+      </ContainerHeader>
     </HeaderDiv>
   );
 };

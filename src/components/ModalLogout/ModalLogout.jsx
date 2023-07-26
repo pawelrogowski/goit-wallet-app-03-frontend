@@ -17,7 +17,7 @@ const ModalGeneral = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 100;
   & > div {
     padding: 20px;
     border-radius: 8px;
