@@ -2,23 +2,15 @@ import axios from 'axios';
 
 const WalletInstance = axios.create();
 
-WalletInstance.interceptors.request.use(
-  config => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  error => Promise.reject(error)
-);
-
 export const API_URL = 'https://wallet-lzvg.onrender.com/api';
 
 export const setAuthToken = token => {
-  WalletInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  if (token) {
+    WalletInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    delete WalletInstance.defaults.headers.common['Authorization'];
+  }
 };
-
 export const registerUser = async userData => {
   const response = await WalletInstance.post(`${API_URL}/users/register`, userData);
   return response.data;
