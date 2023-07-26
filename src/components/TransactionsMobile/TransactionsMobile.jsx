@@ -8,7 +8,6 @@ const TransactionsList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
-  max-width: 395px;
   width: 100%;
 `;
 
@@ -92,22 +91,12 @@ const EditButton = styled.button`
   cursor: pointer;
   vertical-align: middle;
   padding: 0;
-  transition: color 150ms;
 
   & svg {
     fill: none;
     stroke: var(--font-color-dark);
     width: 14px;
     height: 14px;
-    transition: stroke 150ms;
-  }
-
-  &:hover {
-    color: var(--color-brand-primary);
-
-    svg {
-      stroke: var(--color-brand-primary);
-    }
   }
 `;
 
