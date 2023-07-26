@@ -10,7 +10,6 @@ const fetchCurrency = async () => {
       })
       .catch(error => console.log(error));
 
-    //
     const { USD, PLN, EUR, GBP, CHF } = currencyDataFetch;
     const newRates = { USD, PLN, EUR, GBP, CHF };
     const baseCurrency = newRates.USD;

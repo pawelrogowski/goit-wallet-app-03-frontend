@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Triangles } from './currencyBackground.svg';
+import triangles from './currencyBackground.svg';
 import getCurrencyData from './CurrencyFetchData';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -17,7 +17,9 @@ const TableStyledContainer = styled.ul`
   overflow-y: auto;
   height: 100%;
   min-height: 333px;
-
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
   li:first-child {
     background-color: #6e78e8;
     margin-bottom: 16px;
@@ -74,18 +76,6 @@ const StyledListElement = styled.li`
   text-align: center;
 `;
 
-const TrianglesBackground = styled(Triangles)`
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  path {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
-`;
 const currencyData = await getCurrencyData();
 const Currency = () => {
   const location = useLocation();
@@ -108,7 +98,9 @@ const Currency = () => {
   }, [navigate, locationCurrency]);
 
   return (
-    <TableStyledContainer style={{ display: locationCurrency ? 'block' : '' }}>
+    <TableStyledContainer
+      style={{ display: locationCurrency ? 'block' : '', backgroundImage: `url(${triangles})` }}
+    >
       <StyledListElement>
         <StyledHeaderParagraph>Currency</StyledHeaderParagraph>
         <StyledHeaderParagraph>Purchase</StyledHeaderParagraph>
@@ -121,8 +113,6 @@ const Currency = () => {
           <StyledBodyParagraph>{item.sale}</StyledBodyParagraph>
         </StyledListElement>
       ))}
-
-      <TrianglesBackground />
     </TableStyledContainer>
   );
 };
