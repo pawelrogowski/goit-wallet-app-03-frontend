@@ -7,6 +7,8 @@ import { Formik, Form } from 'formik';
 import { object, string } from 'yup';
 import Loader from './../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from 'redux/slices/sessionSlice';
 
 const FormikForm = styled(Form)`
   height: 100vh;
@@ -44,6 +46,11 @@ const FormikForm = styled(Form)`
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogin = values => {
+    dispatch(login({ email: values.email, password: values.password }));
+  };
 
   return (
     <Formik
@@ -53,7 +60,7 @@ const LoginForm = () => {
         password: string().required('No password provided.'),
       })}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        console.log(values);
+        handleLogin(values);
         resetForm();
         setSubmitting(false);
       }}
@@ -81,7 +88,7 @@ const LoginForm = () => {
             autoComplete="off"
             onKeyUp={handleBlur}
           />
-          <PrimaryButton type="submit" disabled={!isValid} onClick={() => navigate('/')}>
+          <PrimaryButton type="submit" disabled={!isValid}>
             LOG IN
           </PrimaryButton>
           <SecondaryButton type="button" onClick={() => navigate('/register')}>
