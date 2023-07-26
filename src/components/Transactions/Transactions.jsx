@@ -118,11 +118,14 @@ const EditButton = styled.button`
   position: relative;
   border: none;
   background: none;
-  width: 14px;
-  height: 14px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
   vertical-align: middle;
   margin-right: 8px;
+  border: 1px solid transparent;
+  border-radius: 100%;
+  transition: border 150ms;
 
   & svg {
     fill: none;
@@ -134,6 +137,15 @@ const EditButton = styled.button`
     width: 14px;
     height: 14px;
     z-index: 10;
+    transition: stroke 150ms;
+  }
+
+  &:hover {
+    border: 1px solid var(--color-brand-primary);
+
+    svg {
+      stroke: var(--color-brand-primary);
+    }
   }
 `;
 
