@@ -156,69 +156,57 @@ export const transactionsSlice = createSlice({
 
   reducers: {},
 
-  extraReducers: {
-    [fetchTransactions.pending]: startLoading,
+  extraReducers: builder => {
+    builder
+      .addCase(fetchTransactions.pending, startLoading)
+      .addCase(fetchTransactions.fulfilled, (state, action) => {
+        state.transactions = action.payload;
+        handleSuccess(state, action);
+      })
+      .addCase(fetchTransactions.rejected, handleError)
 
-    [fetchTransactions.fulfilled]: (state, action) => {
-      state.transactions = action.payload;
-      handleSuccess(state, action);
-    },
+      .addCase(addTransaction.pending, startLoading)
+      .addCase(addTransaction.fulfilled, (state, action) => {
+        state.transactions.push(action.payload);
+        handleSuccess(state, action);
+      })
+      .addCase(addTransaction.rejected, handleError)
 
-    [fetchTransactions.rejected]: handleError,
+      .addCase(removeTransaction.pending, startLoading)
+      .addCase(removeTransaction.fulfilled, (state, action) => {
+        state.transactions = state.transactions.filter(t => t._id !== action.payload);
+        handleSuccess(state, action);
+      })
+      .addCase(removeTransaction.rejected, handleError)
 
-    [addTransaction.pending]: startLoading,
+      .addCase(editTransaction.pending, startLoading)
+      .addCase(editTransaction.fulfilled, (state, action) => {
+        const index = state.transactions.findIndex(t => t._id === action.payload._id);
+        state.transactions[index] = action.payload;
+        handleSuccess(state, action);
+      })
+      .addCase(editTransaction.rejected, handleError)
 
-    [addTransaction.fulfilled]: (state, action) => {
-      state.transactions.push(action.payload);
-      handleSuccess(state, action);
-    },
+      .addCase(fetchFilteredTransactions.pending, startLoading)
+      .addCase(fetchFilteredTransactions.fulfilled, (state, action) => {
+        state.filteredTransactions = action.payload;
+        handleSuccess(state, action);
+      })
+      .addCase(fetchFilteredTransactions.rejected, handleError)
 
-    [addTransaction.rejected]: handleError,
+      .addCase(fetchTotals.pending, startLoading)
+      .addCase(fetchTotals.fulfilled, (state, action) => {
+        state.totals = action.payload;
+        handleSuccess(state, action);
+      })
+      .addCase(fetchTotals.rejected, handleError)
 
-    [removeTransaction.pending]: startLoading,
-
-    [removeTransaction.fulfilled]: (state, action) => {
-      state.transactions = state.transactions.filter(t => t._id !== action.payload);
-      handleSuccess(state, action);
-    },
-
-    [removeTransaction.rejected]: handleError,
-
-    [editTransaction.pending]: startLoading,
-
-    [editTransaction.fulfilled]: (state, action) => {
-      const index = state.transactions.findIndex(t => t._id === action.payload._id);
-      state.transactions[index] = action.payload;
-      handleSuccess(state, action);
-    },
-
-    [editTransaction.rejected]: handleError,
-
-    [fetchFilteredTransactions.pending]: startLoading,
-
-    [fetchFilteredTransactions.fulfilled]: (state, action) => {
-      state.filteredTransactions = action.payload;
-      handleSuccess(state, action);
-    },
-
-    [fetchFilteredTransactions.rejected]: handleError,
-    [fetchTotals.pending]: startLoading,
-
-    [fetchTotals.fulfilled]: (state, action) => {
-      state.totals = action.payload;
-      handleSuccess(state, action);
-    },
-
-    [fetchTotals.rejected]: handleError,
-
-    [fetchMonthlyTotals.pending]: startLoading,
-
-    [fetchMonthlyTotals.fulfilled]: (state, action) => {
-      state.monthlyTotals = action.payload;
-      handleSuccess(state, action);
-    },
-
-    [fetchMonthlyTotals.rejected]: handleError,
+      .addCase(fetchMonthlyTotals.pending, startLoading)
+      .addCase(fetchMonthlyTotals.fulfilled, (state, action) => {
+        state.monthlyTotals = action.payload;
+        handleSuccess(state, action);
+      })
+      .addCase(fetchMonthlyTotals.rejected, handleError);
   },
 });
 
