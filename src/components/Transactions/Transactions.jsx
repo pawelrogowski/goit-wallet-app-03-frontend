@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
 import { PrimaryButton } from 'components/Buttons/Buttons';
-import { data } from './data';
 import { headers } from './data';
+import { useSelector, useDispatch } from 'react-redux';
+import { formatDate } from 'utils/formaters';
+import { removeTransaction } from 'redux/slices/transactionSlice';
 
 const TransactionContainer = styled.div`
   height: 100%;
@@ -111,6 +113,7 @@ const TransactionTableData = styled.td`
 
   &:last-child {
     text-align: center;
+    min-width: 140px;
   }
 `;
 
@@ -166,6 +169,14 @@ const TransactionsBodyHeadRow = styled.tr`
 `;
 
 const Transactions = () => {
+  const dispatch = useDispatch();
+
+  const { transactions, isLoading, error } = useSelector(state => state.transactions);
+
+  const TransactionsDeleteHandler = id => {
+    dispatch(removeTransaction(id));
+  };
+
   return (
     <TransactionContainer>
       <TransactionsTable>
@@ -177,26 +188,30 @@ const Transactions = () => {
           </TransactionsTableHeadRow>
         </TransactionsTableHead>
         <TransactionsTableBody>
-          {data.map((item, index) => (
-            <TransactionsBodyHeadRow key={index}>
-              <TransactionTableData>{item.date}</TransactionTableData>
-              <TransactionTableData>{item.type}</TransactionTableData>
-              <TransactionTableData>{item.category}</TransactionTableData>
-              <TransactionTableData>{item.comment}</TransactionTableData>
+          {transactions.map(transaction => (
+            <TransactionsBodyHeadRow key={transaction._id}>
+              <TransactionTableData>{formatDate(transaction.date)}</TransactionTableData>
+              <TransactionTableData>{transaction.isIncome ? '+' : '-'}</TransactionTableData>
+              <TransactionTableData>{transaction.category}</TransactionTableData>
+              <TransactionTableData>{transaction.comment}</TransactionTableData>
               <TransactionTableData
                 style={{
                   color: `${
-                    item.type === '-' ? 'var(--color-brand-accent)' : 'var(--color-brand-secondary)'
+                    transaction.isIncome
+                      ? 'var(--color-brand-secondary)'
+                      : 'var(--color-brand-accent)'
                   }`,
                 }}
               >
-                {item.sum}
+                {transaction.amount}
               </TransactionTableData>
               <TransactionTableData>
                 <EditButton>
                   <Icon icon="icon__edit" />
                 </EditButton>{' '}
-                <SmallButton>Delete</SmallButton>
+                <SmallButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
+                  Delete
+                </SmallButton>
               </TransactionTableData>
             </TransactionsBodyHeadRow>
           ))}

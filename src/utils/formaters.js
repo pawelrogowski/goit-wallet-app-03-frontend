@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export const formatDate = inputString => {
-  const date = moment(inputString, 'ddd MMM DD YYYY HH:mm:ss GMTZZ');
+  const date = moment(inputString, 'DD MM YYYY HH:mm:ss GMTZZ');
   const formattedDate = date.format('DD.MM.YYYY');
   return formattedDate;
 };
