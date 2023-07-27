@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTransactions } from './redux/slices/transactionSlice'; // Update this import path
+import { fetchTotals } from './redux/slices/transactionSlice';
 
 const TestComponent2 = () => {
   const dispatch = useDispatch();
-  const transactions = useSelector(state => state.transactions.transactions);
+  const totals = useSelector(state => state.transactions.totals);
   const isLoading = useSelector(state => state.transactions.isLoading);
   const error = useSelector(state => state.transactions.error);
 
   useEffect(() => {
-    dispatch(fetchTransactions());
+    dispatch(fetchTotals());
   }, [dispatch]);
 
   if (isLoading) {
@@ -20,13 +20,16 @@ const TestComponent2 = () => {
     return <div>Error: {error}</div>;
   }
 
+  const totalsArray = Object.entries(totals);
+
   return (
     <div>
-      {transactions.map(transaction => (
-        <div key={transaction._id}>
-          {transaction.description}: {transaction.amount}
-        </div>
-      ))}
+      <h2>Transaction Totals</h2>
+      <ul>
+        {totalsArray.map(([category]) => (
+          <li key={category}>{category}</li>
+        ))}
+      </ul>
     </div>
   );
 };
