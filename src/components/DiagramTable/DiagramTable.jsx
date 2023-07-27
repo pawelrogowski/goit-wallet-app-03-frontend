@@ -2,7 +2,7 @@ import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMonthlyTotals, fetchTotals } from 'redux/slices/transactionSlice';
+import { fetchMonthlyTotals } from 'redux/slices/transactionSlice';
 
 const StyledTable = styled.div`
   max-width: 395px;
@@ -148,12 +148,12 @@ const monthsOptions = months.map(option => ({
 }));
 
 const year = [
-  { year: 2019 },
-  { year: 2020 },
-  { year: 2021 },
-  { year: 2022 },
-  { year: 2023 },
-  { year: 2024 },
+  { year: '2019' },
+  { year: '2020' },
+  { year: '2021' },
+  { year: '2022' },
+  { year: '2023' },
+  { year: '2024' },
 ];
 
 const yearOptions = year.map(option => ({
@@ -164,11 +164,6 @@ const yearOptions = year.map(option => ({
 
 const DiagramTable = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchTotals());
-    dispatch(fetchMonthlyTotals());
-  }, [dispatch]);
-
   const { totals, monthlyTotals } = useSelector(state => state.transactions);
 
   const [valueMonth, setValueMonth] = useState('');
@@ -176,10 +171,10 @@ const DiagramTable = () => {
 
   const sumExpenses = totals.totalExpenses;
   const sumIncome = totals.totalIncome;
-  let data = totals.totals;
+  const data = totals.totals;
   const data2 = monthlyTotals.totals;
 
-  console.log(valueMonth, valueYear, 'dataMonthly:', data2);
+  console.log('dataMonthly:', data2);
 
   useEffect(() => {
     dispatch(fetchMonthlyTotals({ month: valueMonth, year: valueYear }));

@@ -11,6 +11,12 @@ const Title = styled(Heading)`
 `;
 
 const StatisticPage = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTotals());
+    dispatch(fetchTransactions());
+  }, [dispatch]);
+
   return (
     <>
       <Title as="h1">Statistics</Title>
