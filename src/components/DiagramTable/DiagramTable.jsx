@@ -163,17 +163,18 @@ const yearOptions = year.map(option => ({
 }));
 
 const DiagramTable = () => {
-  const { totals, monthlyTotals } = useSelector(state => state.transactions);
   const dispatch = useDispatch();
-
-  const sumExpenses = totals.totalExpenses;
-  const sumIncome = totals.totalIncome;
-  const data = totals.totals;
+  const { totals, monthlyTotals } = useSelector(state => state.transactions);
 
   const [valueMonth, setValueMonth] = useState('');
   const [valueYear, setValueYear] = useState('');
 
-  console.log(monthlyTotals.totals);
+  const sumExpenses = totals.totalExpenses;
+  const sumIncome = totals.totalIncome;
+  const data = totals.totals;
+  const data2 = monthlyTotals.totals;
+
+  console.log('dataMonthly:', data2);
 
   useEffect(() => {
     dispatch(fetchMonthlyTotals({ month: valueMonth, year: valueYear }));
@@ -199,8 +200,8 @@ const DiagramTable = () => {
           <h3>Sum</h3>
         </BoxHeading>
         <List>
-          {data.map((item, index) => (
-            <ListItem key={index}>
+          {data.map(item => (
+            <ListItem key={item._id}>
               <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
               <Category>{item.category}</Category>
               <Sum>{item.sum}</Sum>
