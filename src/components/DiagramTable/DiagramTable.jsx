@@ -1,7 +1,8 @@
 import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
-import { data } from './data';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMonthlyTotals } from 'redux/slices/transactionSlice';
 
 const StyledTable = styled.div`
   max-width: 395px;
@@ -162,15 +163,22 @@ const yearOptions = year.map(option => ({
 }));
 
 const DiagramTable = () => {
-  const sumExpenses = data
-    .map(item => parseFloat(item.sum.replace(/\s+/g, '')))
-    .reduce((total, value) => total + value, 0)
-    .toFixed(2);
+  const { totals, monthlyTotals } = useSelector(state => state.transactions);
+  const dispatch = useDispatch();
+
+  const sumExpenses = totals.totalExpenses;
+  const sumIncome = totals.totalIncome;
+  const data = totals.totals;
 
   const [valueMonth, setValueMonth] = useState('');
   const [valueYear, setValueYear] = useState('');
-  console.log(valueMonth);
-  console.log(valueYear);
+
+  console.log(monthlyTotals.totals);
+
+  useEffect(() => {
+    dispatch(fetchMonthlyTotals({ month: valueMonth, year: valueYear }));
+  }, [dispatch, valueYear, valueMonth]);
+
   return (
     <>
       <StyledTable>
@@ -178,7 +186,7 @@ const DiagramTable = () => {
           <InputDropdown
             title={'Month'}
             options={monthsOptions}
-            onChange={([{ value }]) => setValueMonth(value)}
+            onChange={([{ id }]) => setValueMonth(id)}
           />
           <InputDropdown
             title={'Year'}
@@ -204,7 +212,7 @@ const DiagramTable = () => {
             Expenses: <span>{sumExpenses}</span>
           </Expenses>
           <Income>
-            Income: <span>27 350.00</span>
+            Income: <span>{sumIncome}</span>
           </Income>
         </BoxFooter>
       </StyledTable>
