@@ -29,7 +29,7 @@ const Section = styled.section`
 
 const MainContainer = styled.main`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   flex-grow: 1;
