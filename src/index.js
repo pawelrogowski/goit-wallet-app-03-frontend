@@ -12,6 +12,7 @@ import { Background } from 'components/Background/Background';
 import { Provider } from 'react-redux';
 import store, { persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { TransactionsComponent } from 'components/TestsRedux/TransactionsComponent';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +25,7 @@ root.render(
               the bottom, no need to wrap the App */}
             <Background />
             <App />
+            <TransactionsComponent />
           </BrowserRouter>
         </ThemeProvider>
       </PersistGate>
