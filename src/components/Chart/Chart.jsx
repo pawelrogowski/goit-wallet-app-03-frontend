@@ -1,7 +1,8 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { data } from '../DiagramTable/data';
+
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -39,10 +40,13 @@ const Balance = styled.span`
 `;
 
 const Chart = () => {
+  const { totals } = useSelector(state => state.transactions);
+
+  const data = totals.totals;
   const labels = data.map(item => item.category);
-  const dataValues = data.map(item => parseFloat(item.sum.replace(/\s+/g, '')));
   const backgroundColors = data.map(item => item.color);
-  const sum = dataValues.reduce((total, value) => total + value, 0).toFixed(2);
+  const dataValues = data.map(item => item.sum);
+  const balance = totals.totalExpenses;
 
   const chartData = {
     labels: labels,
@@ -69,7 +73,7 @@ const Chart = () => {
   return (
     <ChartContainer>
       <Doughnut data={chartData} options={options} />
-      <Balance>{sum}</Balance>
+      <Balance>{balance}</Balance>
     </ChartContainer>
   );
 };
