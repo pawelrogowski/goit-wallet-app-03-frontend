@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Triangles } from './currencyBackground.svg';
+import triangles from './currencyBackground.svg';
 import getCurrencyData from './CurrencyFetchData';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -15,24 +15,27 @@ const TableStyledContainer = styled.ul`
   overflow: hidden;
   position: relative;
   overflow-y: auto;
-  height: auto;
-  min-height: 174px;
-  max-height: 331px;
+  height: 100%;
+  min-height: 333px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
   li:first-child {
-    background-color: rgb(255 255 255 / 22%);
+    background-color: #6e78e8;
     margin-bottom: 16px;
+    position: sticky;
+    top: 0;
   }
   li:last-of-type {
     margin-bottom: 20px;
   }
   @media (min-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
-    height: calc(100vh - 390px);
     margin-top: 32px;
     min-height: 182px;
+    max-height: 331px;
   }
   @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
-    height: auto;
-    max-height: 550px;
+    max-height: 182px;
     max-width: 333px;
   }
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
@@ -73,19 +76,7 @@ const StyledListElement = styled.li`
   text-align: center;
 `;
 
-const TrianglesBackground = styled(Triangles)`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  path {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
-`;
-
+const currencyData = await getCurrencyData();
 const Currency = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -106,9 +97,10 @@ const Currency = () => {
     };
   }, [navigate, locationCurrency]);
 
-  const currencyData = getCurrencyData();
   return (
-    <TableStyledContainer style={{ display: locationCurrency ? 'block' : '' }}>
+    <TableStyledContainer
+      style={{ display: locationCurrency ? 'block' : '', backgroundImage: `url(${triangles})` }}
+    >
       <StyledListElement>
         <StyledHeaderParagraph>Currency</StyledHeaderParagraph>
         <StyledHeaderParagraph>Purchase</StyledHeaderParagraph>
@@ -121,8 +113,6 @@ const Currency = () => {
           <StyledBodyParagraph>{item.sale}</StyledBodyParagraph>
         </StyledListElement>
       ))}
-
-      <TrianglesBackground />
     </TableStyledContainer>
   );
 };
