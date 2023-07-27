@@ -1,16 +1,49 @@
 import axios from 'axios';
 
 const WalletInstance = axios.create();
+export const API_URL = 'https://wallet-lzvg.onrender.com/api';
+// export const API_URL = 'https://wallet-pr-11.onrender.com/api';
 
-// export const API_URL = 'https://wallet-lzvg.onrender.com/api';
-export const API_URL = 'https://wallet-pr-8.onrender.com/api';
-export const setAuthToken = accessToken => {
+export const setAuthToken = () => {
+  const accessToken = localStorage.getItem('accessToken');
   if (accessToken) {
     WalletInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
   } else {
     delete WalletInstance.defaults.headers.common['Authorization'];
   }
 };
+setAuthToken();
+export const refreshTokens = async () => {
+  const refreshToken = localStorage.getItem('refreshToken');
+
+  const response = await axios.post(`${API_URL}/users/refresh`, {
+    refreshToken,
+  });
+
+  const { accessToken, refreshToken: newRefreshToken } = response.data;
+
+  localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('refreshToken', newRefreshToken);
+};
+
+let refreshInterval;
+
+const startRefreshInterval = () => {
+  refreshInterval = setInterval(refreshTokens, 5 * 60 * 1000);
+};
+
+startRefreshInterval();
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    refreshTokens();
+    console.log('token refresh');
+    clearInterval(refreshInterval);
+    refreshInterval = setInterval(refreshTokens, 5 * 60 * 1000);
+  } else {
+    clearInterval(refreshInterval);
+  }
+});
 
 export const registerUser = async userData => {
   const response = await WalletInstance.post(`${API_URL}/users/register`, userData);
@@ -83,21 +116,6 @@ export const getCategoryTotals = async () => {
 
 export const getMonthlyCategoryTotals = async (month, year) => {
   const response = await WalletInstance.get(`${API_URL}/transactions/categories/${month}/${year}`);
-
-  return response.data;
-};
-
-export const refreshTokens = async () => {
-  const refreshToken = localStorage.getItem('refreshToken');
-
-  const response = await axios.post(`${API_URL}/users/refresh`, {
-    refreshToken,
-  });
-
-  const { accessToken, refreshToken: newRefreshToken } = response.data;
-
-  localStorage.setItem('accessToken', accessToken);
-  localStorage.setItem('refreshToken', newRefreshToken);
 
   return response.data;
 };
