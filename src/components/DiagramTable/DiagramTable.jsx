@@ -1,6 +1,7 @@
 import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
 import { data } from './data';
+import { useState } from 'react';
 
 const StyledTable = styled.div`
   max-width: 395px;
@@ -142,7 +143,7 @@ const months = [
 const monthsOptions = months.map(option => ({
   ...option,
   label: option.name,
-  value: option.name,
+  value: option.name.toLowerCase(),
 }));
 
 const year = [
@@ -166,12 +167,24 @@ const DiagramTable = () => {
     .reduce((total, value) => total + value, 0)
     .toFixed(2);
 
+  const [valueMonth, setValueMonth] = useState('');
+  const [valueYear, setValueYear] = useState('');
+  console.log(valueMonth);
+  console.log(valueYear);
   return (
     <>
       <StyledTable>
         <BoxInputs>
-          <InputDropdown title={'Month'} options={monthsOptions} />
-          <InputDropdown title={'Year'} options={yearOptions} />
+          <InputDropdown
+            title={'Month'}
+            options={monthsOptions}
+            onChange={([{ value }]) => setValueMonth(value)}
+          />
+          <InputDropdown
+            title={'Year'}
+            options={yearOptions}
+            onChange={([{ value }]) => setValueYear(value)}
+          />
         </BoxInputs>
         <BoxHeading>
           <h3>Category</h3>
