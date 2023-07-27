@@ -84,7 +84,7 @@ const StyledSelect = styled(Select)`
   }
 `;
 
-const InputDropdown = ({ options, title }) => {
+const InputDropdown = ({ options, title, onChange }) => {
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
   const [open, setOpen] = useState(null);
 
@@ -95,9 +95,9 @@ const InputDropdown = ({ options, title }) => {
       options={options}
       values={[]}
       isOpen={open}
+      onChange={onChange}
       dropdownGap={-2}
       keepSelectedInList={true}
-      onChange={value => console.log(value)}
       dropdownHandleRenderer={({ state }) => (
         <span>
           {state.dropdown ? <Icon icon="icon__arrow-down" /> : <Icon icon="icon__arrow-up" />}
