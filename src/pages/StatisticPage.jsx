@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import Chart from 'components/Chart/Chart';
 import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { Heading } from 'components/Heading/Heading';
+import { useEffect } from 'react';
+import { fetchTotals, fetchTransactions } from 'redux/slices/transactionSlice';
+import { useDispatch } from 'react-redux';
 
 const Title = styled(Heading)`
   display: inline-block;
