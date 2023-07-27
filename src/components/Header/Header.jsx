@@ -4,6 +4,7 @@ import { Icon } from 'components/Icon/Icon';
 import { LogoButton } from 'components/Buttons/Buttons';
 import ModalLogout from 'components/ModalLogout/ModalLogout';
 import { Container } from 'components/Container/Container';
+import { useSelector } from 'react-redux';
 
 const HeaderDiv = styled.header`
   height: 60px;
@@ -89,6 +90,10 @@ const LogoutDiv = styled.div`
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const user = useSelector(state => state.session.user);
+
+  //trimming to 10 characters so it doesnt show scrollbars on mobile
+  const trimmedUserName = user.name.length > 10 ? user.name.slice(0, 10) + '...' : user.name;
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -121,7 +126,7 @@ const Header = () => {
         <LogoutDiv>
           <span className="nameText">
             <button className="button" type="button">
-              Name
+              {trimmedUserName}
             </button>
           </span>
           <div className="divider button"></div>
