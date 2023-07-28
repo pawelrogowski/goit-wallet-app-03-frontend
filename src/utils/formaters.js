@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export const formatDate = inputString => {
-  const date = moment(inputString, 'ddd MMM DD YYYY HH:mm:ss GMTZZ');
+  const date = moment(inputString, 'DD MM YYYY HH:mm:ss GMTZZ');
   const formattedDate = date.format('DD.MM.YYYY');
   return formattedDate;
 };
@@ -13,4 +13,9 @@ export const dateTransformer = (_, originalValue) => {
 
 export const getCharacterValidationError = str => {
   return `Password must have at least 1 ${str} character.`;
+};
+
+export const makeProperDate = date => {
+  const parts = date.split('-');
+  return new Date(parts[2], parts[1] - 1, parts[0]);
 };
