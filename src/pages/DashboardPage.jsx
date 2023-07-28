@@ -1,9 +1,10 @@
 // import { ButtonAddTransaction } from 'components/ButtonAddTransaction/ButtonAddTransaction';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Heading } from 'components/Heading/Heading';
 import Transactions from 'components/Transactions/Transactions';
 import TransactionsMobile from 'components/TransactionsMobile/TransactionsMobile';
-
+import { fetchTransactions } from 'redux/slices/transactionSlice';
 import styled from 'styled-components';
 import ButtonAddTransaction from 'components/ButtonAddTransaction/ButtonAddTransaction';
 
@@ -15,7 +16,12 @@ const Title = styled(Heading)`
 `;
 
 const DashboardPage = () => {
+  const dispatch = useDispatch();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth > 767);
+
+  useEffect(() => {
+    dispatch(fetchTransactions());
+  }, [dispatch]);
 
   useEffect(() => {
     const handleResize = () => {
