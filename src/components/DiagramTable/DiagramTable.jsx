@@ -2,7 +2,7 @@ import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMonthlyTotals } from 'redux/slices/transactionSlice';
+import { fetchMonthlyTotals, fetchTotals } from 'redux/slices/transactionSlice';
 
 const StyledTable = styled.div`
   max-width: 395px;
@@ -164,19 +164,15 @@ const yearOptions = year.map(option => ({
 
 const DiagramTable = () => {
   const dispatch = useDispatch();
-  const { totals, monthlyTotals } = useSelector(state => state.transactions);
+  const { totals, monthlyTotals, error } = useSelector(state => state.transactions);
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
-  const sumExpenses = totals.totalExpenses;
-  const sumIncome = totals.totalIncome;
 
   useEffect(() => {
-    console.log('Totals data changed:', monthlyTotals);
-  }, [monthlyTotals]);
+    dispatch(fetchTotals());
+  }, [dispatch]);
 
   const handleMonthChange = values => {
-    console.log(values);
-    console.log(selectedYear);
     setSelectedMonth(values);
     if (selectedYear !== '') {
       dispatch(fetchMonthlyTotals({ month: values, year: selectedYear }));
@@ -184,16 +180,22 @@ const DiagramTable = () => {
   };
 
   const handleYearChange = values => {
-    console.log(values);
-    console.log(selectedMonth);
     setSelectedYear(values);
+
     if (selectedMonth !== '') {
       dispatch(fetchMonthlyTotals({ month: selectedMonth, year: values }));
     }
   };
 
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   const showTotals = selectedMonth && selectedYear && monthlyTotals && monthlyTotals.totals;
   const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
+
+  const sumExpenses = showTotals ? monthlyTotals.totalExpenses : totals.totalExpenses;
+  const sumIncome = showTotals ? monthlyTotals.totalIncome : totals.totalIncome;
 
   return (
     <>
