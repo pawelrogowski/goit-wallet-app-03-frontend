@@ -3,7 +3,7 @@ import { PrimaryButton } from 'components/Buttons/Buttons';
 import { Icon } from 'components/Icon/Icon';
 import { useSelector, useDispatch } from 'react-redux';
 import { headers } from './data';
-import { makeProperDate } from 'utils/formaters';
+import { formatDate, makeProperDate } from 'utils/formaters';
 import { removeTransaction } from 'redux/slices/transactionSlice';
 
 const TransactionsList = styled.ul`
@@ -133,7 +133,7 @@ const TransactionsMobile = () => {
           <TransactionList type={transaction.isIncome ? 1 : 0}>
             <TransactionElement>
               <TransactionHeader>{headers[0]}</TransactionHeader>
-              <TransactionText>{transaction.date}</TransactionText>
+              <TransactionText>{formatDate(transaction.date)}</TransactionText>
             </TransactionElement>
             <TransactionElement>
               <TransactionHeader>{headers[1]}</TransactionHeader>
