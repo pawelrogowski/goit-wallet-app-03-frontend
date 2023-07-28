@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { setIsModalAddTransactionOpen } from 'redux/slices/globalSlice';
-import TransactionModal from 'components/TransactionModal/TransactionModal';
+// import TransactionModal from 'components/TransactionModal/TransactionModal';
 import AddTransactionModal from 'components/AddTransactionModal/AddTransactionModal';
 
 const StyledButton = styled.button`
