@@ -1,11 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { PrimaryButton, SecondaryButton } from 'components/Buttons/Buttons';
-// import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from 'redux/slices/sessionSlice';
+import { setIsModalLogoutOpen } from 'redux/slices/globalSlice';
 
 const ModalGeneral = styled.div`
   position: fixed;
@@ -36,12 +36,14 @@ const ButtonAccept = styled(PrimaryButton)`
 
 const ModalContainer = styled.div`
   background-color: var(--background-light);
-  width: 420px;
+  min-width: 420px;
   height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 2;
+  position: fixed;
+  top: 40vh;
 `;
 
 const ButtonContainer = styled.div`
@@ -49,36 +51,41 @@ const ButtonContainer = styled.div`
   gap: 10px;
 `;
 
-const ModalLogout = ({ onClose }) => {
+const ModalLogout = () => {
   const modalRef = useRef(null);
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isModalLogoutOpen = useSelector(state => state.global.isModalLogoutOpen);
 
   useEffect(() => {
+    const handleEscapeKey = e => {
+      if (e.key === 'Escape') {
+        dispatch(setIsModalLogoutOpen(false)); 
+      }
+    };
+
     const handleClickOutside = e => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
-        onClose();
+        dispatch(setIsModalLogoutOpen(false));
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-
+    document.addEventListener('keydown', handleEscapeKey)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
     };
-  }, [onClose]);
+  }, [dispatch]);
 
   const handleLogout = async () => {
     try {
-      await dispatch(logout());
-
       await toast.promise(new Promise(resolve => setTimeout(resolve, 1000)), {
         pending: 'Logging out...',
         success: 'You have logged out',
         error: 'Logout error',
       });
-
-      // navigate('/login');
+      dispatch(logout());
+      dispatch(setIsModalLogoutOpen(false));
     } catch (error) {
       console.error('Error during logout:', error);
     }
@@ -86,15 +93,19 @@ const ModalLogout = ({ onClose }) => {
 
   return (
     <div>
-      <ModalGeneral>
-        <ModalContainer ref={modalRef}>
-          <p>Are you sure you want to leave this page?</p>
-          <ButtonContainer>
-            <ButtonDecline onClick={onClose}>No</ButtonDecline>
-            <ButtonAccept onClick={handleLogout}>Yes</ButtonAccept>
-          </ButtonContainer>
-        </ModalContainer>
-      </ModalGeneral>
+      {isModalLogoutOpen && (
+        <ModalGeneral>
+          <ModalContainer ref={modalRef}>
+            <p>Are you sure you want to leave this page?</p>
+            <ButtonContainer>
+              <ButtonDecline onClick={() => dispatch(setIsModalLogoutOpen(false))}>
+                No
+              </ButtonDecline>
+              <ButtonAccept onClick={handleLogout}>Yes</ButtonAccept>
+            </ButtonContainer>
+          </ModalContainer>
+        </ModalGeneral>
+      )}
     </div>
   );
 };
