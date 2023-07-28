@@ -5,7 +5,6 @@ import { headers } from './data';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatDate, makeProperDate } from 'utils/formaters';
 import { removeTransaction } from 'redux/slices/transactionSlice';
-import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 
 const TransactionContainer = styled.div`
   height: 100%;
@@ -173,7 +172,6 @@ const Transactions = () => {
   const dispatch = useDispatch();
 
   const { transactions } = useSelector(state => state.transactions);
-  const { isModalAddTransactionOpen } = useSelector(state => state.transactions);
 
   const sortedTransactions = transactions.slice().sort((a, b) => {
     return makeProperDate(b.date) - makeProperDate(a.date);
@@ -181,10 +179,6 @@ const Transactions = () => {
 
   const TransactionsDeleteHandler = id => {
     dispatch(removeTransaction(id));
-  };
-
-  const OpenEditModalHandler = () => {
-    dispatch(setIsModalEditTransactionOpen(true));
   };
 
   return (
@@ -217,7 +211,7 @@ const Transactions = () => {
               </TransactionTableData>
               <TransactionTableData>
                 <EditButton>
-                  <Icon icon="icon__edit" onClick={() => OpenEditModalHandler()} />
+                  <Icon icon="icon__edit" />
                 </EditButton>{' '}
                 <SmallButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
                   Delete
