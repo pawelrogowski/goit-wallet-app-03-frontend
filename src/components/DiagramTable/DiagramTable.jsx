@@ -1,8 +1,8 @@
 import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchMonthlyTotals } from 'redux/slices/transactionSlice';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+// import { fetchMonthlyTotals } from 'redux/slices/transactionSlice';
 
 const StyledTable = styled.div`
   max-width: 395px;
@@ -163,22 +163,34 @@ const yearOptions = year.map(option => ({
 }));
 
 const DiagramTable = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { totals, monthlyTotals } = useSelector(state => state.transactions);
 
   const [valueMonth, setValueMonth] = useState('');
   const [valueYear, setValueYear] = useState('');
+  console.log(valueMonth, valueYear);
 
   const sumExpenses = totals.totalExpenses;
   const sumIncome = totals.totalIncome;
-  const data = totals.totals;
-  const data2 = monthlyTotals.totals;
+  let data = totals.totals;
+  let data2 = monthlyTotals.totals;
 
-  console.log('dataMonthly:', data2);
+  console.log(data);
+  console.log(data2);
 
-  useEffect(() => {
-    dispatch(fetchMonthlyTotals({ month: valueMonth, year: valueYear }));
-  }, [dispatch, valueYear, valueMonth]);
+  // useEffect(() => {
+  //   console.log('month:', valueMonth, 'year:', valueYear);
+  //   dispatch(fetchMonthlyTotals({ month: valueMonth, year: valueYear }));
+  // }, [dispatch, valueMonth, valueYear]);
+
+  // const handleFetchMonthlyTotals = (month, year) => {
+  //   dispatch(fetchMonthlyTotals(month, year));
+  //   data = monthlyTotals.totals;
+  // };
+
+  if (!data || totals.totals.length === 0) {
+    return <div>No data available.</div>;
+  }
 
   return (
     <>
@@ -200,8 +212,8 @@ const DiagramTable = () => {
           <h3>Sum</h3>
         </BoxHeading>
         <List>
-          {data.map(item => (
-            <ListItem key={item._id}>
+          {data.map((item, index) => (
+            <ListItem key={index}>
               <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
               <Category>{item.category}</Category>
               <Sum>{item.sum}</Sum>
