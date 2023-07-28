@@ -1,8 +1,8 @@
 import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-// import { fetchMonthlyTotals } from 'redux/slices/transactionSlice';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMonthlyTotals } from 'redux/slices/transactionSlice';
 
 const StyledTable = styled.div`
   max-width: 395px;
@@ -163,34 +163,37 @@ const yearOptions = year.map(option => ({
 }));
 
 const DiagramTable = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { totals, monthlyTotals } = useSelector(state => state.transactions);
-
-  const [valueMonth, setValueMonth] = useState('');
-  const [valueYear, setValueYear] = useState('');
-  console.log(valueMonth, valueYear);
-
+  const [selectedMonth, setSelectedMonth] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
   const sumExpenses = totals.totalExpenses;
   const sumIncome = totals.totalIncome;
-  let data = totals.totals;
-  let data2 = monthlyTotals.totals;
 
-  console.log(data);
-  console.log(data2);
+  useEffect(() => {
+    console.log('Totals data changed:', monthlyTotals);
+  }, [monthlyTotals]);
 
-  // useEffect(() => {
-  //   console.log('month:', valueMonth, 'year:', valueYear);
-  //   dispatch(fetchMonthlyTotals({ month: valueMonth, year: valueYear }));
-  // }, [dispatch, valueMonth, valueYear]);
+  const handleMonthChange = values => {
+    console.log(values);
+    console.log(selectedYear);
+    setSelectedMonth(values);
+    if (selectedYear !== '') {
+      dispatch(fetchMonthlyTotals({ month: values, year: selectedYear }));
+    }
+  };
 
-  // const handleFetchMonthlyTotals = (month, year) => {
-  //   dispatch(fetchMonthlyTotals(month, year));
-  //   data = monthlyTotals.totals;
-  // };
+  const handleYearChange = values => {
+    console.log(values);
+    console.log(selectedMonth);
+    setSelectedYear(values);
+    if (selectedMonth !== '') {
+      dispatch(fetchMonthlyTotals({ month: selectedMonth, year: values }));
+    }
+  };
 
-  if (!data || totals.totals.length === 0) {
-    return <div>No data available.</div>;
-  }
+  const showTotals = selectedMonth && selectedYear && monthlyTotals && monthlyTotals.totals;
+  const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
 
   return (
     <>
@@ -199,12 +202,12 @@ const DiagramTable = () => {
           <InputDropdown
             title={'Month'}
             options={monthsOptions}
-            onChange={([{ id }]) => setValueMonth(id)}
+            onChange={([{ id }]) => handleMonthChange(id)}
           />
           <InputDropdown
             title={'Year'}
             options={yearOptions}
-            onChange={([{ value }]) => setValueYear(value)}
+            onChange={([{ value }]) => handleYearChange(value)}
           />
         </BoxInputs>
         <BoxHeading>
@@ -212,13 +215,17 @@ const DiagramTable = () => {
           <h3>Sum</h3>
         </BoxHeading>
         <List>
-          {data.map((item, index) => (
-            <ListItem key={index}>
-              <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
-              <Category>{item.category}</Category>
-              <Sum>{item.sum}</Sum>
-            </ListItem>
-          ))}
+          {dataToMap && dataToMap.length > 0 ? (
+            dataToMap.map((item, index) => (
+              <ListItem key={index}>
+                <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
+                <Category>{item.category}</Category>
+                <Sum>{item.sum}</Sum>
+              </ListItem>
+            ))
+          ) : (
+            <li>No data available for the selected month and year.</li>
+          )}
         </List>
         <BoxFooter>
           <Expenses>
