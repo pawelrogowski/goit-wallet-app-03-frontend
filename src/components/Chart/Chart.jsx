@@ -48,6 +48,9 @@ const Chart = () => {
   const dataValues = data.map(item => item.sum);
   const balance = totals.totalExpenses;
 
+  if (!data || totals.totals.length === 0) {
+    return <div>No data available.</div>;
+  }
   const chartData = {
     labels: labels,
     datasets: [
