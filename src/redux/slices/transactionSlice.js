@@ -148,6 +148,14 @@ export const transactionsSlice = createSlice({
   initialState: {
     transactions: [],
     filteredTransactions: [],
+    currentTransactionToEdit: {
+      id: null,
+      amount: 0,
+      date: '',
+      isIncome: false,
+      category: '',
+      comment: '',
+    },
     totals: {},
     monthlyTotals: {},
     isLoading: false,
