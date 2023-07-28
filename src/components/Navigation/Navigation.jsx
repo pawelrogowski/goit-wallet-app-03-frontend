@@ -71,22 +71,6 @@ const StyledNavLink = styled(NavLink)`
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     gap: 20px;
   }
-  &.active {
-    ${Icon} {
-      fill: var(--nav-color-active);
-      transition: fill 150ms, box-shadow 150ms;
-      box-shadow: 0px 3px 10px rgba(74, 86, 226, 0.5);
-    }
-    span {
-      color: var(--font-color-dark);
-      font-size: 18px;
-      font-weight: 700;
-      font-style: normal;
-      &:hover {
-        color: var(--nav-color-active);
-      }
-    }
-  }
 `;
 
 const NavItemText = styled.span`
@@ -114,7 +98,7 @@ const NavigationBase = () => {
         <NavItem>
           <StyledNavLink
             to={`/home`}
-            className={({ isActive }) => (isActive ? StyledNavLink.active : NavContainer)}
+            className={({ isActive }) => (isActive ? 'activelink' : NavContainer)}
           >
             <Icon icon="icon__baseline-home" />
             <NavItemText>Home</NavItemText>
@@ -124,7 +108,7 @@ const NavigationBase = () => {
         <NavItem>
           <StyledNavLink
             to={`/diagram`}
-            className={({ isActive }) => (isActive ? StyledNavLink.active : NavContainer)}
+            className={({ isActive }) => (isActive ? 'activelink' : NavContainer)}
           >
             <Icon icon="icon__baseline-timeline" />
             <NavItemText>Statistics</NavItemText>
@@ -134,7 +118,7 @@ const NavigationBase = () => {
         <NavItem>
           <StyledNavLink
             to={`/currency`}
-            className={({ isActive }) => (isActive ? StyledNavLink.active : NavContainer)}
+            className={({ isActive }) => (isActive ? 'activelink' : NavContainer)}
           >
             <Icon icon="icon__baseline-dolar" />
           </StyledNavLink>
