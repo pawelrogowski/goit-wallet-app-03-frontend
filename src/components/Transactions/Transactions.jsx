@@ -62,6 +62,44 @@ const TransactionsTableHead = styled.thead`
   position: sticky;
   top: 0;
   z-index: 1000;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    width: 58px;
+    height: 58px;
+  }
+
+  &:before {
+    top: 0;
+    left: 0;
+    background-color: #f1f2f7;
+  }
+
+  &:after {
+    top: 0;
+    right: 0;
+    background: #fee8e3;
+
+    @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+      background: linear-gradient(180deg, rgba(255, 232, 227, 1) 0%, rgba(251, 235, 233, 1) 100%);
+    }
+
+    @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+      background: #fee8e3;
+    }
+
+    @media (min-width: ${props => props.theme.breakpoints.extraLarge}) {
+      background-color: #f1f2f7;
+    }
+  }
+
+  & th {
+    position: relative;
+    z-index: 2;
+  }
 `;
 
 const TransactionsTableHeadRow = styled.tr`
