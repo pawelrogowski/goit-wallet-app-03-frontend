@@ -1,4 +1,9 @@
+//globalSlice.js
 import { createSlice } from '@reduxjs/toolkit';
+
+export const setError = (state, action) => {
+  state.error = action.payload;
+};
 
 export const globalSlice = createSlice({
   name: 'global',
@@ -7,6 +12,7 @@ export const globalSlice = createSlice({
     isModalLogoutOpen: false,
     isModalAddTransactionOpen: false,
     isModalEditTransactionOpen: false,
+    error: null,
   },
   reducers: {
     setIsLoading: (state, action) => {
