@@ -12,6 +12,8 @@ import { options } from './data';
 import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
 import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
+import { useDispatch } from 'react-redux';
+import { setIsModalAddTransactionOpen } from 'redux/slices/globalSlice';
 
 const Backdrop = styled.div`
   display: flex;
@@ -183,15 +185,25 @@ const ErrorText = styled(ErrorMessage)`
 
 const TransactionModal = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const dispatch = useDispatch();
 
   const handleCheckboxChange = () => {
     setIsChecked(isChecked => !isChecked);
   };
 
+  const handleCloseModal = () => {
+    dispatch(setIsModalAddTransactionOpen(false));
+  };
+  const handleBackdropClick = e => {
+    if (e.currentTarget === e.target) {
+      handleCloseModal();
+    }
+  };
+
   return (
     <Backdrop>
-      <Modal>
-        <CloseButton>
+      <Modal onClose={handleCloseModal} onClick={handleBackdropClick}>
+        <CloseButton onClick={handleCloseModal}>
           <Icon icon="icon__close" />
         </CloseButton>
         <Formik
@@ -293,7 +305,9 @@ const TransactionModal = () => {
               {/* <PrimaryButton type="submit" disabled={!isValid}>
               Add
             </PrimaryButton> */}
-              <CancelButton type="button">CANCEL</CancelButton>
+              <CancelButton type="button" onClick={handleCloseModal}>
+                CANCEL
+              </CancelButton>
             </FormikForm>
           )}
         </Formik>
