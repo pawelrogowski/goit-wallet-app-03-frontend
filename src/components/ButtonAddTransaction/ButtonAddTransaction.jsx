@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
 import { useDispatch } from 'react-redux';
-import TransactionModal from 'components/TransactionModal/TransactionModal';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { setIsModalAddTransactionOpen } from 'redux/slices/globalSlice';
+import TransactionModal from 'components/TransactionModal/TransactionModal';
+import AddTransactionModal from 'components/AddTransactionModal/AddTransactionModal';
 
 const StyledButton = styled.button`
   position: sticky;
@@ -56,7 +57,7 @@ export const ButtonAddTransaction = () => {
       <StyledButton onClick={handleOpenModal}>
         <Icon icon="icon__btn-plus" />
       </StyledButton>
-      {isModalAddTransactionOpen && <TransactionModal />}
+      {isModalAddTransactionOpen && <AddTransactionModal />}
     </>
   );
 };
