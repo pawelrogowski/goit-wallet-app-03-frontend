@@ -4,7 +4,8 @@ import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { Heading } from 'components/Heading/Heading';
 import { useEffect } from 'react';
 import { fetchTotals, fetchTransactions } from 'redux/slices/transactionSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from 'components/Loader/Loader';
 
 const Title = styled(Heading)`
   display: inline-block;
@@ -15,11 +16,19 @@ const Title = styled(Heading)`
 
 const StatisticPage = () => {
   const dispatch = useDispatch();
+  const { isLoading, error } = useSelector(state => state.transactions);
   useEffect(() => {
     dispatch(fetchTotals());
     dispatch(fetchTransactions());
   }, [dispatch]);
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return console.error(error);
+  }
   return (
     <>
       <Title as="h1">Statistics</Title>
