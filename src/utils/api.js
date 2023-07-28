@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const WalletInstance = axios.create();
 export const API_URL = 'https://wallet-lzvg.onrender.com/api';
-// export const API_URL = 'https://wallet-pr-11.onrender.com/api';
+// export const API_URL = 'https://wallet-pr-12.onrender.com/api';
 
 export const setAuthToken = () => {
   const accessToken = localStorage.getItem('accessToken');
@@ -15,17 +15,33 @@ export const setAuthToken = () => {
 setAuthToken();
 export const refreshTokens = async () => {
   const refreshToken = localStorage.getItem('refreshToken');
+  setAuthToken();
+  console.log('Refresh token:', refreshToken);
 
-  const response = await axios.post(`${API_URL}/users/refresh`, {
-    refreshToken,
-  });
+  try {
+    const response = await axios.post(`${API_URL}/users/refresh`, {
+      refreshToken,
+    });
 
-  const { accessToken, refreshToken: newRefreshToken } = response.data;
+    const { accessToken, refreshToken: newRefreshToken } = response.data;
 
-  localStorage.setItem('accessToken', accessToken);
-  localStorage.setItem('refreshToken', newRefreshToken);
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', newRefreshToken);
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  } catch (error) {
+    if (error.response.status === 401) {
+      console.log('Refresh token invalid.');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+    } else {
+      throw error;
+    }
+  }
 };
-
 let refreshInterval;
 
 const startRefreshInterval = () => {
@@ -37,7 +53,8 @@ startRefreshInterval();
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
     refreshTokens();
-    console.log('token refresh');
+    const refreshToken = localStorage.getItem('refreshToken');
+    console.log('Refresh token:', refreshToken);
     clearInterval(refreshInterval);
     refreshInterval = setInterval(refreshTokens, 5 * 60 * 1000);
   } else {
@@ -69,10 +86,9 @@ export const getUserProfile = async () => {
 };
 
 export const logoutUser = async () => {
+  await WalletInstance.get(`${API_URL}/users/logout`);
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
-
-  await WalletInstance.get(`${API_URL}/users/logout`);
 };
 
 export const createTransaction = async transactionData => {

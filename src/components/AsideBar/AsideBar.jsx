@@ -32,6 +32,7 @@ const AsideContainer = styled.aside`
     border-right: 2px solid #e7e5f2;
     box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.6);
     padding: 40px 69px 20px 16px;
+    gap: 32px;
   }
 `;
 
