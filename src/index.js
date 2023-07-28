@@ -25,7 +25,6 @@ root.render(
               the bottom, no need to wrap the App */}
             <Background />
             <App />
-            <TransactionsComponent />
           </BrowserRouter>
         </ThemeProvider>
       </PersistGate>
