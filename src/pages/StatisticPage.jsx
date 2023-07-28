@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Chart from 'components/Chart/Chart';
+// import Chart from 'components/Chart/Chart';
 import DiagramTable from 'components/DiagramTable/DiagramTable';
 import { Heading } from 'components/Heading/Heading';
 import { useEffect } from 'react';
@@ -32,7 +32,7 @@ const StatisticPage = () => {
   return (
     <>
       <Title as="h1">Statistics</Title>
-      <Chart />
+      {/* <Chart /> */}
       <DiagramTable />
     </>
   );
