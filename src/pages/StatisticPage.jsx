@@ -19,7 +19,6 @@ const StatisticPage = () => {
   const { isLoading, error } = useSelector(state => state.transactions);
   useEffect(() => {
     dispatch(fetchTotals());
-    dispatch(fetchTransactions());
   }, [dispatch]);
 
   if (isLoading) {
