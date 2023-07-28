@@ -90,6 +90,10 @@ const TransactionsTableHead = styled.thead`
     @media (min-width: ${props => props.theme.breakpoints.desktop}) {
       background: #fee8e3;
     }
+
+    @media (min-width: ${props => props.theme.breakpoints.extraLarge}) {
+      background-color: #f1f2f7;
+    }
   }
 
   & th {
