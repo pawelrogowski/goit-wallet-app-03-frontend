@@ -14,6 +14,8 @@ const ChartContainer = styled.div`
   height: 100%;
   width: 100%;
   padding: 0px;
+  min-width: 260px;
+  min-height: 260px;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 336px;
