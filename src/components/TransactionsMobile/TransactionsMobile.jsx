@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { PrimaryButton } from 'components/Buttons/Buttons';
 import { Icon } from 'components/Icon/Icon';
-import { data } from './data';
+import { useSelector, useDispatch } from 'react-redux';
 import { headers } from './data';
+import { formatDate, makeProperDate } from 'utils/formaters';
+import { removeTransaction } from 'redux/slices/transactionSlice';
 
 const TransactionsList = styled.ul`
   list-style: none;
@@ -112,41 +114,57 @@ const EditButton = styled.button`
 `;
 
 const TransactionsMobile = () => {
+  const dispatch = useDispatch();
+
+  const { transactions } = useSelector(state => state.transactions);
+
+  const sortedTransactions = transactions.slice().sort((a, b) => {
+    return makeProperDate(b.date) - makeProperDate(a.date);
+  });
+
+  const TransactionsDeleteHandler = id => {
+    dispatch(removeTransaction(id));
+  };
+
   return (
     <TransactionsList>
-      {data.map((item, index) => (
-        <TransactionsElement key={index}>
-          <TransactionList type={item.type === '+' ? 1 : 0}>
+      {sortedTransactions.map(transaction => (
+        <TransactionsElement key={transaction._id}>
+          <TransactionList type={transaction.isIncome ? 1 : 0}>
             <TransactionElement>
               <TransactionHeader>{headers[0]}</TransactionHeader>
-              <TransactionText>{item.date}</TransactionText>
+              <TransactionText>{transaction.date}</TransactionText>
             </TransactionElement>
             <TransactionElement>
               <TransactionHeader>{headers[1]}</TransactionHeader>
-              <TransactionText>{item.type}</TransactionText>
+              <TransactionText>{transaction.isIncome ? '+' : '-'}</TransactionText>
             </TransactionElement>
             <TransactionElement>
               <TransactionHeader>{headers[2]}</TransactionHeader>
-              <TransactionText>{item.category}</TransactionText>
+              <TransactionText>{transaction.category}</TransactionText>
             </TransactionElement>
             <TransactionElement>
               <TransactionHeader>{headers[3]}</TransactionHeader>
-              <TransactionText>{item.comment}</TransactionText>
+              <TransactionText>{transaction.comment}</TransactionText>
             </TransactionElement>
             <TransactionElement>
               <TransactionHeader>{headers[4]}</TransactionHeader>
               <TransactionText
                 style={{
                   color: `${
-                    item.type === '-' ? 'var(--color-brand-accent)' : 'var(--color-brand-secondary)'
+                    transaction.isIncome
+                      ? 'var(--color-brand-secondary)'
+                      : 'var(--color-brand-accent)'
                   }`,
                 }}
               >
-                {item.sum}
+                {transaction.amount}
               </TransactionText>
             </TransactionElement>
             <TransactionElement>
-              <DeleteButton>Delete</DeleteButton>
+              <DeleteButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
+                Delete
+              </DeleteButton>
               <EditButton>
                 <Icon icon="icon__edit" />
                 Edit

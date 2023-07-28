@@ -14,3 +14,8 @@ export const dateTransformer = (_, originalValue) => {
 export const getCharacterValidationError = str => {
   return `Password must have at least 1 ${str} character.`;
 };
+
+export const makeProperDate = date => {
+  const parts = date.split('-');
+  return new Date(parts[2], parts[1] - 1, parts[0]);
+};

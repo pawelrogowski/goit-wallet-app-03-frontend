@@ -3,8 +3,9 @@ import { Icon } from 'components/Icon/Icon';
 import { PrimaryButton } from 'components/Buttons/Buttons';
 import { headers } from './data';
 import { useSelector, useDispatch } from 'react-redux';
-import { formatDate } from 'utils/formaters';
+import { formatDate, makeProperDate } from 'utils/formaters';
 import { removeTransaction } from 'redux/slices/transactionSlice';
+import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 
 const TransactionContainer = styled.div`
   height: 100%;
@@ -171,10 +172,19 @@ const TransactionsBodyHeadRow = styled.tr`
 const Transactions = () => {
   const dispatch = useDispatch();
 
-  const { transactions, isLoading, error } = useSelector(state => state.transactions);
+  const { transactions } = useSelector(state => state.transactions);
+  const { isModalAddTransactionOpen } = useSelector(state => state.transactions);
+
+  const sortedTransactions = transactions.slice().sort((a, b) => {
+    return makeProperDate(b.date) - makeProperDate(a.date);
+  });
 
   const TransactionsDeleteHandler = id => {
     dispatch(removeTransaction(id));
+  };
+
+  const OpenEditModalHandler = () => {
+    dispatch(setIsModalEditTransactionOpen(true));
   };
 
   return (
@@ -188,7 +198,7 @@ const Transactions = () => {
           </TransactionsTableHeadRow>
         </TransactionsTableHead>
         <TransactionsTableBody>
-          {transactions.map(transaction => (
+          {sortedTransactions.map(transaction => (
             <TransactionsBodyHeadRow key={transaction._id}>
               <TransactionTableData>{formatDate(transaction.date)}</TransactionTableData>
               <TransactionTableData>{transaction.isIncome ? '+' : '-'}</TransactionTableData>
@@ -207,7 +217,7 @@ const Transactions = () => {
               </TransactionTableData>
               <TransactionTableData>
                 <EditButton>
-                  <Icon icon="icon__edit" />
+                  <Icon icon="icon__edit" onClick={() => OpenEditModalHandler()} />
                 </EditButton>{' '}
                 <SmallButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
                   Delete

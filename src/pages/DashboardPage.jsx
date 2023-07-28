@@ -1,14 +1,12 @@
 // import { ButtonAddTransaction } from 'components/ButtonAddTransaction/ButtonAddTransaction';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
 import { Heading } from 'components/Heading/Heading';
 import Transactions from 'components/Transactions/Transactions';
 import TransactionsMobile from 'components/TransactionsMobile/TransactionsMobile';
 import { fetchTransactions } from 'redux/slices/transactionSlice';
 import styled from 'styled-components';
 import ButtonAddTransaction from 'components/ButtonAddTransaction/ButtonAddTransaction';
-import Loader from 'components/Loader/Loader';
 
 const Title = styled(Heading)`
   display: none;
@@ -19,7 +17,6 @@ const Title = styled(Heading)`
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector(state => state.transactions);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth > 767);
 
   useEffect(() => {
@@ -38,7 +35,6 @@ const DashboardPage = () => {
   return (
     <>
       <Title as="h1">DashboardPage</Title>
-      {isLoading && !error && <Loader />}
       {windowWidth ? <Transactions /> : <TransactionsMobile />}
       <ButtonAddTransaction />
     </>
