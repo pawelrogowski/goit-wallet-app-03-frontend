@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const WalletInstance = axios.create();
-// export const API_URL = 'https://wallet-lzvg.onrender.com/api';
-export const API_URL = 'https://wallet-pr-12.onrender.com/api';
+export const API_URL = 'https://wallet-lzvg.onrender.com/api';
+// export const API_URL = 'https://wallet-pr-12.onrender.com/api';
 
 export const setAuthToken = () => {
   const accessToken = localStorage.getItem('accessToken');
