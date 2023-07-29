@@ -1,7 +1,11 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { data } from '../DiagramTable/data';
+
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchTotals } from 'redux/slices/transactionSlice';
+import { fixDigitsToTwoDecimalPlaces, formatNumberWithSpaces } from 'utils/numberUtils';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -39,10 +43,25 @@ const Balance = styled.span`
 `;
 
 const Chart = () => {
-  const labels = data.map(item => item.category);
-  const dataValues = data.map(item => parseFloat(item.sum.replace(/\s+/g, '')));
-  const backgroundColors = data.map(item => item.color);
-  const sum = dataValues.reduce((total, value) => total + value, 0).toFixed(2);
+  const dispatch = useDispatch();
+  const { totals, monthlyTotals } = useSelector(state => state.transactions);
+
+  useEffect(() => {
+    dispatch(fetchTotals());
+  }, [dispatch]);
+
+  const showTotals = monthlyTotals && monthlyTotals.totals;
+  const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
+
+  if (!dataToMap || totals.totals.length === 0) {
+    return <div>No data available.</div>;
+  }
+  const labels = dataToMap.map(item => item.category);
+  const backgroundColors = dataToMap.map(item => item.color);
+  const dataValues = dataToMap.map(item => item.sum);
+  const formatNum = num => formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
+
+  const balance = showTotals ? monthlyTotals.difference : totals.difference || 0;
 
   const chartData = {
     labels: labels,
@@ -69,7 +88,7 @@ const Chart = () => {
   return (
     <ChartContainer>
       <Doughnut data={chartData} options={options} />
-      <Balance>{sum}</Balance>
+      <Balance>$ {formatNum(balance)}</Balance>
     </ChartContainer>
   );
 };

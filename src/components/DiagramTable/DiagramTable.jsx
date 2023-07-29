@@ -1,13 +1,18 @@
 import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
-import { data } from './data';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMonthlyTotals, fetchTotals } from 'redux/slices/transactionSlice';
+import { fixDigitsToTwoDecimalPlaces, formatNumberWithSpaces } from 'utils/numberUtils';
 
 const StyledTable = styled.div`
   max-width: 395px;
   min-width: 280px;
   width: 100%;
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     max-width: 336px;
+    height: 100%;
   }
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     max-width: 395px;
@@ -58,6 +63,44 @@ const List = styled.ul`
   margin: 0;
   list-style: none;
   padding: 0;
+  height: 100%;
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    height: calc(100vh - 591px);
+  }
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    height: calc(100vh - 540px);
+  }
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-logout-button);
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--color-logout-button);
+  }
+  mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 4px, black 4px);
+  mask-size: 100% 20000px;
+  mask-position: left bottom;
+  -webkit-mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 4px, black 4px);
+  -webkit-mask-size: 100% 20000px;
+  -webkit-mask-position: left bottom;
+  transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+
+  &:hover {
+    -webkit-mask-position: left top;
+    mask-position: left top;
+  }
 `;
 
 const ListItem = styled.li`
@@ -142,17 +185,19 @@ const months = [
 const monthsOptions = months.map(option => ({
   ...option,
   label: option.name,
-  value: option.name,
+  value: option.name.toLowerCase(),
 }));
 
-const year = [
-  { year: '2019' },
-  { year: '2020' },
-  { year: '2021' },
-  { year: '2022' },
-  { year: '2023' },
-  { year: '2024' },
-];
+const currentYear = new Date().getFullYear();
+
+const getNumberRange = (start, end) => {
+  const range = [];
+  for (let i = start; i <= end; i++) {
+    range.push(i);
+  }
+  return range;
+};
+const year = getNumberRange(currentYear - 5, currentYear).map(value => ({ year: value }));
 
 const yearOptions = year.map(option => ({
   ...option,
@@ -161,37 +206,74 @@ const yearOptions = year.map(option => ({
 }));
 
 const DiagramTableBase = () => {
-  const sumExpenses = data
-    .map(item => parseFloat(item.sum.replace(/\s+/g, '')))
-    .reduce((total, value) => total + value, 0)
-    .toFixed(2);
+  const dispatch = useDispatch();
+  const { totals, monthlyTotals, transactions } = useSelector(state => state.transactions);
+  const [selectedMonth, setSelectedMonth] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
 
+  useEffect(() => {
+    dispatch(fetchTotals());
+  }, [dispatch, transactions]);
+
+  const handleMonthChange = values => {
+    setSelectedMonth(values);
+    if (selectedYear !== '') {
+      dispatch(fetchMonthlyTotals({ month: values, year: selectedYear }));
+    }
+  };
+
+  const handleYearChange = values => {
+    setSelectedYear(values);
+
+    if (selectedMonth !== '') {
+      dispatch(fetchMonthlyTotals({ month: selectedMonth, year: values }));
+    }
+  };
+
+  const showTotals = selectedMonth && selectedYear && monthlyTotals && monthlyTotals.totals;
+  const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
+
+  const sumExpenses = showTotals ? monthlyTotals.totalExpenses : totals.totalExpenses || 0;
+  const sumIncome = showTotals ? monthlyTotals.totalIncome : totals.totalIncome || 0;
+  const formatSum = num => formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
   return (
     <>
       <StyledTable className="minus-margin-top">
         <BoxInputs>
-          <InputDropdown title={'Month'} options={monthsOptions} />
-          <InputDropdown title={'Year'} options={yearOptions} />
+          <InputDropdown
+            title={'Month'}
+            options={monthsOptions}
+            onChange={([{ id }]) => handleMonthChange(id)}
+          />
+          <InputDropdown
+            title={'Year'}
+            options={yearOptions}
+            onChange={([{ value }]) => handleYearChange(value)}
+          />
         </BoxInputs>
         <BoxHeading>
           <h3>Category</h3>
           <h3>Sum</h3>
         </BoxHeading>
         <List>
-          {data.map((item, index) => (
-            <ListItem key={index}>
-              <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
-              <Category>{item.category}</Category>
-              <Sum>{item.sum}</Sum>
-            </ListItem>
-          ))}
+          {dataToMap && dataToMap.length > 0 ? (
+            dataToMap.map((item, index) => (
+              <ListItem key={index}>
+                <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
+                <Category>{item.category}</Category>
+                <Sum>{formatSum(item.sum) || 0}</Sum>
+              </ListItem>
+            ))
+          ) : (
+            <li>No data available for the selected month and year.</li>
+          )}
         </List>
         <BoxFooter>
           <Expenses>
-            Expenses: <span>{sumExpenses}</span>
+            Expenses: <span>{formatSum(sumExpenses)}</span>
           </Expenses>
           <Income>
-            Income: <span>27 350.00</span>
+            Income: <span>{formatSum(sumIncome)}</span>
           </Income>
         </BoxFooter>
       </StyledTable>

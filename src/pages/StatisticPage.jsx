@@ -6,7 +6,7 @@ import { Heading } from 'components/Heading/Heading';
 const Title = styled(Heading)`
   display: inline-block;
   padding: 0;
-  margin-bottom: 0;
+  margin: 0;
   width: 100%; // this 100% width is so the heading takes full width of a parent, pushing other elements below
 `;
 
