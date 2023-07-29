@@ -3,16 +3,19 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMonthlyTotals, fetchTotals } from 'redux/slices/transactionSlice';
+import { fixDigitsToTwoDecimalPlaces, formatNumberWithSpaces } from 'utils/numberUtils';
 
 const StyledTable = styled.div`
   max-width: 395px;
   min-width: 280px;
   width: 100%;
+
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     max-width: 336px;
   }
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     max-width: 395px;
+    height: 500px;
   }
 `;
 
@@ -60,6 +63,39 @@ const List = styled.ul`
   margin: 0;
   list-style: none;
   padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-logout-button);
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--color-logout-button);
+  }
+  mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 4px, black 4px);
+  mask-size: 100% 20000px;
+  mask-position: left bottom;
+  -webkit-mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 4px, black 4px);
+  -webkit-mask-size: 100% 20000px;
+  -webkit-mask-position: left bottom;
+  transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+
+  &:hover {
+    -webkit-mask-position: left top;
+    mask-position: left top;
+  }
 `;
 
 const ListItem = styled.li`
@@ -190,9 +226,9 @@ const DiagramTableBase = () => {
   const showTotals = selectedMonth && selectedYear && monthlyTotals && monthlyTotals.totals;
   const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
 
-  const sumExpenses = showTotals ? monthlyTotals.totalExpenses : totals.totalExpenses;
-  const sumIncome = showTotals ? monthlyTotals.totalIncome : totals.totalIncome;
-
+  const sumExpenses = showTotals ? monthlyTotals.totalExpenses : totals.totalExpenses || 0;
+  const sumIncome = showTotals ? monthlyTotals.totalIncome : totals.totalIncome || 0;
+  const formatSum = num => formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
   return (
     <>
       <StyledTable className="minus-margin-top">
@@ -218,7 +254,7 @@ const DiagramTableBase = () => {
               <ListItem key={index}>
                 <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
                 <Category>{item.category}</Category>
-                <Sum>{item.sum}</Sum>
+                <Sum>{formatSum(item.sum) || 0}</Sum>
               </ListItem>
             ))
           ) : (
@@ -227,10 +263,10 @@ const DiagramTableBase = () => {
         </List>
         <BoxFooter>
           <Expenses>
-            Expenses: <span>{sumExpenses}</span>
+            Expenses: <span>{formatSum(sumExpenses)}</span>
           </Expenses>
           <Income>
-            Income: <span>{sumIncome}</span>
+            Income: <span>{formatSum(sumIncome)}</span>
           </Income>
         </BoxFooter>
       </StyledTable>
