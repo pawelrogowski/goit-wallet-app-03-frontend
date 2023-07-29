@@ -2,7 +2,9 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchTotals } from 'redux/slices/transactionSlice';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -40,17 +42,24 @@ const Balance = styled.span`
 `;
 
 const Chart = () => {
-  const { totals } = useSelector(state => state.transactions);
+  const dispatch = useDispatch();
+  const { totals, monthlyTotals } = useSelector(state => state.transactions);
 
-  const data = totals.totals;
-  const labels = data.map(item => item.category);
-  const backgroundColors = data.map(item => item.color);
-  const dataValues = data.map(item => item.sum);
-  const balance = totals.totalExpenses;
+  useEffect(() => {
+    dispatch(fetchTotals());
+  }, [dispatch]);
 
-  if (!data || totals.totals.length === 0) {
+  const showTotals = monthlyTotals && monthlyTotals.totals;
+  const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
+
+  if (!dataToMap || totals.totals.length === 0) {
     return <div>No data available.</div>;
   }
+  const labels = dataToMap.map(item => item.category);
+  const backgroundColors = dataToMap.map(item => item.color);
+  const dataValues = dataToMap.map(item => item.sum);
+  const balance = totals.difference;
+
   const chartData = {
     labels: labels,
     datasets: [
@@ -76,7 +85,7 @@ const Chart = () => {
   return (
     <ChartContainer>
       <Doughnut data={chartData} options={options} />
-      <Balance>{balance}</Balance>
+      <Balance>$ {balance}</Balance>
     </ChartContainer>
   );
 };
