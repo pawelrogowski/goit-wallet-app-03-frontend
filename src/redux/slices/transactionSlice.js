@@ -116,6 +116,19 @@ export const fetchMonthlyTotals = createAsyncThunk(
   }
 );
 
+export const setSelectedMonth = month => {
+  return {
+    type: 'transactions/setSelectedMonth',
+    payload: month,
+  };
+};
+
+export const setSelectedYear = year => {
+  return {
+    type: 'transactions/setSelectedYear',
+    payload: year,
+  };
+};
 const startLoading = state => {
   state.isLoading = true;
 };
@@ -158,11 +171,21 @@ export const transactionsSlice = createSlice({
     },
     totals: {},
     monthlyTotals: {},
+    selectedMonth: null,
+    selectedYear: null,
     isLoading: false,
     error: null,
   },
 
-  reducers: {},
+  reducers: {
+    setSelectedMonth(state, action) {
+      state.selectedMonth = action.payload;
+    },
+
+    setSelectedYear(state, action) {
+      state.selectedYear = action.payload;
+    },
+  },
 
   extraReducers: builder => {
     builder

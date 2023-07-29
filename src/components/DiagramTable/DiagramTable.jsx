@@ -1,8 +1,13 @@
 import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMonthlyTotals, fetchTotals } from 'redux/slices/transactionSlice';
+import {
+  fetchMonthlyTotals,
+  fetchTotals,
+  setSelectedMonth,
+  setSelectedYear,
+} from 'redux/slices/transactionSlice';
 import { fixDigitsToTwoDecimalPlaces, formatNumberWithSpaces } from 'utils/numberUtils';
 
 const StyledTable = styled.div`
@@ -205,28 +210,36 @@ const yearOptions = year.map(option => ({
   value: option.year,
 }));
 
+const getFullMonthName = monthNumber => {
+  if (typeof monthNumber !== 'number' || monthNumber < 1 || monthNumber > 12) {
+    return 'Month';
+  }
+
+  const date = new Date(`2000-${monthNumber}-01`);
+  const fullMonthName = date.toLocaleString('default', { month: 'long' });
+  return fullMonthName;
+};
+
 const DiagramTableBase = () => {
   const dispatch = useDispatch();
   const { totals, monthlyTotals, transactions } = useSelector(state => state.transactions);
-  const [selectedMonth, setSelectedMonth] = useState('');
-  const [selectedYear, setSelectedYear] = useState('');
+  const { selectedMonth, selectedYear } = useSelector(state => state.transactions);
 
   useEffect(() => {
     dispatch(fetchTotals());
   }, [dispatch, transactions]);
 
-  const handleMonthChange = values => {
-    setSelectedMonth(values);
+  const handleMonthChange = month => {
+    dispatch(setSelectedMonth(month));
     if (selectedYear !== '') {
-      dispatch(fetchMonthlyTotals({ month: values, year: selectedYear }));
+      dispatch(fetchMonthlyTotals({ month: month, year: selectedYear }));
     }
   };
 
-  const handleYearChange = values => {
-    setSelectedYear(values);
-
+  const handleYearChange = year => {
+    dispatch(setSelectedYear(year));
     if (selectedMonth !== '') {
-      dispatch(fetchMonthlyTotals({ month: selectedMonth, year: values }));
+      dispatch(fetchMonthlyTotals({ month: selectedMonth, year: year }));
     }
   };
 
@@ -241,12 +254,12 @@ const DiagramTableBase = () => {
       <StyledTable className="minus-margin-top">
         <BoxInputs>
           <InputDropdown
-            title={'Month'}
+            title={selectedMonth ? getFullMonthName(selectedMonth) : 'Month'}
             options={monthsOptions}
             onChange={([{ id }]) => handleMonthChange(id)}
           />
           <InputDropdown
-            title={'Year'}
+            title={selectedYear ? selectedYear : 'Year'}
             options={yearOptions}
             onChange={([{ value }]) => handleYearChange(value)}
           />
