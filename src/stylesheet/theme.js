@@ -27,5 +27,6 @@ export const theme = {
     tabletForMaxMedia: '767px',
     desktop: '1280px',
     desktopForMaxMedia: '1279px',
+    extraLarge: '2100px',
   },
 };

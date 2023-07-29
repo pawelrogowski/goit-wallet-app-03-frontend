@@ -13,35 +13,43 @@ export const setAuthToken = () => {
   }
 };
 setAuthToken();
+
 export const refreshTokens = async () => {
+  // Get refresh token from localStorage
   const refreshToken = localStorage.getItem('refreshToken');
-  setAuthToken();
-  console.log('Refresh token:', refreshToken);
 
-  try {
-    const response = await axios.post(`${API_URL}/users/refresh`, {
-      refreshToken,
-    });
+  // Set auth token header if refresh token exists
+  if (refreshToken) {
+    setAuthToken();
+  }
 
-    const { accessToken, refreshToken: newRefreshToken } = response.data;
+  // Only make API call if we have a refresh token
+  if (refreshToken) {
+    try {
+      // Make refresh API call
+      const response = await axios.post(`${API_URL}/users/refresh`, {
+        refreshToken,
+      });
 
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', newRefreshToken);
+      // Update tokens
+      const { accessToken, refreshToken: newRefreshToken } = response.data;
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', newRefreshToken);
 
-    return {
-      accessToken,
-      refreshToken,
-    };
-  } catch (error) {
-    if (error.response.status === 401) {
-      console.log('Refresh token invalid.');
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-    } else {
-      throw error;
+      return { accessToken, refreshToken };
+    } catch (error) {
+      // Handle errors
+      if (error.response.status === 401) {
+        console.log('Refresh token invalid');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+      } else {
+        throw error;
+      }
     }
   }
 };
+
 let refreshInterval;
 
 const startRefreshInterval = () => {
@@ -54,7 +62,6 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
     refreshTokens();
     const refreshToken = localStorage.getItem('refreshToken');
-    console.log('Refresh token:', refreshToken);
     clearInterval(refreshInterval);
     refreshInterval = setInterval(refreshTokens, 5 * 60 * 1000);
   } else {

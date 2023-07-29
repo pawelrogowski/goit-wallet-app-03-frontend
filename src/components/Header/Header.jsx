@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 
 const HeaderDiv = styled.header`
   height: 60px;
+  display: flex;
   background-color: ${props => props.theme.background.light};
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
