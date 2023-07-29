@@ -23,21 +23,24 @@ const Backdrop = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  height: 100vh;
+  left: 0;
   background-color: var(--background-overlay-modal);
   transition: opacity 500ms ease-in-out, visibility 500ms ease-in-out;
   opacity: 1;
   visibility: visible;
-  padding: 15px;
   z-index: 1000;
 
   .category {
     top: 44px;
   }
 
-  @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
-    /* background-color: transparent; */
+  @media (min-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
 `;
 
@@ -160,10 +163,11 @@ const InputWrapper = styled.div`
 
 const CalendarWrapper = styled.div`
   position: relative;
+  margin-top: 2px;
 
   svg {
     position: absolute;
-    bottom: 5px;
+    bottom: 6px;
     right: 0;
     width: 24px;
     height: 24px;
@@ -173,6 +177,7 @@ const CalendarWrapper = styled.div`
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     svg {
       right: 20px;
+      bottom: 2px;
     }
   }
 `;
@@ -195,6 +200,7 @@ const AddTransactionModal = () => {
 
   const handleCloseModal = () => {
     dispatch(setIsModalAddTransactionOpen(false));
+    document.body.style.overflow = 'unset';
   };
   const handleBackdropClick = e => {
     if (e.currentTarget === e.target) {
@@ -226,6 +232,7 @@ const AddTransactionModal = () => {
       })
     ).then(() => dispatch(fetchTransactions()));
     dispatch(setIsModalAddTransactionOpen(false));
+    document.body.style.overflow = 'unset';
   };
 
   return (
