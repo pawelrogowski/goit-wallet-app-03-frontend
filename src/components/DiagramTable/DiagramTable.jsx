@@ -1,7 +1,6 @@
 //DiagramTable.jsx
 import InputDropdown from 'components/Inputs/InputDropdown';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchMonthlyTotals,
