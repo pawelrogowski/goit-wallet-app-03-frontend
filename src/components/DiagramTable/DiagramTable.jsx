@@ -188,15 +188,6 @@ const monthsOptions = months.map(option => ({
   value: option.name.toLowerCase(),
 }));
 
-const year = [
-  { year: '2019' },
-  { year: '2020' },
-  { year: '2021' },
-  { year: '2022' },
-  { year: '2023' },
-  { year: '2024' },
-];
-
 const currentYear = new Date().getFullYear();
 
 const getNumberRange = (start, end) => {
@@ -206,11 +197,7 @@ const getNumberRange = (start, end) => {
   }
   return range;
 };
-const yearOptionss = getNumberRange(currentYear - 4, currentYear).map(year => (
-  <option key={year} value={year}>
-    {year}
-  </option>
-));
+const year = getNumberRange(currentYear - 5, currentYear).map(value => ({ year: value }));
 
 const yearOptions = year.map(option => ({
   ...option,
