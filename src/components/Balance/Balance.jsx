@@ -53,7 +53,8 @@ const Balance = () => {
   const formatBalance = num => {
     if (num > 10000000) {
       return formatCompactNumber(num);
-    } else return formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
+    }
+    return formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
   };
   // Fetch totals when page is refresh and when transaction object is changed
   useEffect(() => {
