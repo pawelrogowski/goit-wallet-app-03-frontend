@@ -7,11 +7,11 @@ import { BaseInput } from 'components/Inputs/BaseInput';
 import Loader from './../Loader/Loader';
 import { useState } from 'react';
 import CategorySelect from 'components/CategorySelect/CategorySelect';
-import { options } from 'components/TransactionModal/data';
+import { options } from 'components/AddTransactionModal/data';
 import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
 import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
-import { transaction } from 'components/TransactionModal/data';
+import { transaction } from 'components/AddTransactionModal/data';
 
 const Backdrop = styled.div`
   display: flex;

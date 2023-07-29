@@ -8,13 +8,14 @@ import { BaseInput } from 'components/Inputs/BaseInput';
 import Loader from './../Loader/Loader';
 import { useEffect, useState } from 'react';
 import CategorySelect from 'components/CategorySelect/CategorySelect';
-import { options } from 'components/TransactionModal/data';
+import { options } from 'components/AddTransactionModal/data';
 import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
 import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
 import { useDispatch } from 'react-redux';
 import { setIsModalAddTransactionOpen } from 'redux/slices/globalSlice';
 import { addTransaction, fetchTransactions } from 'redux/slices/transactionSlice';
+import Textarea from 'components/Inputs/Textarea';
 
 const Backdrop = styled.div`
   display: flex;
@@ -214,13 +215,14 @@ const AddTransactionModal = () => {
   });
 
   const handleSubmit = values => {
+    console.log(values);
     dispatch(
       addTransaction({
         amount: values.value,
         comment: values.comment,
         date: values.date,
-        category: values.category,
-        isIncome: true || false,
+        category: values.category.label,
+        isIncome: isChecked,
       })
     ).then(() => dispatch(fetchTransactions()));
     dispatch(setIsModalAddTransactionOpen(false));
@@ -313,15 +315,12 @@ const AddTransactionModal = () => {
                 </CalendarWrapper>
               </TwoColumnRow>
               <InputWrapper>
-                <BaseInput
+                <Textarea
                   placeholder="Comment"
                   title="Please describe your transaction."
                   name="comment"
                   type="text"
                   autoComplete="off"
-                  value={values.comment}
-                  onChange={comment => setFieldValue('comment', comment.target.value)}
-                  onBlur={comment => setFieldValue('comment', comment.target.value)}
                 />
                 <ErrorText name="comment" component="div" />
               </InputWrapper>

@@ -2,6 +2,7 @@ import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import styled from 'styled-components';
 import { useField } from 'formik';
+import moment from 'moment';
 
 const StyledDatetime = styled(Datetime)`
   input {
@@ -44,14 +45,15 @@ const StyledDatetime = styled(Datetime)`
 `;
 
 const DatetimePicker = ({ ...props }) => {
-  const [field, helpers] = useField(props);
+  const [field, , helpers] = useField(props);
+
   return (
     <StyledDatetime
       {...field}
       {...props}
       selected={field.value}
       onChange={value => {
-        helpers.setValue(value._d);
+        helpers.setValue(moment(value).format('DD.MM.YYYY'));
       }}
     />
   );
