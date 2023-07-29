@@ -160,7 +160,7 @@ const yearOptions = year.map(option => ({
   value: option.year,
 }));
 
-const DiagramTable = () => {
+const DiagramTableBase = () => {
   const sumExpenses = data
     .map(item => parseFloat(item.sum.replace(/\s+/g, '')))
     .reduce((total, value) => total + value, 0)
@@ -168,7 +168,7 @@ const DiagramTable = () => {
 
   return (
     <>
-      <StyledTable>
+      <StyledTable className="minus-margin-top">
         <BoxInputs>
           <InputDropdown title={'Month'} options={monthsOptions} />
           <InputDropdown title={'Year'} options={yearOptions} />
@@ -198,5 +198,5 @@ const DiagramTable = () => {
     </>
   );
 };
-
+const DiagramTable = styled(DiagramTableBase)``;
 export default DiagramTable;
