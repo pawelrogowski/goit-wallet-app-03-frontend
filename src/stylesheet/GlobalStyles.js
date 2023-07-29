@@ -28,7 +28,7 @@ export const GlobalStyles = createGlobalStyle`
     .minus-margin-top {
       margin-top: 0;
       @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-        margin-top: -82px;
+        margin-top: -60px;
       }
       @media (min-width: ${props => props.theme.breakpoints.desktop}) {
         margin-top: 0;
