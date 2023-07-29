@@ -12,10 +12,10 @@ const StyledTable = styled.div`
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     max-width: 336px;
+    height: 100%;
   }
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     max-width: 395px;
-    height: 500px;
   }
 `;
 
@@ -64,8 +64,13 @@ const List = styled.ul`
   list-style: none;
   padding: 0;
   height: 100%;
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    height: calc(100vh - 591px);
+  }
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    height: calc(100vh - 540px);
+  }
   overflow-y: auto;
-  width: 100%;
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -191,6 +196,21 @@ const year = [
   { year: '2023' },
   { year: '2024' },
 ];
+
+const currentYear = new Date().getFullYear();
+
+const getNumberRange = (start, end) => {
+  const range = [];
+  for (let i = start; i <= end; i++) {
+    range.push(i);
+  }
+  return range;
+};
+const yearOptionss = getNumberRange(currentYear - 4, currentYear).map(year => (
+  <option key={year} value={year}>
+    {year}
+  </option>
+));
 
 const yearOptions = year.map(option => ({
   ...option,
