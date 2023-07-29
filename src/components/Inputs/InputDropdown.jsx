@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { keyframes, css } from '@emotion/react';
 import Select from 'react-dropdown-select';
@@ -85,16 +84,12 @@ const StyledSelect = styled(Select)`
 `;
 
 const InputDropdown = ({ options, title, onChange }) => {
-  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-  const [open, setOpen] = useState(null);
-
   return (
     <StyledSelect
       searchable={false}
       placeholder={title}
       options={options}
       values={[]}
-      isOpen={open}
       onChange={onChange}
       dropdownGap={-2}
       keepSelectedInList={true}
@@ -103,13 +98,6 @@ const InputDropdown = ({ options, title, onChange }) => {
           {state.dropdown ? <Icon icon="icon__arrow-down" /> : <Icon icon="icon__arrow-up" />}
         </span>
       )}
-      onDropdownCloseRequest={({ close }) => {
-        setOpen(true);
-        sleep(300).then(() => {
-          close();
-          setOpen(false);
-        });
-      }}
     />
   );
 };
