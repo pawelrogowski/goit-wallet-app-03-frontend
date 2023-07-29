@@ -20,4 +20,9 @@ export const GlobalStyles = createGlobalStyle`
         }
       }
     }
+    .Toastify__toast {
+      border-radius: 12px;
+      background-color: var(--background-light);
+      font-family: Circe;
+    }
 `;

@@ -26,7 +26,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
-      <ToastContainer/>
+      <ToastContainer position="top-center" autoClose={2500} pauseOnHover="false" />
     </Suspense>
   );
 };

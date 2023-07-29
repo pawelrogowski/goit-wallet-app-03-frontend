@@ -1,5 +1,5 @@
-//transactionsSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import {
   getTransactions,
   createTransaction,
@@ -15,8 +15,8 @@ export const fetchTransactions = createAsyncThunk('transactions/fetchTransaction
     const response = await getTransactions();
     return response;
   } catch (error) {
-    if (error.response && error.response.data) {
-      throw new Error(error.response.data);
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
     } else {
       throw error;
     }
@@ -30,8 +30,8 @@ export const addTransaction = createAsyncThunk(
       const response = await createTransaction(transactionData);
       return response;
     } catch (error) {
-      if (error.response && error.response.data) {
-        throw new Error(error.response.data);
+      if (error.response && error.response.data && error.response.data.error) {
+        throw new Error(error.response.data.error);
       } else {
         throw error;
       }
@@ -46,8 +46,8 @@ export const removeTransaction = createAsyncThunk(
       await deleteTransaction(transactionId);
       return transactionId;
     } catch (error) {
-      if (error.response && error.response.data) {
-        throw new Error(error.response.data);
+      if (error.response && error.response.data && error.response.data.error) {
+        throw new Error(error.response.data.error);
       } else {
         throw error;
       }
@@ -62,8 +62,8 @@ export const editTransaction = createAsyncThunk(
       const response = await updateTransaction(id, updatedData);
       return response;
     } catch (error) {
-      if (error.response && error.response.data) {
-        throw new Error(error.response.data);
+      if (error.response && error.response.data && error.response.data.error) {
+        throw new Error(error.response.data.error);
       } else {
         throw error;
       }
@@ -71,17 +71,15 @@ export const editTransaction = createAsyncThunk(
   }
 );
 
-// transactionSlice.js
 export const fetchFilteredTransactions = createAsyncThunk(
   'transactions/fetchFilteredTransactions',
   async ({ month, year }) => {
-    // Accept month and year as an object
     try {
       const response = await filterTransactions(month, year);
       return response;
     } catch (error) {
-      if (error.response && error.response.data) {
-        throw new Error(error.response.data);
+      if (error.response && error.response.data && error.response.data.error) {
+        throw new Error(error.response.data.error);
       } else {
         throw error;
       }
@@ -94,8 +92,8 @@ export const fetchTotals = createAsyncThunk('transactions/fetchTotals', async ()
     const response = await getCategoryTotals();
     return response;
   } catch (error) {
-    if (error.response && error.response.data) {
-      throw new Error(error.response.data);
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
     } else {
       throw error;
     }
@@ -109,8 +107,8 @@ export const fetchMonthlyTotals = createAsyncThunk(
       const response = await getMonthlyCategoryTotals(month, year);
       return response;
     } catch (error) {
-      if (error.response && error.response.data) {
-        throw new Error(error.response.data);
+      if (error.response && error.response.data && error.response.data.error) {
+        throw new Error(error.response.data.error);
       } else {
         throw error;
       }
@@ -118,7 +116,6 @@ export const fetchMonthlyTotals = createAsyncThunk(
   }
 );
 
-// some helpers keep it DRY
 const startLoading = state => {
   state.isLoading = true;
 };
@@ -137,11 +134,14 @@ const handleError = (state, action) => {
 
   if (action.payload) {
     state.error = action.payload;
+
+    toast.error(action.payload);
   } else {
     state.error = action.error.message;
+
+    toast.error(action.error.message);
   }
 };
-
 export const transactionsSlice = createSlice({
   name: 'transactions',
 

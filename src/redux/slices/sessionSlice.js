@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import {
   registerUser,
   loginUser,
@@ -15,10 +16,11 @@ export const register = createAsyncThunk('session/register', async userData => {
     return { token: response.token, user: response.user };
   } catch (error) {
     if (error.response && error.response.data && error.response.data.error) {
-      throw new Error(error.response.data.error);
+      toast.error(error.response.data.error);
     } else {
-      throw error;
+      toast.error('An unexpected error occurred during registration.');
     }
+    throw error;
   }
 });
 
@@ -28,10 +30,11 @@ export const login = createAsyncThunk('session/login', async loginData => {
     return response;
   } catch (error) {
     if (error.response && error.response.data && error.response.data.error) {
-      throw new Error(error.response.data.error);
+      toast.error(error.response.data.error);
     } else {
-      throw error;
+      toast.error('An unexpected error occurred during login.');
     }
+    throw error;
   }
 });
 
@@ -40,10 +43,11 @@ export const logout = createAsyncThunk('session/logout', async () => {
     await logoutUser();
   } catch (error) {
     if (error.response && error.response.data) {
-      throw new Error(error.response.data.error);
+      toast.error(error.response.data.error);
     } else {
-      throw error;
+      toast.error('An unexpected error occurred during logout.');
     }
+    throw error;
   }
 });
 
@@ -53,10 +57,11 @@ export const fetchUserProfile = createAsyncThunk('users/fetchUserProfile', async
     return response;
   } catch (error) {
     if (error.response && error.response.data && error.response.data.error) {
-      throw new Error(error.response.data.error);
+      toast.error(error.response.data.error);
     } else {
-      throw error;
+      toast.error('An unexpected error occurred while fetching user profile.');
     }
+    throw error;
   }
 });
 
@@ -65,11 +70,10 @@ export const refreshAccessToken = createAsyncThunk('session/refreshAccessToken',
     const response = await refreshTokens();
     return response;
   } catch (error) {
-    console.log(error);
+    toast.error('An unexpected error occurred while refreshing access token.');
     throw error;
   }
 });
-
 export const sessionSlice = createSlice({
   name: 'session',
 
