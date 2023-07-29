@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTotals } from 'redux/slices/transactionSlice';
 import styled from 'styled-components';
-import { fixDigitsToTwoDecimalPlaces } from 'utils/numberUtils';
+import { fixDigitsToTwoDecimalPlaces, formatNumberWithSpaces } from 'utils/numberUtils';
 const BalanceSection = styled.div`
   max-width: 395px;
   min-width: 280px;
@@ -46,6 +46,7 @@ const Balance = () => {
   const { totals, transactions } = useSelector(state => state.transactions);
   const balance = totals.difference || 0;
 
+  const formatBalance = num => formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
   // Fetch totals when page is refresh and when transaction object is changed
   useEffect(() => {
     dispatch(fetchTotals());
@@ -55,7 +56,7 @@ const Balance = () => {
     <BalanceSection>
       <BalanceParagraph>Your Balance</BalanceParagraph>
       <AmountParagraph>
-        <DollarHolder>$</DollarHolder> {fixDigitsToTwoDecimalPlaces(balance)}
+        <DollarHolder>$</DollarHolder> {formatBalance(balance)}
       </AmountParagraph>
     </BalanceSection>
   );
