@@ -164,13 +164,13 @@ const yearOptions = year.map(option => ({
 
 const DiagramTableBase = () => {
   const dispatch = useDispatch();
-  const { totals, monthlyTotals, error } = useSelector(state => state.transactions);
+  const { totals, monthlyTotals, transactions } = useSelector(state => state.transactions);
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
 
   useEffect(() => {
     dispatch(fetchTotals());
-  }, [dispatch]);
+  }, [dispatch, transactions]);
 
   const handleMonthChange = values => {
     setSelectedMonth(values);
@@ -186,10 +186,6 @@ const DiagramTableBase = () => {
       dispatch(fetchMonthlyTotals({ month: selectedMonth, year: values }));
     }
   };
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   const showTotals = selectedMonth && selectedYear && monthlyTotals && monthlyTotals.totals;
   const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
