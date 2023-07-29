@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTotals } from 'redux/slices/transactionSlice';
 import styled from 'styled-components';
-
+import { fixDigitsToTwoDecimalPlaces } from 'utils/numberUtils';
 const BalanceSection = styled.div`
   max-width: 395px;
   min-width: 280px;
@@ -44,7 +44,7 @@ const DollarHolder = styled.span`
 const Balance = () => {
   const dispatch = useDispatch();
   const { totals, transactions } = useSelector(state => state.transactions);
-  const balance = totals.difference;
+  const balance = totals.difference || 0;
 
   // Fetch totals when page is refresh and when transaction object is changed
   useEffect(() => {
@@ -55,7 +55,7 @@ const Balance = () => {
     <BalanceSection>
       <BalanceParagraph>Your Balance</BalanceParagraph>
       <AmountParagraph>
-        <DollarHolder>$</DollarHolder> {balance}
+        <DollarHolder>$</DollarHolder> {fixDigitsToTwoDecimalPlaces(balance)}
       </AmountParagraph>
     </BalanceSection>
   );
