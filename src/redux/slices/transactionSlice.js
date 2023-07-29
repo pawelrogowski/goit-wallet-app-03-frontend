@@ -197,10 +197,6 @@ export const transactionsSlice = createSlice({
     filteredTransactions: [],
     totals: {},
     monthlyTotals: {},
-    selectedMonth: null,
-    selectedYear: null,
-    isLoading: false,
-    error: null,
   },
 
   reducers: {
