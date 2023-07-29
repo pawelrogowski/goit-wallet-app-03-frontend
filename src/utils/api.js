@@ -61,7 +61,6 @@ startRefreshInterval();
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
     refreshTokens();
-    const refreshToken = localStorage.getItem('refreshToken');
     clearInterval(refreshInterval);
     refreshInterval = setInterval(refreshTokens, 5 * 60 * 1000);
   } else {

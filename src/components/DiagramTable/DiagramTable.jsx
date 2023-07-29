@@ -162,7 +162,7 @@ const yearOptions = year.map(option => ({
   value: option.year,
 }));
 
-const DiagramTable = () => {
+const DiagramTableBase = () => {
   const dispatch = useDispatch();
   const { totals, monthlyTotals, error } = useSelector(state => state.transactions);
   const [selectedMonth, setSelectedMonth] = useState('');
@@ -199,7 +199,7 @@ const DiagramTable = () => {
 
   return (
     <>
-      <StyledTable>
+      <StyledTable className="minus-margin-top">
         <BoxInputs>
           <InputDropdown
             title={'Month'}
@@ -241,5 +241,5 @@ const DiagramTable = () => {
     </>
   );
 };
-
+const DiagramTable = styled(DiagramTableBase)``;
 export default DiagramTable;

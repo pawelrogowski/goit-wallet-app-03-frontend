@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTotals } from 'redux/slices/transactionSlice';
 import styled from 'styled-components';
 
 const BalanceSection = styled.div`
@@ -38,14 +41,21 @@ const DollarHolder = styled.span`
   font-weight: 400;
 `;
 
-const getBalance = 15000;
-
 const Balance = () => {
+  const dispatch = useDispatch();
+  const { totals, transactions } = useSelector(state => state.transactions);
+  const balance = totals.difference;
+
+  // Fetch totals when page is refresh and when transaction object is changed
+  useEffect(() => {
+    dispatch(fetchTotals());
+  }, [dispatch, transactions]);
+
   return (
     <BalanceSection>
       <BalanceParagraph>Your Balance</BalanceParagraph>
       <AmountParagraph>
-        <DollarHolder>$</DollarHolder> {getBalance}
+        <DollarHolder>$</DollarHolder> {balance}
       </AmountParagraph>
     </BalanceSection>
   );

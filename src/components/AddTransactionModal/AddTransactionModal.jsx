@@ -6,14 +6,16 @@ import { object, string, date, bool, mixed, number } from 'yup';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { BaseInput } from 'components/Inputs/BaseInput';
 import Loader from './../Loader/Loader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CategorySelect from 'components/CategorySelect/CategorySelect';
-import { options } from './data';
+import { options } from 'components/AddTransactionModal/data';
 import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
 import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
 import { useDispatch } from 'react-redux';
 import { setIsModalAddTransactionOpen } from 'redux/slices/globalSlice';
+import { addTransaction, fetchTransactions } from 'redux/slices/transactionSlice';
+import Textarea from 'components/Inputs/Textarea';
 
 const Backdrop = styled.div`
   display: flex;
@@ -183,7 +185,7 @@ const ErrorText = styled(ErrorMessage)`
   color: var(--color-brand-accent);
 `;
 
-const TransactionModal = () => {
+const AddTransactionModal = () => {
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useDispatch();
 
@@ -199,10 +201,36 @@ const TransactionModal = () => {
       handleCloseModal();
     }
   };
+  const escKeyDown = e => {
+    if (e.code === 'Escape') {
+      handleCloseModal();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', escKeyDown);
+    return () => {
+      document.removeEventListener('keydown', escKeyDown);
+    };
+  });
+
+  const handleSubmit = values => {
+    console.log(values);
+    dispatch(
+      addTransaction({
+        amount: values.value,
+        comment: values.comment,
+        date: values.date,
+        category: values.category.label,
+        isIncome: isChecked,
+      })
+    ).then(() => dispatch(fetchTransactions()));
+    dispatch(setIsModalAddTransactionOpen(false));
+  };
 
   return (
-    <Backdrop>
-      <Modal onClose={handleCloseModal} onClick={handleBackdropClick}>
+    <Backdrop onClose={handleCloseModal} onClick={handleBackdropClick}>
+      <Modal>
         <CloseButton onClick={handleCloseModal}>
           <Icon icon="icon__close" />
         </CloseButton>
@@ -231,7 +259,7 @@ const TransactionModal = () => {
             comment: string().notRequired(),
           })}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            console.log(values);
+            handleSubmit(values);
             resetForm();
             setSubmitting(false);
           }}
@@ -265,7 +293,7 @@ const TransactionModal = () => {
                   <BaseInput
                     placeholder="0.00"
                     title="Please put the transaction value"
-                    name="value"
+                    name="amount"
                     type="text"
                     autoComplete="off"
                     value={values.value}
@@ -287,15 +315,12 @@ const TransactionModal = () => {
                 </CalendarWrapper>
               </TwoColumnRow>
               <InputWrapper>
-                <BaseInput
+                <Textarea
                   placeholder="Comment"
                   title="Please describe your transaction."
                   name="comment"
                   type="text"
                   autoComplete="off"
-                  value={values.comment}
-                  onChange={comment => setFieldValue('comment', comment.target.value)}
-                  onBlur={comment => setFieldValue('comment', comment.target.value)}
                 />
                 <ErrorText name="comment" component="div" />
               </InputWrapper>
@@ -316,4 +341,4 @@ const TransactionModal = () => {
   );
 };
 
-export default TransactionModal;
+export default AddTransactionModal;
