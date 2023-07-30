@@ -11,7 +11,7 @@ import { options } from 'components/AddTransactionModal/data';
 import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
 import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
-import { transaction } from 'components/AddTransactionModal/data';
+import { transaction } from 'components/EditTransactionModal/data';
 
 const Backdrop = styled.div`
   display: flex;
@@ -19,6 +19,7 @@ const Backdrop = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: var(--background-overlay-modal);
@@ -182,11 +183,12 @@ const ErrorText = styled(ErrorMessage)`
 `;
 
 const IncomeSpan = styled.span`
-  color: ${props => (props.active ? 'var(--color-brand-secondary)' : 'var(--color-logout-button)')};
+  color: ${props =>
+    props.$active ? 'var(--color-brand-secondary)' : 'var(--color-logout-button)'};
 `;
 
 const ExpenseSpan = styled.span`
-  color: ${props => (props.active ? 'var(--color-brand-accent)' : 'var(--color-logout-button)')};
+  color: ${props => (props.$active ? 'var(--color-brand-accent)' : 'var(--color-logout-button)')};
 `;
 
 const TransactionTypeDiv = styled.div`
