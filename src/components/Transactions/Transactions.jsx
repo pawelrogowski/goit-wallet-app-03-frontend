@@ -215,7 +215,6 @@ const Transactions = () => {
 
   const handleOpenEditModal = () => {
     dispatch(setIsModalEditTransactionOpen(true));
-    console.log('handling open edit');
   };
 
   const { transactions } = useSelector(state => state.transactions);
@@ -260,9 +259,10 @@ const Transactions = () => {
                 <TransactionTableData>
                   <EditButton
                     type="button"
-                    onClick={
-                      (() => dispatch(setTransactionToEdit(transaction)), handleOpenEditModal)
-                    }
+                    onClick={() => {
+                      dispatch(setTransactionToEdit(transaction));
+                      handleOpenEditModal();
+                    }}
                   >
                     <Icon icon="icon__edit" />
                   </EditButton>

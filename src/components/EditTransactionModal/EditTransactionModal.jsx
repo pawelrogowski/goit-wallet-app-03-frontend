@@ -5,7 +5,6 @@ import { object, string, date, bool, mixed, number } from 'yup';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { BaseInput } from 'components/Inputs/BaseInput';
 import Loader from './../Loader/Loader';
-import { useState } from 'react';
 import CategorySelect from 'components/CategorySelect/CategorySelect';
 import { options } from 'components/AddTransactionModal/data';
 import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
@@ -211,6 +210,11 @@ const TransactionTypeDiv = styled.div`
 
 const EditTransactionModal = () => {
   const dispatch = useDispatch();
+
+  const selectedTransactionToEdit = useSelector(
+    state => state.transactions.currentTransactionToEdit
+  );
+
   const handleCloseEditModal = () => {
     dispatch(setIsModalEditTransactionOpen(false));
     console.log('handling close edit');
@@ -224,11 +228,11 @@ const EditTransactionModal = () => {
         </CloseButton>
         <Formik
           initialValues={{
-            type: transaction.isIncome,
-            category: transaction.category,
-            value: transaction.amount,
-            date: `${formatDate(transaction.date)}`,
-            comment: transaction.comment,
+            type: selectedTransactionToEdit.isIncome,
+            category: selectedTransactionToEdit.category,
+            value: selectedTransactionToEdit.amount,
+            date: `${formatDate(selectedTransactionToEdit.date)}`,
+            comment: selectedTransactionToEdit.comment,
           }}
           validationSchema={object({
             type: bool(),
