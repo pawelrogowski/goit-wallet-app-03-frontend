@@ -4,7 +4,8 @@ import { Icon } from 'components/Icon/Icon';
 import { LogoButton } from 'components/Buttons/Buttons';
 import ModalLogout from 'components/ModalLogout/ModalLogout';
 import { Container } from 'components/Container/Container';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsModalLogoutOpen } from 'redux/slices/globalSlice';
 
 const HeaderDiv = styled.header`
   height: 60px;
@@ -90,35 +91,13 @@ const LogoutDiv = styled.div`
 `;
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector(state => state.session.user);
-
-  //trimming to 10 characters so it doesnt show scrollbars on mobile
+  const dispatch = useDispatch();
   const trimmedUserName = user.name.length > 10 ? user.name.slice(0, 10) + '...' : user.name;
 
   const openModal = () => {
-    setIsModalOpen(true);
+    dispatch(setIsModalLogoutOpen(true));
   };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    const handleEscapeKey = e => {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
-    };
-
-    if (isModalOpen) {
-      window.addEventListener('keydown', handleEscapeKey);
-    }
-
-    return () => {
-      window.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [isModalOpen]);
 
   return (
     <HeaderDiv>
@@ -135,7 +114,6 @@ const Header = () => {
             <Icon icon="icon__exit"></Icon>
             <span className="exitText">Exit</span>
           </button>
-          {isModalOpen && <ModalLogout onClose={closeModal} />}
         </LogoutDiv>
       </ContainerHeader>
     </HeaderDiv>
