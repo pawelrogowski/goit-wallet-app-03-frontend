@@ -12,6 +12,8 @@ import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
 import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
 import { transaction } from 'components/EditTransactionModal/data';
+import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Backdrop = styled.div`
   display: flex;
@@ -208,10 +210,16 @@ const TransactionTypeDiv = styled.div`
 `;
 
 const EditTransactionModal = () => {
+  const dispatch = useDispatch();
+  const handleCloseEditModal = () => {
+    dispatch(setIsModalEditTransactionOpen(false));
+    console.log('handling close edit');
+  };
+
   return (
     <Backdrop>
       <Modal>
-        <CloseButton>
+        <CloseButton onClick={handleCloseEditModal}>
           <Icon icon="icon__close" />
         </CloseButton>
         <Formik
@@ -318,7 +326,9 @@ const EditTransactionModal = () => {
               {/* <PrimaryButton type="submit" disabled={!isValid}>
               Add
             </PrimaryButton> */}
-              <CancelButton type="button">CANCEL</CancelButton>
+              <CancelButton onClick={handleCloseEditModal} type="button">
+                CANCEL
+              </CancelButton>
             </FormikForm>
           )}
         </Formik>
