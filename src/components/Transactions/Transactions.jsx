@@ -7,7 +7,7 @@ import { formatDate, makeProperDate } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
 
 const TransactionContainer = styled.div`
-  height: 100%;
+  height: calc(100% - 32px);
   overflow-y: auto;
   width: 100%;
   &::-webkit-scrollbar {

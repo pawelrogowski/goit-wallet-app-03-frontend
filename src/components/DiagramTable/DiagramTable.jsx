@@ -69,11 +69,12 @@ const List = styled.ul`
   list-style: none;
   padding: 0;
   height: 100%;
+  max-height: 470px;
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    height: calc(100vh - 591px);
+    max-height: calc(100vh - 591px);
   }
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    height: calc(100vh - 540px);
+    max-height: calc(100vh - 46px - 80px - 70px - 58px - 100px - 137px);
   }
   overflow-y: auto;
 

@@ -1,46 +1,12 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchTotals } from 'redux/slices/transactionSlice';
 import { fixDigitsToTwoDecimalPlaces, formatNumberWithSpaces } from 'utils/numberUtils';
+import { ChartContainer, Balance } from './Chart.styled';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-const ChartContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  padding: 0px;
-
-  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    width: 336px;
-    height: 336px;
-  }
-
-  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    width: 288px;
-    height: 288px;
-  }
-`;
-
-const Balance = styled.span`
-  font-size: 18px;
-  font-weight: 700;
-  font-family: 'Circe';
-  font-style: normal;
-  line-height: normal;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
 
 const Chart = () => {
   const dispatch = useDispatch();
@@ -71,13 +37,15 @@ const Chart = () => {
         data: dataValues,
         backgroundColor: backgroundColors,
         borderWidth: 0,
+        weight: 1,
       },
     ],
   };
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
+
     plugins: {
       legend: {
         display: false,
