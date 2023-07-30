@@ -10,7 +10,6 @@ import { options } from 'components/AddTransactionModal/data';
 import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
 import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
-import { transaction } from 'components/EditTransactionModal/data';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -217,7 +216,6 @@ const EditTransactionModal = () => {
 
   const handleCloseEditModal = () => {
     dispatch(setIsModalEditTransactionOpen(false));
-    console.log('handling close edit');
   };
 
   return (
@@ -262,23 +260,16 @@ const EditTransactionModal = () => {
             <FormikForm>
               <Heading>Edit transaction</Heading>
               {isSubmitting && <Loader />}
-              {/* <Switch
-                name="type"
-                checked={isIncome}
-                onClick={handleCheckboxChange}
-                type="checkbox"
-              /> */}
+
               <TransactionTypeDiv>
-                <IncomeSpan $active={transaction.isIncome}>Income</IncomeSpan>
+                <IncomeSpan $active={selectedTransactionToEdit.isIncome}>Income</IncomeSpan>
                 <Icon icon="icon__slash"></Icon>
-                <ExpenseSpan $active={!transaction.isIncome}>Expense</ExpenseSpan>
+                <ExpenseSpan $active={!selectedTransactionToEdit.isIncome}>Expense</ExpenseSpan>
               </TransactionTypeDiv>
-              {!transaction.isIncome && (
+              {!selectedTransactionToEdit.isIncome && (
                 <InputWrapper>
                   <CategorySelect
                     name="category"
-                    placeholder="Select a category"
-                    value={values.category}
                     onChange={category => setFieldValue('category', category)}
                     options={options}
                   />
