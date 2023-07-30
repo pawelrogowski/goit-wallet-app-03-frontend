@@ -4,7 +4,7 @@ import { Icon } from 'components/Icon/Icon';
 import { useSelector, useDispatch } from 'react-redux';
 import { headers } from './data';
 import { formatDate, makeProperDate } from 'utils/formaters';
-import { removeTransaction } from 'redux/slices/transactionSlice';
+import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
 
 const TransactionsList = styled.ul`
   list-style: none;
@@ -165,7 +165,7 @@ const TransactionsMobile = () => {
               <DeleteButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
                 Delete
               </DeleteButton>
-              <EditButton>
+              <EditButton type="button" onClick={() => dispatch(setTransactionToEdit(transaction))}>
                 <Icon icon="icon__edit" />
                 Edit
               </EditButton>

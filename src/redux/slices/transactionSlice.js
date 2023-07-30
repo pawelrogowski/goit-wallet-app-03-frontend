@@ -10,10 +10,24 @@ import {
   getMonthlyCategoryTotals,
 } from '../../utils/api';
 
+const filterTransaction = transaction => {
+  const { _id, amount, date, isIncome, category, comment } = transaction;
+
+  return {
+    _id,
+    amount,
+    date,
+    isIncome,
+    category,
+    comment,
+  };
+};
+
 export const fetchTransactions = createAsyncThunk('transactions/fetchTransactions', async () => {
   try {
     const response = await getTransactions();
-    return response;
+    const filtered = response.map(filterTransaction);
+    return filtered;
   } catch (error) {
     if (error.response && error.response.data && error.response.data.error) {
       throw new Error(error.response.data.error);
@@ -129,6 +143,14 @@ export const setSelectedYear = year => {
     payload: year,
   };
 };
+
+export const setTransactionToEdit = transaction => {
+  return {
+    type: 'transactions/setTransactionToEdit',
+    payload: transaction,
+  };
+};
+
 const startLoading = state => {
   state.isLoading = true;
 };
@@ -159,31 +181,34 @@ export const transactionsSlice = createSlice({
   name: 'transactions',
 
   initialState: {
-    transactions: [],
-    filteredTransactions: [],
+    selectedMonth: null,
+    selectedYear: null,
+    isLoading: false,
+    error: null,
     currentTransactionToEdit: {
-      id: null,
+      _id: null,
       amount: 0,
       date: '',
       isIncome: false,
       category: '',
       comment: '',
     },
+    transactions: [],
+    filteredTransactions: [],
     totals: {},
     monthlyTotals: {},
-    selectedMonth: null,
-    selectedYear: null,
-    isLoading: false,
-    error: null,
   },
 
   reducers: {
     setSelectedMonth(state, action) {
       state.selectedMonth = action.payload;
     },
-
     setSelectedYear(state, action) {
       state.selectedYear = action.payload;
+    },
+
+    setTransactionToEdit(state, action) {
+      state.currentTransactionToEdit = action.payload;
     },
   },
 

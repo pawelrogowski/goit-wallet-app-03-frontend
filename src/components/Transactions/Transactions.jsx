@@ -4,7 +4,7 @@ import { PrimaryButton } from 'components/Buttons/Buttons';
 import { headers } from './data';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatDate, makeProperDate } from 'utils/formaters';
-import { removeTransaction } from 'redux/slices/transactionSlice';
+import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
 
 const TransactionContainer = styled.div`
   height: 100%;
@@ -248,10 +248,16 @@ const Transactions = () => {
                 {transaction.amount}
               </TransactionTableData>
               <TransactionTableData>
-                <EditButton>
+                <EditButton
+                  type="button"
+                  onClick={() => dispatch(setTransactionToEdit(transaction))}
+                >
                   <Icon icon="icon__edit" />
-                </EditButton>{' '}
-                <SmallButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
+                </EditButton>
+                <SmallButton
+                  type="button"
+                  onClick={() => TransactionsDeleteHandler(transaction._id)}
+                >
                   Delete
                 </SmallButton>
               </TransactionTableData>
