@@ -14,13 +14,15 @@ export const BaseButton = styled.button`
   border: none;
   letter-spacing: 1.8px;
   padding-left: 8px;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: Circe;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   color: var(--font-color-light);
-  line-height: 1.33;
+  line-height: 1;
   transition: background-color 150ms;
 
   &:hover {
