@@ -191,6 +191,7 @@ const EditButton = styled.button`
 `;
 
 const SmallButton = styled(PrimaryButton)`
+  display: inline-block;
   width: 67px;
   height: 26px;
   color: var(--background-light);

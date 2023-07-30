@@ -1,11 +1,4 @@
 import styled from 'styled-components';
-import Logo from 'components/Logo/Logo';
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-//Example Ussage:
-
-/* <PrimaryButton type="button">LOG IN</PrimaryButton>
-<SecondaryButton type="button">REGISTER</SecondaryButton> */
 
 export const BaseButton = styled.button`
   width: 280px;
@@ -67,18 +60,3 @@ export const SecondaryButton = styled(PrimaryButton)`
     color: var(--font-color-light);
   }
 `;
-
-export const StyledNavLink = styled(NavLink)`
-  padding: 0;
-  margin: 0;
-  text-decoration: none;
-  color: var(--font-color-dark);
-`;
-
-export const LogoButton = () => {
-  return (
-    <StyledNavLink to="/home">
-      <Logo />
-    </StyledNavLink>
-  );
-};
