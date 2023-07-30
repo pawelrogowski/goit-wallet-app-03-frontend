@@ -269,6 +269,11 @@ const EditTransactionModal = () => {
               {!selectedTransactionToEdit.isIncome && (
                 <InputWrapper>
                   <CategorySelect
+                    value={{
+                      value: selectedTransactionToEdit.category,
+                      label: selectedTransactionToEdit.category,
+                    }}
+                    placeholder={selectedTransactionToEdit.category}
                     name="category"
                     onChange={category => setFieldValue('category', category)}
                     options={options}
