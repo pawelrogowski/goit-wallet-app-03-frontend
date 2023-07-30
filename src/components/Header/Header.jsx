@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon/Icon';
 import { LogoButton } from 'components/Buttons/Buttons';
-import ModalLogout from 'components/ModalLogout/ModalLogout';
 import { Container } from 'components/Container/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsModalLogoutOpen } from 'redux/slices/globalSlice';
