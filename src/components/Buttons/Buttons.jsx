@@ -14,9 +14,7 @@ export const BaseButton = styled.button`
   border: none;
   letter-spacing: 1.8px;
   padding-left: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   font-family: Circe;
   font-size: 18px;
   font-style: normal;
@@ -51,12 +49,15 @@ export const BaseButton = styled.button`
 `;
 
 export const PrimaryButton = styled(BaseButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--color-brand-secondary);
   border: none;
   color: var(--font-color-light);
 `;
 
-export const SecondaryButton = styled(BaseButton)`
+export const SecondaryButton = styled(PrimaryButton)`
   background-color: transparent;
   border: 1px solid var(--color-brand-primary);
   color: var(--color-brand-primary);
