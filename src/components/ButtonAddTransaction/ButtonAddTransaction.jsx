@@ -50,6 +50,9 @@ export const ButtonAddTransaction = () => {
 
   const handleOpenModal = () => {
     dispatch(setIsModalAddTransactionOpen(true));
+    if (typeof window != 'undefined' && window.document) {
+      document.body.style.overflow = 'hidden';
+    }
   };
 
   return (
