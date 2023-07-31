@@ -29,3 +29,10 @@ export const formatCompactNumber = number => {
     return number.toFixed(2);
   }
 };
+
+export const formatBalance = num => {
+  if (Math.abs(num) > 10000000) {
+    return formatCompactNumber(num);
+  }
+  return formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
+};
