@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { headers } from './data';
 import { formatDate, makeProperDate } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
-import EditTransactionModal from 'components/EditTransactionModal/EditTransactionModal';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 
 const TransactionsList = styled.ul`

@@ -6,8 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
-import EditTransactionModal from 'components/EditTransactionModal/EditTransactionModal';
-
 import { formatNumberWithSpaces } from 'utils/numberUtils';
 
 const TransactionContainer = styled.div`
@@ -214,8 +212,6 @@ const TransactionsBodyHeadRow = styled.tr`
 const Transactions = () => {
   const dispatch = useDispatch();
 
-  const isModalEditTransactionOpen = useSelector(state => state.global.isModalEditTransactionOpen);
-
   const handleOpenEditModal = () => {
     dispatch(setIsModalEditTransactionOpen(true));
   };
@@ -281,7 +277,6 @@ const Transactions = () => {
           </TransactionsTableBody>
         </TransactionsTable>
       </TransactionContainer>
-      {isModalEditTransactionOpen && <EditTransactionModal />}
     </>
   );
 };
