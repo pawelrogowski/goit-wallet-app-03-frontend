@@ -10,25 +10,6 @@ import {
   getMonthlyCategoryTotals,
 } from '../../utils/api';
 
-export const resetTransactionState = state => {
-  state.selectedMonth = null;
-  state.selectedYear = null;
-  state.isLoading = false;
-  state.error = null;
-  state.currentTransactionToEdit = {
-    _id: null,
-    amount: 0,
-    date: '',
-    isIncome: false,
-    category: '',
-    comment: '',
-  };
-  state.transactions = [];
-  state.filteredTransactions = [];
-  state.totals = {};
-  state.monthlyTotals = {};
-};
-
 const filterTransaction = transaction => {
   const { _id, amount, date, isIncome, category, comment } = transaction;
 
@@ -196,27 +177,30 @@ const handleError = (state, action) => {
     toast.error(action.error.message);
   }
 };
+
+const initialState = {
+  selectedMonth: null,
+  selectedYear: null,
+  isLoading: false,
+  error: null,
+  currentTransactionToEdit: {
+    _id: null,
+    amount: 0,
+    date: '',
+    isIncome: false,
+    category: '',
+    comment: '',
+  },
+  transactions: [],
+  filteredTransactions: [],
+  totals: {},
+  monthlyTotals: {},
+};
+
 export const transactionsSlice = createSlice({
   name: 'transactions',
 
-  initialState: {
-    selectedMonth: null,
-    selectedYear: null,
-    isLoading: false,
-    error: null,
-    currentTransactionToEdit: {
-      _id: null,
-      amount: 0,
-      date: '',
-      isIncome: false,
-      category: '',
-      comment: '',
-    },
-    transactions: [],
-    filteredTransactions: [],
-    totals: {},
-    monthlyTotals: {},
-  },
+  initialState,
 
   reducers: {
     setSelectedMonth(state, action) {
@@ -229,6 +213,7 @@ export const transactionsSlice = createSlice({
     setTransactionToEdit(state, action) {
       state.currentTransactionToEdit = action.payload;
     },
+    reset: () => initialState,
   },
 
   extraReducers: builder => {
@@ -284,5 +269,5 @@ export const transactionsSlice = createSlice({
       .addCase(fetchMonthlyTotals.rejected, handleError);
   },
 });
-
+export const { reset: resetTransactions } = transactionsSlice.actions;
 export default transactionsSlice.reducer;
