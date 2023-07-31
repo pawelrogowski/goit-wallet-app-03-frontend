@@ -12,6 +12,8 @@ import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { editTransaction, fetchTransactions } from 'redux/slices/transactionSlice';
 
 const Backdrop = styled.div`
   display: flex;
@@ -216,10 +218,48 @@ const EditTransactionModal = () => {
 
   const handleCloseEditModal = () => {
     dispatch(setIsModalEditTransactionOpen(false));
+    document.body.style.overflow = 'unset';
+  };
+
+  const handleBackdropClick = e => {
+    if (e.currentTarget === e.target) {
+      handleCloseEditModal();
+    }
+  };
+  const escKeyDown = e => {
+    if (e.code === 'Escape') {
+      handleCloseEditModal();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', escKeyDown);
+    return () => {
+      document.removeEventListener('keydown', escKeyDown);
+    };
+  });
+
+  const handleSubmit = values => {
+    console.log(values);
+    console.log(selectedTransactionToEdit._id);
+    dispatch(
+      editTransaction({
+        id: selectedTransactionToEdit._id,
+        updatedData: {
+          amount: values.value,
+          comment: values.comment,
+          date: values.date,
+          category: values.category.label,
+          isIncome: selectedTransactionToEdit.isIncome,
+        },
+      })
+    ).then(() => dispatch(fetchTransactions()));
+    dispatch(setIsModalEditTransactionOpen(false));
+    document.body.style.overflow = 'unset';
   };
 
   return (
-    <Backdrop>
+    <Backdrop onClose={handleCloseEditModal} onClick={handleBackdropClick}>
       <Modal>
         <CloseButton onClick={handleCloseEditModal}>
           <Icon icon="icon__close" />
@@ -250,6 +290,7 @@ const EditTransactionModal = () => {
           })}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             console.log(values);
+            handleSubmit(values);
             resetForm();
             setSubmitting(false);
           }}
