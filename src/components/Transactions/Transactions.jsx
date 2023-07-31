@@ -1,8 +1,10 @@
 import { Icon } from 'components/Icon/Icon';
 import { useSelector, useDispatch } from 'react-redux';
-import { formatDate, makeProperDate } from 'utils/formaters';
+import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
+import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { formatNumberWithSpaces } from 'utils/numberUtils';
+
 const TransactionContainer = styled.div`
   height: calc(100% - 32px);
   overflow-y: auto;
@@ -50,7 +52,6 @@ const TransactionsTable = styled.table`
   font-size: 16px;
   font-weight: 400;
   line-height: 1;
-  width: 100%;
 `;
 
 const TransactionsTableHead = styled.thead`
@@ -119,10 +120,6 @@ const TransactionsTableHeader = styled.th`
     border-bottom-right-radius: 40px;
   }
 
-  &:nth-child(2) {
-    text-align: center;
-  }
-
   &:nth-child(5) {
     text-align: right;
   }
@@ -141,9 +138,21 @@ const TransactionTableData = styled.td`
     text-align: center;
   }
 
+  &:nth-child(4) {
+    max-width: 300px;
+    min-width: 100px;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+  }
+
   &:nth-child(5) {
     text-align: right;
     font-weight: 700;
+    white-space: nowrap;
   }
 
   &:last-child {
@@ -207,6 +216,10 @@ const TransactionsBodyHeadRow = styled.tr`
 const Transactions = () => {
   const dispatch = useDispatch();
 
+  const handleOpenEditModal = () => {
+    dispatch(setIsModalEditTransactionOpen(true));
+  };
+
   const { transactions } = useSelector(state => state.transactions);
 
   const sortedTransactions = transactions.slice().sort((a, b) => {
@@ -218,52 +231,57 @@ const Transactions = () => {
   };
 
   return (
-    <TransactionContainer>
-      <TransactionsTable>
-        <TransactionsTableHead>
-          <TransactionsTableHeadRow>
-            {headers.map((item, index) => (
-              <TransactionsTableHeader key={index}>{item}</TransactionsTableHeader>
+    <>
+      <TransactionContainer>
+        <TransactionsTable>
+          <TransactionsTableHead>
+            <TransactionsTableHeadRow>
+              {headers.map((item, index) => (
+                <TransactionsTableHeader key={index}>{item}</TransactionsTableHeader>
+              ))}
+            </TransactionsTableHeadRow>
+          </TransactionsTableHead>
+          <TransactionsTableBody>
+            {sortedTransactions.map(transaction => (
+              <TransactionsBodyHeadRow key={transaction._id}>
+                <TransactionTableData>{formatDate(transaction.date)}</TransactionTableData>
+                <TransactionTableData>{transaction.isIncome ? '+' : '-'}</TransactionTableData>
+                <TransactionTableData>{transaction.category}</TransactionTableData>
+                <TransactionTableData>{truncateString(transaction.comment)}</TransactionTableData>
+                <TransactionTableData
+                  style={{
+                    color: `${
+                      transaction.isIncome
+                        ? 'var(--color-brand-secondary)'
+                        : 'var(--color-brand-accent)'
+                    }`,
+                  }}
+                >
+                  {formatNumberWithSpaces(transaction.amount)}
+                </TransactionTableData>
+                <TransactionTableData>
+                  <EditButton
+                    type="button"
+                    onClick={() => {
+                      dispatch(setTransactionToEdit(transaction));
+                      handleOpenEditModal();
+                    }}
+                  >
+                    <Icon icon="icon__edit" />
+                  </EditButton>
+                  <SmallButton
+                    type="button"
+                    onClick={() => TransactionsDeleteHandler(transaction._id)}
+                  >
+                    Delete
+                  </SmallButton>
+                </TransactionTableData>
+              </TransactionsBodyHeadRow>
             ))}
-          </TransactionsTableHeadRow>
-        </TransactionsTableHead>
-        <TransactionsTableBody>
-          {sortedTransactions.map(transaction => (
-            <TransactionsBodyHeadRow key={transaction._id}>
-              <TransactionTableData>{formatDate(transaction.date)}</TransactionTableData>
-              <TransactionTableData>{transaction.isIncome ? '+' : '-'}</TransactionTableData>
-              <TransactionTableData>{transaction.category}</TransactionTableData>
-              <TransactionTableData>{transaction.comment}</TransactionTableData>
-              <TransactionTableData
-                style={{
-                  color: `${
-                    transaction.isIncome
-                      ? 'var(--color-brand-secondary)'
-                      : 'var(--color-brand-accent)'
-                  }`,
-                }}
-              >
-                {formatNumberWithSpaces(transaction.amount)}
-              </TransactionTableData>
-              <TransactionTableData>
-                <EditButton
-                  type="button"
-                  onClick={() => dispatch(setTransactionToEdit(transaction))}
-                >
-                  <Icon icon="icon__edit" />
-                </EditButton>
-                <SmallButton
-                  type="button"
-                  onClick={() => TransactionsDeleteHandler(transaction._id)}
-                >
-                  Delete
-                </SmallButton>
-              </TransactionTableData>
-            </TransactionsBodyHeadRow>
-          ))}
-        </TransactionsTableBody>
-      </TransactionsTable>
-    </TransactionContainer>
+          </TransactionsTableBody>
+        </TransactionsTable>
+      </TransactionContainer>
+    </>
   );
 };
 

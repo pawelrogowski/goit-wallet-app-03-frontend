@@ -9,3 +9,11 @@ export const options = [
   { value: 'other expenses', label: 'Other expenses' },
   { value: 'entertainment', label: 'Entertainment' },
 ];
+
+export const transaction = {
+  isIncome: true,
+  category: 'Leisure',
+  value: 100,
+  date: '01-01-2023',
+  comment: 'test coment redux edit',
+};
