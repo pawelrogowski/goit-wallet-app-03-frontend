@@ -3,8 +3,9 @@ import { PrimaryButton } from 'components/Buttons/Buttons';
 import { Icon } from 'components/Icon/Icon';
 import { useSelector, useDispatch } from 'react-redux';
 import { headers } from './data';
-import { formatDate, makeProperDate } from 'utils/formaters';
+import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
+import { formatNumberWithSpaces } from 'utils/numberUtils';
 
 const TransactionsList = styled.ul`
   list-style: none;
@@ -12,7 +13,7 @@ const TransactionsList = styled.ul`
   margin: 0;
   max-width: 395px;
   width: 100%;
-  min-width: 280px;
+  min-width: 240px;
 `;
 
 const TransactionsElement = styled.li``;
@@ -45,6 +46,7 @@ const TransactionElement = styled.li`
   align-items: center;
   justify-content: space-between;
   padding: 15px 20px;
+  gap: 30px;
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--border-transactions);
@@ -70,6 +72,12 @@ const TransactionText = styled.p`
   font-weight: 400;
   line-height: normal;
   margin: 0;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 `;
 
 const DeleteButton = styled(PrimaryButton)`
@@ -146,7 +154,7 @@ const TransactionsMobile = () => {
             </TransactionElement>
             <TransactionElement>
               <TransactionHeader>{headers[3]}</TransactionHeader>
-              <TransactionText>{transaction.comment}</TransactionText>
+              <TransactionText>{truncateString(transaction.comment)}</TransactionText>
             </TransactionElement>
             <TransactionElement>
               <TransactionHeader>{headers[4]}</TransactionHeader>
@@ -159,7 +167,7 @@ const TransactionsMobile = () => {
                   }`,
                 }}
               >
-                {transaction.amount}
+                {formatNumberWithSpaces(transaction.amount)}
               </TransactionText>
             </TransactionElement>
             <TransactionElement>
