@@ -13,6 +13,8 @@ import { fixDigitsToTwoDecimalPlaces, formatNumberWithSpaces } from 'utils/numbe
 const StyledTable = styled.div`
   max-width: 395px;
   min-width: 280px;
+  display: flex;
+  flex-direction: column;
   width: 100%;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
@@ -69,13 +71,8 @@ const List = styled.ul`
   list-style: none;
   padding: 0;
   height: 100%;
+  flex: 1;
   max-height: 470px;
-  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    max-height: calc(100vh - 591px);
-  }
-  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    max-height: calc(100vh - 46px - 80px - 70px - 58px - 100px - 137px);
-  }
   overflow-y: auto;
 
   &::-webkit-scrollbar {
@@ -93,14 +90,15 @@ const List = styled.ul`
   &::-webkit-scrollbar-thumb:hover {
     background: var(--color-logout-button);
   }
-  mask-image: linear-gradient(to top, transparent, black),
-    linear-gradient(to left, transparent 4px, black 4px);
-  mask-size: 100% 20000px;
-  mask-position: left bottom;
+
   -webkit-mask-image: linear-gradient(to top, transparent, black),
     linear-gradient(to left, transparent 4px, black 4px);
   -webkit-mask-size: 100% 20000px;
   -webkit-mask-position: left bottom;
+  mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 4px, black 4px);
+  mask-size: 100% 20000px;
+  mask-position: left bottom;
   transition: mask-position 0.3s, -webkit-mask-position 0.3s;
 
   &:hover {
@@ -251,47 +249,45 @@ const DiagramTableBase = () => {
   const sumIncome = showTotals ? monthlyTotals.totalIncome : totals.totalIncome || 0;
   const formatSum = num => formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
   return (
-    <>
-      <StyledTable className="minus-margin-top">
-        <BoxInputs>
-          <InputDropdown
-            title={selectedMonth ? getFullMonthName(selectedMonth) : 'Month'}
-            options={monthsOptions}
-            onChange={([{ id }]) => handleMonthChange(id)}
-          />
-          <InputDropdown
-            title={selectedYear ? selectedYear : 'Year'}
-            options={yearOptions}
-            onChange={([{ value }]) => handleYearChange(value)}
-          />
-        </BoxInputs>
-        <BoxHeading>
-          <h3>Category</h3>
-          <h3>Sum</h3>
-        </BoxHeading>
-        <List>
-          {dataToMap && dataToMap.length > 0 ? (
-            dataToMap.map((item, index) => (
-              <ListItem key={index}>
-                <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
-                <Category>{item.category}</Category>
-                <Sum>{formatSum(item.sum) || 0}</Sum>
-              </ListItem>
-            ))
-          ) : (
-            <li>No data available for the selected month and year.</li>
-          )}
-        </List>
-        <BoxFooter>
-          <Expenses>
-            Expenses: <span>{formatSum(sumExpenses)}</span>
-          </Expenses>
-          <Income>
-            Income: <span>{formatSum(sumIncome)}</span>
-          </Income>
-        </BoxFooter>
-      </StyledTable>
-    </>
+    <StyledTable>
+      <BoxInputs>
+        <InputDropdown
+          title={selectedMonth ? getFullMonthName(selectedMonth) : 'Month'}
+          options={monthsOptions}
+          onChange={([{ id }]) => handleMonthChange(id)}
+        />
+        <InputDropdown
+          title={selectedYear ? selectedYear : 'Year'}
+          options={yearOptions}
+          onChange={([{ value }]) => handleYearChange(value)}
+        />
+      </BoxInputs>
+      <BoxHeading>
+        <h3>Category</h3>
+        <h3>Sum</h3>
+      </BoxHeading>
+      <List>
+        {dataToMap && dataToMap.length > 0 ? (
+          dataToMap.map((item, index) => (
+            <ListItem key={index}>
+              <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
+              <Category>{item.category}</Category>
+              <Sum>{formatSum(item.sum) || 0}</Sum>
+            </ListItem>
+          ))
+        ) : (
+          <li>No data available for the selected month and year.</li>
+        )}
+      </List>
+      <BoxFooter>
+        <Expenses>
+          Expenses: <span>{formatSum(sumExpenses)}</span>
+        </Expenses>
+        <Income>
+          Income: <span>{formatSum(sumIncome)}</span>
+        </Income>
+      </BoxFooter>
+    </StyledTable>
   );
 };
 const DiagramTable = styled(DiagramTableBase)``;

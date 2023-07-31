@@ -29,7 +29,7 @@ export const ChartContainer = styled.div`
 `;
 
 export const Balance = styled.span`
-  font-size: calc(14px + (100vw - 320px) * 0.02);
+  font-size: calc(14px + (100vw - 288px) * 0.01);
   font-weight: 700;
   font-family: 'Circe';
   font-style: normal;
