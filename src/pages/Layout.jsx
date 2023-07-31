@@ -6,8 +6,10 @@ import AsideBar from 'components/AsideBar/AsideBar';
 import { Container } from 'components/Container/Container';
 
 const Background = styled.div`
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(25px);
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(25px);
+  }
 `;
 
 const Section = styled.section`

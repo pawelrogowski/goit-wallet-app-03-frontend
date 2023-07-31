@@ -9,6 +9,7 @@ import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import EditTransactionModal from 'components/EditTransactionModal/EditTransactionModal';
 
 import { formatNumberWithSpaces } from 'utils/numberUtils';
+
 const TransactionContainer = styled.div`
   height: calc(100% - 32px);
   overflow-y: auto;

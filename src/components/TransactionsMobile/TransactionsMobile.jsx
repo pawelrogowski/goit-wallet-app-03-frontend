@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { headers } from './data';
 import { formatDate, makeProperDate } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
+import EditTransactionModal from 'components/EditTransactionModal/EditTransactionModal';
+import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 
 const TransactionsList = styled.ul`
   list-style: none;
@@ -123,58 +125,70 @@ const TransactionsMobile = () => {
     return makeProperDate(b.date) - makeProperDate(a.date);
   });
 
+  const handleOpenEditModal = () => {
+    dispatch(setIsModalEditTransactionOpen(true));
+  };
+
   const TransactionsDeleteHandler = id => {
     dispatch(removeTransaction(id));
   };
 
   return (
-    <TransactionsList>
-      {sortedTransactions.map(transaction => (
-        <TransactionsElement key={transaction._id}>
-          <TransactionList type={transaction.isIncome ? 1 : 0}>
-            <TransactionElement>
-              <TransactionHeader>{headers[0]}</TransactionHeader>
-              <TransactionText>{formatDate(transaction.date)}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[1]}</TransactionHeader>
-              <TransactionText>{transaction.isIncome ? '+' : '-'}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[2]}</TransactionHeader>
-              <TransactionText>{transaction.category}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[3]}</TransactionHeader>
-              <TransactionText>{transaction.comment}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[4]}</TransactionHeader>
-              <TransactionText
-                style={{
-                  color: `${
-                    transaction.isIncome
-                      ? 'var(--color-brand-secondary)'
-                      : 'var(--color-brand-accent)'
-                  }`,
-                }}
-              >
-                {transaction.amount}
-              </TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <DeleteButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
-                Delete
-              </DeleteButton>
-              <EditButton type="button" onClick={() => dispatch(setTransactionToEdit(transaction))}>
-                <Icon icon="icon__edit" />
-                Edit
-              </EditButton>
-            </TransactionElement>
-          </TransactionList>
-        </TransactionsElement>
-      ))}
-    </TransactionsList>
+    <>
+      <TransactionsList>
+        {sortedTransactions.map(transaction => (
+          <TransactionsElement key={transaction._id}>
+            <TransactionList type={transaction.isIncome ? 1 : 0}>
+              <TransactionElement>
+                <TransactionHeader>{headers[0]}</TransactionHeader>
+                <TransactionText>{formatDate(transaction.date)}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[1]}</TransactionHeader>
+                <TransactionText>{transaction.isIncome ? '+' : '-'}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[2]}</TransactionHeader>
+                <TransactionText>{transaction.category}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[3]}</TransactionHeader>
+                <TransactionText>{transaction.comment}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[4]}</TransactionHeader>
+                <TransactionText
+                  style={{
+                    color: `${
+                      transaction.isIncome
+                        ? 'var(--color-brand-secondary)'
+                        : 'var(--color-brand-accent)'
+                    }`,
+                  }}
+                >
+                  {transaction.amount}
+                </TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <DeleteButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
+                  Delete
+                </DeleteButton>
+                <EditButton
+                  type="button"
+                  onClick={() => {
+                    dispatch(setTransactionToEdit(transaction));
+                    handleOpenEditModal();
+                  }}
+                >
+                  <Icon icon="icon__edit" />
+                  Edit
+                </EditButton>
+              </TransactionElement>
+            </TransactionList>
+          </TransactionsElement>
+        ))}
+      </TransactionsList>
+    </>
   );
 };
 
