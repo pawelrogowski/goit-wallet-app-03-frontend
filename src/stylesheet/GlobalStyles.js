@@ -37,6 +37,7 @@ export const GlobalStyles = createGlobalStyle`
   width: 100%;
   height: 100%;
   background: var(--background-accent);
+
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     position: fixed;
     width: 100vw;
@@ -55,7 +56,7 @@ export const GlobalStyles = createGlobalStyle`
       bottom: -5px;
       left: 0px;
     }
-    @media (min-height: 820px) {
+    @media (min-height: 820px) and (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
       &::after {
       content: url(${BottomLeftBigIcon});
       position: absolute;
@@ -70,5 +71,9 @@ export const GlobalStyles = createGlobalStyle`
       top: 0px;
       right: 0px;
     }
-  }}
+  }
+  }
+
+}
+
 `;
