@@ -14,7 +14,7 @@ const Balance = () => {
   const balance = totals.difference || 0;
 
   const formatBalance = num => {
-    if (num > 10000000) {
+    if (Math.abs(num) > 10000000) {
       return formatCompactNumber(num);
     }
     return formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
