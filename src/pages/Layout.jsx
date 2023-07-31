@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AsideBar from 'components/AsideBar/AsideBar';
-import { Container } from 'components/Container/Container';
+import { Container } from 'components/Container/Container.styled';
 
 const Background = styled.div`
   background: rgba(255, 255, 255, 0.4);
