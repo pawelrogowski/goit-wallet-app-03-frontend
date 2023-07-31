@@ -1,10 +1,7 @@
-import { useEffect, useState } from 'react';
-import LoginForm from 'components/LoginForm/LoginForm';
-import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
 import { Heading } from 'components/Heading/Heading';
 
-const LoginPageContainer = styled.div`
+export const RegistrationPageContainer = styled.div`
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     form {
       padding-bottom: 107px;
@@ -37,7 +34,7 @@ const LoginPageContainer = styled.div`
   }
 `;
 
-const LoginHeaderContainer = styled.div`
+export const RegistrationHeaderContainer = styled.div`
   display: none;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
@@ -68,7 +65,7 @@ const LoginHeaderContainer = styled.div`
   }
 `;
 
-const LoginFormContainer = styled.div`
+export const RegistrationFormContainer = styled.div`
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     display: flex;
     align-items: center;
@@ -97,36 +94,3 @@ const LoginFormContainer = styled.div`
     }
   }
 `;
-
-const LoginPage = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth > 767);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth > 1279);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [windowWidth]);
-  return (
-    <>
-      <LoginPageContainer>
-        <LoginHeaderContainer>
-          {windowWidth ? (
-            <Icon className="loginIcon" icon="icon__big-logo-man1" />
-          ) : (
-            <Icon className="loginIcon" icon="icon__big-logo-man2" />
-          )}
-          <Heading as="h1">Finance App</Heading>
-        </LoginHeaderContainer>
-        <LoginFormContainer>
-          <LoginForm />
-        </LoginFormContainer>
-      </LoginPageContainer>
-    </>
-  );
-};
-
-export default LoginPage;
