@@ -5,7 +5,7 @@ import { headers } from './data';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatDate, makeProperDate } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
-
+import { formatNumberWithSpaces } from 'utils/numberUtils';
 const TransactionContainer = styled.div`
   height: calc(100% - 32px);
   overflow-y: auto;
@@ -246,7 +246,7 @@ const Transactions = () => {
                   }`,
                 }}
               >
-                {transaction.amount}
+                {formatNumberWithSpaces(transaction.amount)}
               </TransactionTableData>
               <TransactionTableData>
                 <EditButton
