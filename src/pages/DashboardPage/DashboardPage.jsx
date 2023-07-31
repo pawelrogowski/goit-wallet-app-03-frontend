@@ -1,19 +1,10 @@
-// import { ButtonAddTransaction } from 'components/ButtonAddTransaction/ButtonAddTransaction';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Heading } from 'components/Heading/Heading';
 import Transactions from 'components/Transactions/Transactions';
 import TransactionsMobile from 'components/TransactionsMobile/TransactionsMobile';
 import { fetchTransactions } from 'redux/slices/transactionSlice';
-import styled from 'styled-components';
 import ButtonAddTransaction from 'components/ButtonAddTransaction/ButtonAddTransaction';
-
-const Title = styled(Heading)`
-  display: none;
-  padding: 0;
-  margin-bottom: 0;
-  width: 100%; // this 100% width is so the heading takes full width of a parent, pushing other elements below
-`;
+import { Title } from './Dashboard.styled';
 
 const DashboardPage = () => {
   const dispatch = useDispatch();

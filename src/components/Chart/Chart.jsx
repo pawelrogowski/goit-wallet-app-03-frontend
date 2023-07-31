@@ -20,7 +20,7 @@ const Chart = () => {
   const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
 
   if (!dataToMap || totals.totals.length === 0) {
-    return <div>No data available.</div>;
+    return <div></div>;
   }
   const labels = dataToMap.map(item => item.category);
   const backgroundColors = dataToMap.map(item => item.color);

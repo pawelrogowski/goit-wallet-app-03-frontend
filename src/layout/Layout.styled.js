@@ -1,18 +1,13 @@
 import styled from 'styled-components';
-import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
-import Header from 'components/Header/Header';
-import AsideBar from 'components/AsideBar/AsideBar';
-import { Container } from 'components/Container/Container';
 
-const Background = styled.div`
+export const Background = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(25px);
   }
 `;
 
-const Section = styled.section`
+export const Section = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -28,7 +23,7 @@ const Section = styled.section`
   }
 `;
 
-const MainContainer = styled.main`
+export const MainContainer = styled.main`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -54,23 +49,3 @@ const MainContainer = styled.main`
     height: calc(100% - 90px);
   }
 `;
-
-const Layout = () => {
-  return (
-    <Background>
-      <Header />
-      <Container>
-        <Section>
-          <AsideBar />
-          <MainContainer>
-            <Suspense fallback={null}>
-              <Outlet />
-            </Suspense>
-          </MainContainer>
-        </Section>
-      </Container>
-    </Background>
-  );
-};
-
-export default Layout;

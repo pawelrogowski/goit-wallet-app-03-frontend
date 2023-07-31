@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-import Layout from 'pages/Layout';
+import Layout from 'layout/Layout';
 import WithAuthRedirect from './routes/WithAuthRedirect';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,11 +8,11 @@ import { useSelector } from 'react-redux';
 import ModalLogout from 'components/ModalLogout/ModalLogout';
 import AddTransactionModal from 'components/AddTransactionModal/AddTransactionModal';
 import EditTransactionModal from 'components/EditTransactionModal/EditTransactionModal';
-const Dashboard = lazy(() => import('pages/DashboardPage'));
-const Register = lazy(() => import('pages/RegistrationPage'));
-const Login = lazy(() => import('pages/LoginPage'));
-const Statistic = lazy(() => import('pages/StatisticPage'));
-const Currency = lazy(() => import('pages/CurrencyPage'));
+const Dashboard = lazy(() => import('pages/DashboardPage/DashboardPage'));
+const Register = lazy(() => import('pages/RegistrationPage/RegistrationPage'));
+const Login = lazy(() => import('pages/LoginPage/LoginPage'));
+const Statistic = lazy(() => import('pages/StatisticsPage/StatisticsPage'));
+const Currency = lazy(() => import('pages/CurrencyPage/CurrencyPage'));
 
 const App = () => {
   const { isModalLogoutOpen, isModalAddTransactionOpen, isModalEditTransactionOpen } = useSelector(
