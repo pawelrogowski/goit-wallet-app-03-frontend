@@ -23,7 +23,7 @@ export const AsideContainer = styled.aside`
     padding: 32px 32px 0px 32px;
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     border-right: 2px solid #e7e5f2;
     box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.6);
     padding: 40px 69px 20px 16px;
@@ -52,7 +52,7 @@ export const FlexWrapper = styled.div`
     gap: 12px;
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     height: auto;
   }
 `;
