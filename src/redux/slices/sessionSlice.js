@@ -9,6 +9,8 @@ import {
   getUserProfile,
   refreshTokens,
 } from '../../utils/api';
+import { resetGlobal } from './globalSlice';
+import { resetTransactions } from './transactionSlice';
 
 export const register = createAsyncThunk('session/register', async userData => {
   try {
@@ -38,9 +40,12 @@ export const login = createAsyncThunk('session/login', async loginData => {
   }
 });
 
-export const logout = createAsyncThunk('session/logout', async () => {
+export const logout = createAsyncThunk('session/logout', async (_, { dispatch }) => {
   try {
     await logoutUser();
+    dispatch(resetGlobal());
+    dispatch(resetTransactions());
+    dispatch(resetSession());
   } catch (error) {
     if (error.response && error.response.data) {
       toast.error(error.response.data.error);
@@ -74,17 +79,24 @@ export const refreshAccessToken = createAsyncThunk('session/refreshAccessToken',
     throw error;
   }
 });
+
+const initialState = {
+  accessToken: null,
+  refreshToken: null,
+  user: {},
+  currentUser: {},
+  error: null,
+  isAuth: false,
+  isLoading: false,
+};
+
 export const sessionSlice = createSlice({
   name: 'session',
 
-  initialState: {
-    accessToken: null,
-    refreshToken: null,
-    user: {},
-    currentUser: {},
-    error: null,
-    isAuth: false,
-    isLoading: false,
+  initialState,
+
+  reducers: {
+    reset: () => initialState,
   },
 
   extraReducers: builder => {
@@ -168,9 +180,11 @@ export const sessionSlice = createSlice({
 
     builder.addCase(refreshAccessToken.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.error = 'Could not verify user, you have been logged out';
+      state.isAuth = false;
     });
   },
 });
 
+export const { reset: resetSession } = sessionSlice.actions;
 export default sessionSlice.reducer;
