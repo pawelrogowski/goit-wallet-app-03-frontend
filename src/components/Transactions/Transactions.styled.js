@@ -48,7 +48,6 @@ export const TransactionsTable = styled.table`
   font-size: 16px;
   font-weight: 400;
   line-height: 1;
-  width: 100%;
 `;
 
 export const TransactionsTableHead = styled.thead`
@@ -117,10 +116,6 @@ export const TransactionsTableHeader = styled.th`
     border-bottom-right-radius: 40px;
   }
 
-  &:nth-child(2) {
-    text-align: center;
-  }
-
   &:nth-child(5) {
     text-align: right;
   }
@@ -139,9 +134,21 @@ export const TransactionTableData = styled.td`
     text-align: center;
   }
 
+  &:nth-child(4) {
+    max-width: 300px;
+    min-width: 100px;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+  }
+
   &:nth-child(5) {
     text-align: right;
     font-weight: 700;
+    white-space: nowrap;
   }
 
   &:last-child {

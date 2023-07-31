@@ -1,6 +1,5 @@
 import { Icon } from 'components/Icon/Icon';
 import { useSelector, useDispatch } from 'react-redux';
-import { headers } from './data';
 import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
@@ -15,6 +14,8 @@ import {
   TransactionsElement,
   TransactionsList,
 } from './TransactionsMobile.styled';
+
+const headers = ['Date', 'Type', 'Category', 'Comment', 'Sum', ''];
 
 const TransactionsMobile = () => {
   const dispatch = useDispatch();
