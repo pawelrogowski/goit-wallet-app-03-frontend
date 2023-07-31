@@ -13,7 +13,6 @@ const Background = styled.div`
 const Section = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 100%;
   min-height: calc(100vh - 60px);
 
@@ -44,12 +43,12 @@ const MainContainer = styled.main`
     flex-direction: row;
     align-items: flex-start;
     align-content: flex-start;
-    padding: 20px 32px 120px 32px;
+    padding: 20px 32px 32px 32px;
     height: calc(100% - 400px);
   }
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    padding: 46px 16px 20px 69px;
+    padding: 46px 16px 0px 69px;
     height: calc(100% - 90px);
   }
 `;

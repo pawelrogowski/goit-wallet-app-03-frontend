@@ -3,13 +3,14 @@ import { Icon } from 'components/Icon/Icon';
 import { PrimaryButton } from 'components/Buttons/Buttons';
 import { headers } from './data';
 import { useSelector, useDispatch } from 'react-redux';
-import { formatDate, makeProperDate } from 'utils/formaters';
+import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import EditTransactionModal from 'components/EditTransactionModal/EditTransactionModal';
 
+import { formatNumberWithSpaces } from 'utils/numberUtils';
 const TransactionContainer = styled.div`
-  height: 100%;
+  height: calc(100% - 32px);
   overflow-y: auto;
   width: 100%;
   &::-webkit-scrollbar {
@@ -193,6 +194,7 @@ const EditButton = styled.button`
 `;
 
 const SmallButton = styled(PrimaryButton)`
+  display: inline-block;
   width: 67px;
   height: 26px;
   color: var(--background-light);
@@ -244,7 +246,7 @@ const Transactions = () => {
                 <TransactionTableData>{formatDate(transaction.date)}</TransactionTableData>
                 <TransactionTableData>{transaction.isIncome ? '+' : '-'}</TransactionTableData>
                 <TransactionTableData>{transaction.category}</TransactionTableData>
-                <TransactionTableData>{transaction.comment}</TransactionTableData>
+                <TransactionTableData>{truncateString(transaction.comment)}</TransactionTableData>
                 <TransactionTableData
                   style={{
                     color: `${
@@ -254,7 +256,7 @@ const Transactions = () => {
                     }`,
                   }}
                 >
-                  {transaction.amount}
+                  {formatNumberWithSpaces(transaction.amount)}
                 </TransactionTableData>
                 <TransactionTableData>
                   <EditButton

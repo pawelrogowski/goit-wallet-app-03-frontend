@@ -1,11 +1,4 @@
 import styled from 'styled-components';
-import Logo from 'components/Logo/Logo';
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-//Example Ussage:
-
-/* <PrimaryButton type="button">LOG IN</PrimaryButton>
-<SecondaryButton type="button">REGISTER</SecondaryButton> */
 
 export const BaseButton = styled.button`
   width: 280px;
@@ -20,7 +13,7 @@ export const BaseButton = styled.button`
   font-style: normal;
   font-weight: 400;
   color: var(--font-color-light);
-  line-height: 1.33;
+  line-height: 1;
   transition: background-color 150ms;
 
   &:hover {
@@ -46,15 +39,22 @@ export const BaseButton = styled.button`
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 300px;
   }
+  &:active {
+    transform: scale(0.99);
+    transition: transform 50ms;
+  }
 `;
 
 export const PrimaryButton = styled(BaseButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--color-brand-secondary);
   border: none;
   color: var(--font-color-light);
 `;
 
-export const SecondaryButton = styled(BaseButton)`
+export const SecondaryButton = styled(PrimaryButton)`
   background-color: transparent;
   border: 1px solid var(--color-brand-primary);
   color: var(--color-brand-primary);
@@ -64,18 +64,3 @@ export const SecondaryButton = styled(BaseButton)`
     color: var(--font-color-light);
   }
 `;
-
-export const StyledNavLink = styled(NavLink)`
-  padding: 0;
-  margin: 0;
-  text-decoration: none;
-  color: var(--font-color-dark);
-`;
-
-export const LogoButton = () => {
-  return (
-    <StyledNavLink to="/home">
-      <Logo />
-    </StyledNavLink>
-  );
-};

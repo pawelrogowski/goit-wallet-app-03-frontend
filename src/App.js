@@ -4,7 +4,10 @@ import Layout from 'pages/Layout';
 import WithAuthRedirect from './routes/WithAuthRedirect';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useSelector } from 'react-redux';
+import ModalLogout from 'components/ModalLogout/ModalLogout';
+import AddTransactionModal from 'components/AddTransactionModal/AddTransactionModal';
+// import EditTransactionModal from 'components/EditTransactionModal/EditTransactionModal';
 const Dashboard = lazy(() => import('pages/DashboardPage'));
 const Register = lazy(() => import('pages/RegistrationPage'));
 const Login = lazy(() => import('pages/LoginPage'));
@@ -12,8 +15,14 @@ const Statistic = lazy(() => import('pages/StatisticPage'));
 const Currency = lazy(() => import('pages/CurrencyPage'));
 
 const App = () => {
+  // isModalEditTransactionOpen  -- add this to the object below when ready
+  const { isModalLogoutOpen, isModalAddTransactionOpen } = useSelector(state => state.global);
+
   return (
     <Suspense fallback={null}>
+      {isModalLogoutOpen && <ModalLogout />}
+      {isModalAddTransactionOpen && <AddTransactionModal />}
+      {/* {isModalEditTransactionOpen && <EditTransactionModal />} */}
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
