@@ -221,7 +221,6 @@ const AddTransactionModal = () => {
   });
 
   const handleSubmit = values => {
-    console.log(values);
     dispatch(
       addTransaction({
         amount: values.value,
