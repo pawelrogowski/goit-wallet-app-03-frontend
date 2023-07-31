@@ -3,7 +3,7 @@ import { Icon } from 'components/Icon/Icon';
 import { PrimaryButton } from 'components/Buttons/Buttons';
 import { headers } from './data';
 import { useSelector, useDispatch } from 'react-redux';
-import { formatDate, makeProperDate } from 'utils/formaters';
+import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
 import { formatNumberWithSpaces } from 'utils/numberUtils';
 const TransactionContainer = styled.div`
@@ -236,7 +236,7 @@ const Transactions = () => {
               <TransactionTableData>{formatDate(transaction.date)}</TransactionTableData>
               <TransactionTableData>{transaction.isIncome ? '+' : '-'}</TransactionTableData>
               <TransactionTableData>{transaction.category}</TransactionTableData>
-              <TransactionTableData>{transaction.comment}</TransactionTableData>
+              <TransactionTableData>{truncateString(transaction.comment)}</TransactionTableData>
               <TransactionTableData
                 style={{
                   color: `${
