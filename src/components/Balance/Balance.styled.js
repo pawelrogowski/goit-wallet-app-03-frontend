@@ -10,9 +10,7 @@ export const BalanceSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  // @media (max-width: ${props => props.theme.breakpoints.tablet}) {
-  //   margin-top: 12px;
-  // }
+  justify-content: space-evenly;
 `;
 export const BalanceParagraph = styled.p`
   margin: 0;
