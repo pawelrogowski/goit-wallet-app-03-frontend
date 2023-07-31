@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { headers } from './data';
 import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
+import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { formatNumberWithSpaces } from 'utils/numberUtils';
-
 const TransactionsList = styled.ul`
   list-style: none;
   padding: 0;
@@ -131,6 +131,10 @@ const TransactionsMobile = () => {
     return makeProperDate(b.date) - makeProperDate(a.date);
   });
 
+  const handleOpenEditModal = () => {
+    dispatch(setIsModalEditTransactionOpen(true));
+  };
+
   const TransactionsDeleteHandler = id => {
     dispatch(removeTransaction(id));
   };
@@ -174,7 +178,13 @@ const TransactionsMobile = () => {
               <DeleteButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
                 Delete
               </DeleteButton>
-              <EditButton type="button" onClick={() => dispatch(setTransactionToEdit(transaction))}>
+              <EditButton
+                type="button"
+                onClick={() => {
+                  dispatch(setTransactionToEdit(transaction));
+                  handleOpenEditModal();
+                }}
+              >
                 <Icon icon="icon__edit" />
                 Edit
               </EditButton>

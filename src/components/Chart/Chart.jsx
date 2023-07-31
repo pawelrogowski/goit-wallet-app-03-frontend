@@ -3,7 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchTotals } from 'redux/slices/transactionSlice';
-import { fixDigitsToTwoDecimalPlaces, formatNumberWithSpaces } from 'utils/numberUtils';
+import { formatBalance } from 'utils/numberUtils';
 import { ChartContainer, Balance } from './Chart.styled';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -25,7 +25,6 @@ const Chart = () => {
   const labels = dataToMap.map(item => item.category);
   const backgroundColors = dataToMap.map(item => item.color);
   const dataValues = dataToMap.map(item => item.sum);
-  const formatNum = num => formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
 
   const balance = showTotals ? monthlyTotals.difference : totals.difference || 0;
 
@@ -56,7 +55,7 @@ const Chart = () => {
   return (
     <ChartContainer>
       <Doughnut data={chartData} options={options} />
-      <Balance>$ {formatNum(balance)}</Balance>
+      <Balance>$ {formatBalance(balance)}</Balance>
     </ChartContainer>
   );
 };
