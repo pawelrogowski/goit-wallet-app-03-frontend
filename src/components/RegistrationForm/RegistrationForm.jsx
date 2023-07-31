@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { InputWithIcon } from 'components/Inputs/InputWithIcon';
 import Logo from 'components/Logo/Logo';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import { object, string, ref } from 'yup';
 import PasswordStrength from './../Inputs/PasswordStrength';
 import Loader from 'components/Loader/Loader';
@@ -11,45 +10,7 @@ import { getCharacterValidationError } from 'utils/formaters';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/slices/sessionSlice';
-
-const FormikForm = styled(Form)`
-  height: 100vh;
-  min-width: 320px;
-  width: 100%;
-  padding: 107px 20px 36px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--background-light);
-  border-radius: 12px;
-
-  & > :first-child {
-    margin-bottom: 30px;
-  }
-
-  & > :nth-child(6) {
-    margin-bottom: 40px;
-  }
-
-  & > :nth-child(4) .error {
-    top: 47px;
-  }
-
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
-    box-shadow: 0 0 0px 40rem #ffff inset;
-  }
-
-  //tablet+desktop
-  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    width: 533px;
-    padding: 40px 58.5px 62px 65px;
-    height: auto;
-  }
-`;
+import { FormikForm } from './RegistrationForm.styled';
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
