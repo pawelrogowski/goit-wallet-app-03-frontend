@@ -7,7 +7,7 @@ export const TransactionsList = styled.ul`
   margin: 0;
   max-width: 395px;
   width: 100%;
-  min-width: 280px;
+  min-width: 240px;
 `;
 
 export const TransactionsElement = styled.li``;
@@ -40,6 +40,7 @@ export const TransactionElement = styled.li`
   align-items: center;
   justify-content: space-between;
   padding: 15px 20px;
+  gap: 30px;
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--border-transactions);
@@ -65,6 +66,12 @@ export const TransactionText = styled.p`
   font-weight: 400;
   line-height: normal;
   margin: 0;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 `;
 
 export const DeleteButton = styled(PrimaryButton)`
