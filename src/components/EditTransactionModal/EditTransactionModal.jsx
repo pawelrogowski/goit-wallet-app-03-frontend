@@ -12,6 +12,7 @@ import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 const Backdrop = styled.div`
   display: flex;
@@ -216,10 +217,29 @@ const EditTransactionModal = () => {
 
   const handleCloseEditModal = () => {
     dispatch(setIsModalEditTransactionOpen(false));
+    document.body.style.overflow = 'unset';
   };
 
+  const handleBackdropClick = e => {
+    if (e.currentTarget === e.target) {
+      handleCloseEditModal();
+    }
+  };
+  const escKeyDown = e => {
+    if (e.code === 'Escape') {
+      handleCloseEditModal();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', escKeyDown);
+    return () => {
+      document.removeEventListener('keydown', escKeyDown);
+    };
+  });
+
   return (
-    <Backdrop>
+    <Backdrop onClose={handleCloseEditModal} onClick={handleBackdropClick}>
       <Modal>
         <CloseButton onClick={handleCloseEditModal}>
           <Icon icon="icon__close" />
