@@ -5,7 +5,7 @@ import Logo from 'components/Logo/Logo';
 import { Formik } from 'formik';
 import { object, string, ref } from 'yup';
 import PasswordStrength from './../Inputs/PasswordStrength';
-import Loader from 'components/Loader/Loader';
+import Loader from 'components/Loader/Loader.styled';
 import { getCharacterValidationError } from 'utils/formaters';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
