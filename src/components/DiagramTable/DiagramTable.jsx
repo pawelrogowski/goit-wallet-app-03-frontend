@@ -45,6 +45,14 @@ const monthsOptions = months.map(option => ({
   value: option.name.toLowerCase(),
 }));
 
+const getFullMonthName = monthNumber => {
+  if (typeof monthNumber !== 'number' || monthNumber < 1 || monthNumber > 12) {
+    return 'Month';
+  }
+  const fullMonthName = months.find(month => month.id === monthNumber);
+  return fullMonthName.name;
+};
+
 const currentYear = new Date().getFullYear();
 
 const getNumberRange = (start, end) => {
@@ -61,16 +69,6 @@ const yearOptions = year.map(option => ({
   label: option.year,
   value: option.year,
 }));
-
-const getFullMonthName = monthNumber => {
-  if (typeof monthNumber !== 'number' || monthNumber < 1 || monthNumber > 12) {
-    return 'Month';
-  }
-
-  const date = new Date(`2000-${monthNumber}-01`);
-  const fullMonthName = date.toLocaleString('default', { month: 'long' });
-  return fullMonthName;
-};
 
 const DiagramTableBase = () => {
   const dispatch = useDispatch();
