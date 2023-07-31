@@ -34,7 +34,7 @@ const MainContainer = styled.main`
   flex-grow: 1;
   flex-wrap: wrap;
   z-index: 1;
-  padding: 32px 46px;
+  padding: 32px 20px;
   gap: 32px;
   height: 100%;
 

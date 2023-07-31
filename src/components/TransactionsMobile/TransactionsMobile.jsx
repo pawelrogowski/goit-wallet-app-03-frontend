@@ -12,6 +12,7 @@ const TransactionsList = styled.ul`
   margin: 0;
   max-width: 395px;
   width: 100%;
+  min-width: 280px;
 `;
 
 const TransactionsElement = styled.li``;
