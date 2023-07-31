@@ -5,13 +5,13 @@ import { object, string, date, bool, mixed, number } from 'yup';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { BaseInput } from 'components/Inputs/BaseInput';
 import Loader from './../Loader/Loader';
-import { useState } from 'react';
 import CategorySelect from 'components/CategorySelect/CategorySelect';
 import { options } from 'components/AddTransactionModal/data';
 import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
 import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
-import { transaction } from 'components/AddTransactionModal/data';
+import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Backdrop = styled.div`
   display: flex;
@@ -19,6 +19,7 @@ const Backdrop = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: var(--background-overlay-modal);
@@ -182,11 +183,12 @@ const ErrorText = styled(ErrorMessage)`
 `;
 
 const IncomeSpan = styled.span`
-  color: ${props => (props.active ? 'var(--color-brand-secondary)' : 'var(--color-logout-button)')};
+  color: ${props =>
+    props.$active ? 'var(--color-brand-secondary)' : 'var(--color-logout-button)'};
 `;
 
 const ExpenseSpan = styled.span`
-  color: ${props => (props.active ? 'var(--color-brand-accent)' : 'var(--color-logout-button)')};
+  color: ${props => (props.$active ? 'var(--color-brand-accent)' : 'var(--color-logout-button)')};
 `;
 
 const TransactionTypeDiv = styled.div`
@@ -206,19 +208,29 @@ const TransactionTypeDiv = styled.div`
 `;
 
 const EditTransactionModal = () => {
+  const dispatch = useDispatch();
+
+  const selectedTransactionToEdit = useSelector(
+    state => state.transactions.currentTransactionToEdit
+  );
+
+  const handleCloseEditModal = () => {
+    dispatch(setIsModalEditTransactionOpen(false));
+  };
+
   return (
     <Backdrop>
       <Modal>
-        <CloseButton>
+        <CloseButton onClick={handleCloseEditModal}>
           <Icon icon="icon__close" />
         </CloseButton>
         <Formik
           initialValues={{
-            type: transaction.isIncome,
-            category: transaction.category,
-            value: transaction.amount,
-            date: `${formatDate(transaction.date)}`,
-            comment: transaction.comment,
+            type: selectedTransactionToEdit.isIncome,
+            category: selectedTransactionToEdit.category,
+            value: selectedTransactionToEdit.amount,
+            date: `${formatDate(selectedTransactionToEdit.date)}`,
+            comment: selectedTransactionToEdit.comment,
           }}
           validationSchema={object({
             type: bool(),
@@ -248,23 +260,21 @@ const EditTransactionModal = () => {
             <FormikForm>
               <Heading>Edit transaction</Heading>
               {isSubmitting && <Loader />}
-              {/* <Switch
-                name="type"
-                checked={isIncome}
-                onClick={handleCheckboxChange}
-                type="checkbox"
-              /> */}
+
               <TransactionTypeDiv>
-                <IncomeSpan $active={transaction.isIncome}>Income</IncomeSpan>
+                <IncomeSpan $active={selectedTransactionToEdit.isIncome}>Income</IncomeSpan>
                 <Icon icon="icon__slash"></Icon>
-                <ExpenseSpan $active={!transaction.isIncome}>Expense</ExpenseSpan>
+                <ExpenseSpan $active={!selectedTransactionToEdit.isIncome}>Expense</ExpenseSpan>
               </TransactionTypeDiv>
-              {!transaction.isIncome && (
+              {!selectedTransactionToEdit.isIncome && (
                 <InputWrapper>
                   <CategorySelect
+                    value={{
+                      value: selectedTransactionToEdit.category,
+                      label: selectedTransactionToEdit.category,
+                    }}
+                    placeholder={selectedTransactionToEdit.category}
                     name="category"
-                    placeholder="Select a category"
-                    value={values.category}
                     onChange={category => setFieldValue('category', category)}
                     options={options}
                   />
@@ -316,7 +326,9 @@ const EditTransactionModal = () => {
               {/* <PrimaryButton type="submit" disabled={!isValid}>
               Add
             </PrimaryButton> */}
-              <CancelButton type="button">CANCEL</CancelButton>
+              <CancelButton onClick={handleCloseEditModal} type="button">
+                CANCEL
+              </CancelButton>
             </FormikForm>
           )}
         </Formik>
