@@ -243,12 +243,15 @@ const EditTransactionModal = () => {
     console.log(values);
     console.log(selectedTransactionToEdit._id);
     dispatch(
-      editTransaction(selectedTransactionToEdit._id, {
-        amount: values.value,
-        comment: values.comment,
-        date: values.date,
-        category: values.category.label,
-        isIncome: selectedTransactionToEdit.isIncome,
+      editTransaction({
+        id: selectedTransactionToEdit._id,
+        updatedData: {
+          amount: values.value,
+          comment: values.comment,
+          date: values.date,
+          category: values.category.label,
+          isIncome: selectedTransactionToEdit.isIncome,
+        },
       })
     ).then(() => dispatch(fetchTransactions()));
     dispatch(setIsModalEditTransactionOpen(false));
