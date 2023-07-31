@@ -13,6 +13,7 @@ import { dateTransformer } from 'utils/formaters';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { editTransaction, fetchTransactions } from 'redux/slices/transactionSlice';
 
 const Backdrop = styled.div`
   display: flex;
@@ -238,6 +239,22 @@ const EditTransactionModal = () => {
     };
   });
 
+  const handleSubmit = values => {
+    console.log(values);
+    console.log(selectedTransactionToEdit._id);
+    dispatch(
+      editTransaction(selectedTransactionToEdit._id, {
+        amount: values.value,
+        comment: values.comment,
+        date: values.date,
+        category: values.category.label,
+        isIncome: selectedTransactionToEdit.isIncome,
+      })
+    ).then(() => dispatch(fetchTransactions()));
+    dispatch(setIsModalEditTransactionOpen(false));
+    document.body.style.overflow = 'unset';
+  };
+
   return (
     <Backdrop onClose={handleCloseEditModal} onClick={handleBackdropClick}>
       <Modal>
@@ -270,6 +287,7 @@ const EditTransactionModal = () => {
           })}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             console.log(values);
+            handleSubmit(values);
             resetForm();
             setSubmitting(false);
           }}
