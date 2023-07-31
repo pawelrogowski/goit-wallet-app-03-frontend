@@ -72,8 +72,6 @@ const EditTransactionModal = () => {
   });
 
   const handleSubmit = values => {
-    console.log(values);
-    console.log(selectedTransactionToEdit._id);
     dispatch(
       editTransaction({
         id: selectedTransactionToEdit._id,
@@ -121,7 +119,6 @@ const EditTransactionModal = () => {
             comment: string().notRequired(),
           })}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            console.log(values);
             handleSubmit(values);
             resetForm();
             setSubmitting(false);
