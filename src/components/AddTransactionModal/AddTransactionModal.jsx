@@ -5,7 +5,6 @@ import { Formik, Form, ErrorMessage } from 'formik';
 import { object, string, date, bool, mixed, number } from 'yup';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { BaseInput } from 'components/Inputs/BaseInput';
-import Loader from './../Loader/Loader';
 import { useEffect, useState } from 'react';
 import CategorySelect from 'components/CategorySelect/CategorySelect';
 import { options } from 'components/AddTransactionModal/data';
@@ -221,13 +220,12 @@ const AddTransactionModal = () => {
   });
 
   const handleSubmit = values => {
-    console.log(values);
     dispatch(
       addTransaction({
         amount: values.value,
         comment: values.comment,
         date: values.date,
-        category: values.category.label,
+        category: isChecked ? 'income' : values.category.label,
         isIncome: isChecked,
       })
     ).then(() => dispatch(fetchTransactions()));
@@ -270,13 +268,11 @@ const AddTransactionModal = () => {
             resetForm();
             setSubmitting(false);
           }}
-          validateOnMount
           enableReinitialize
         >
-          {({ values, isValid, isSubmitting, setFieldValue, handleBlur }) => (
+          {({ values, setFieldValue, handleBlur }) => (
             <FormikForm>
               <Heading>Add transaction</Heading>
-              {isSubmitting && <Loader />}
               <Switch
                 name="type"
                 checked={isChecked}
@@ -331,12 +327,7 @@ const AddTransactionModal = () => {
                 />
                 <ErrorText name="comment" component="div" />
               </InputWrapper>
-              <PrimaryButton type="submit" disabled={!isValid}>
-                ADD
-              </PrimaryButton>
-              {/* <PrimaryButton type="submit" disabled={!isValid}>
-              Add
-            </PrimaryButton> */}
+              <PrimaryButton type="submit">ADD</PrimaryButton>
               <CancelButton type="button" onClick={handleCloseModal}>
                 CANCEL
               </CancelButton>
