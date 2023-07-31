@@ -39,6 +39,10 @@ export const BaseButton = styled.button`
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     width: 300px;
   }
+  &:active {
+    transform: scale(0.99);
+    transition: transform 50ms;
+  }
 `;
 
 export const PrimaryButton = styled(BaseButton)`
