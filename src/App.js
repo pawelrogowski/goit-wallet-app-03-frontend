@@ -15,9 +15,10 @@ const Statistic = lazy(() => import('pages/StatisticPage'));
 const Currency = lazy(() => import('pages/CurrencyPage'));
 
 const App = () => {
-  const isModalLogoutOpen = useSelector(state => state.global.isModalLogoutOpen);
-  const isModalAddTransactionOpen = useSelector(state => state.global.isModalAddTransactionOpen);
-  const isModalEditTransactionOpen = useSelector(state => state.global.isModalAddTransactionOpen);
+  // isModalEditTransactionOpen  -- add this to the object below when ready
+  const { isModalLogoutOpen, isModalAddTransactionOpen } = useSelector(
+    state => state.global.isModalLogoutOpen
+  );
 
   return (
     <Suspense fallback={null}>
