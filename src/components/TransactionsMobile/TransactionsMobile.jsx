@@ -125,8 +125,6 @@ const TransactionsMobile = () => {
     return makeProperDate(b.date) - makeProperDate(a.date);
   });
 
-  const isModalEditTransactionOpen = useSelector(state => state.global.isModalEditTransactionOpen);
-
   const handleOpenEditModal = () => {
     dispatch(setIsModalEditTransactionOpen(true));
   };
@@ -138,7 +136,6 @@ const TransactionsMobile = () => {
   return (
     <>
       <TransactionsList>
-        {isModalEditTransactionOpen && <EditTransactionModal />}
         {sortedTransactions.map(transaction => (
           <TransactionsElement key={transaction._id}>
             <TransactionList type={transaction.isIncome ? 1 : 0}>

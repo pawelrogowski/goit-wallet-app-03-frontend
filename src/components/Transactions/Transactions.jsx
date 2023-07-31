@@ -214,8 +214,6 @@ const TransactionsBodyHeadRow = styled.tr`
 const Transactions = () => {
   const dispatch = useDispatch();
 
-  const isModalEditTransactionOpen = useSelector(state => state.global.isModalEditTransactionOpen);
-
   const handleOpenEditModal = () => {
     dispatch(setIsModalEditTransactionOpen(true));
   };
@@ -231,47 +229,35 @@ const Transactions = () => {
   };
 
   return (
-   <>
-    <TransactionContainer>
-      <TransactionsTable>
-        <TransactionsTableHead>
-          <TransactionsTableHeadRow>
-            {headers.map((item, index) => (
-              <TransactionsTableHeader key={index}>{item}</TransactionsTableHeader>
-            ))}
-          </TransactionsTableHeadRow>
-        </TransactionsTableHead>
-        <TransactionsTableBody>
-          {sortedTransactions.map(transaction => (
-            <TransactionsBodyHeadRow key={transaction._id}>
-              <TransactionTableData>{formatDate(transaction.date)}</TransactionTableData>
-              <TransactionTableData>{transaction.isIncome ? '+' : '-'}</TransactionTableData>
-              <TransactionTableData>{transaction.category}</TransactionTableData>
-              <TransactionTableData>{transaction.comment}</TransactionTableData>
-              <TransactionTableData
-                style={{
-                  color: `${
-                    transaction.isIncome
-                      ? 'var(--color-brand-secondary)'
-                      : 'var(--color-brand-accent)'
-                  }`,
-                }}
-              >
-                {formatNumberWithSpaces(transaction.amount)}
-              </TransactionTableData>
-              <TransactionTableData>
-                <EditButton
-                  type="button"
-                  onClick={() => dispatch(setTransactionToEdit(transaction))}
+    <>
+      <TransactionContainer>
+        <TransactionsTable>
+          <TransactionsTableHead>
+            <TransactionsTableHeadRow>
+              {headers.map((item, index) => (
+                <TransactionsTableHeader key={index}>{item}</TransactionsTableHeader>
+              ))}
+            </TransactionsTableHeadRow>
+          </TransactionsTableHead>
+          <TransactionsTableBody>
+            {sortedTransactions.map(transaction => (
+              <TransactionsBodyHeadRow key={transaction._id}>
+                <TransactionTableData>{formatDate(transaction.date)}</TransactionTableData>
+                <TransactionTableData>{transaction.isIncome ? '+' : '-'}</TransactionTableData>
+                <TransactionTableData>{transaction.category}</TransactionTableData>
+                <TransactionTableData>{transaction.comment}</TransactionTableData>
+                <TransactionTableData
+                  style={{
+                    color: `${
+                      transaction.isIncome
+                        ? 'var(--color-brand-secondary)'
+                        : 'var(--color-brand-accent)'
+                    }`,
+                  }}
                 >
-                  <Icon icon="icon__edit" />
-                </EditButton>
-                <SmallButton
-                  type="button"
-                  onClick={() => TransactionsDeleteHandler(transaction._id)}
-                >
-                  {transaction.amount}
+                  {formatNumberWithSpaces(transaction.amount)}
                 </TransactionTableData>
+
                 <TransactionTableData>
                   <EditButton
                     type="button"
@@ -294,7 +280,6 @@ const Transactions = () => {
           </TransactionsTableBody>
         </TransactionsTable>
       </TransactionContainer>
-      {isModalEditTransactionOpen && <EditTransactionModal />}
     </>
   );
 };
