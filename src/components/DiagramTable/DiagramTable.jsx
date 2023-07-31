@@ -129,7 +129,7 @@ const DiagramTableBase = () => {
             </ListItem>
           ))
         ) : (
-          <li>No data available for the selected month and year.</li>
+          <li></li>
         )}
       </List>
       <BoxFooter>
