@@ -10,6 +10,8 @@ import {
   refreshTokens,
 } from '../../utils/api';
 
+import { resetGlobalState } from './globalSlice';
+import { resetTransactionState } from './transactionSlice';
 export const register = createAsyncThunk('session/register', async userData => {
   try {
     const response = await registerUser(userData);
@@ -141,6 +143,10 @@ export const sessionSlice = createSlice({
       state.currentUser = {};
       state.isAuth = false;
       state.error = null;
+      console.log(state);
+      resetGlobalState();
+      resetTransactionState();
+      console.log(state);
     });
 
     builder.addCase(logout.rejected, (state, action) => {
@@ -152,6 +158,9 @@ export const sessionSlice = createSlice({
       state.error = null;
       state.isLoading = false;
       state.error = action.error.message;
+
+      resetGlobalState(state);
+      resetTransactionState(state);
     });
 
     // Refresh Tokens
@@ -169,6 +178,8 @@ export const sessionSlice = createSlice({
     builder.addCase(refreshAccessToken.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
+      resetGlobalState(state);
+      resetTransactionState(state);
     });
   },
 });

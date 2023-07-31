@@ -10,6 +10,25 @@ import {
   getMonthlyCategoryTotals,
 } from '../../utils/api';
 
+export const resetTransactionState = state => {
+  state.selectedMonth = null;
+  state.selectedYear = null;
+  state.isLoading = false;
+  state.error = null;
+  state.currentTransactionToEdit = {
+    _id: null,
+    amount: 0,
+    date: '',
+    isIncome: false,
+    category: '',
+    comment: '',
+  };
+  state.transactions = [];
+  state.filteredTransactions = [];
+  state.totals = {};
+  state.monthlyTotals = {};
+};
+
 const filterTransaction = transaction => {
   const { _id, amount, date, isIncome, category, comment } = transaction;
 

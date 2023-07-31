@@ -1,6 +1,14 @@
 //globalSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
+export const resetGlobalState = state => {
+  state.isLoading = false;
+  state.isModalLogoutOpen = false;
+  state.isModalAddTransactionOpen = false;
+  state.isModalEditTransactionOpen = false;
+  state.error = null;
+};
+
 export const setError = (state, action) => {
   state.error = action.payload;
 };
