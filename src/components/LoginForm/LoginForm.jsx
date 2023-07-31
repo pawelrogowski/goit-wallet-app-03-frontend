@@ -4,7 +4,7 @@ import { InputWithIcon } from 'components/Inputs/InputWithIcon';
 import Logo from 'components/Logo/Logo';
 import { Formik } from 'formik';
 import { object, string } from 'yup';
-import Loader from './../Loader/Loader';
+import Loader from '../Loader/Loader.styled';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'redux/slices/sessionSlice';
