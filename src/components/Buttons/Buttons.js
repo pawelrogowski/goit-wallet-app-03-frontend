@@ -52,6 +52,7 @@ export const PrimaryButton = styled(BaseButton)`
   background-color: var(--color-brand-secondary);
   border: none;
   color: var(--font-color-light);
+  min-height: 50px;
 `;
 
 export const SecondaryButton = styled(PrimaryButton)`
