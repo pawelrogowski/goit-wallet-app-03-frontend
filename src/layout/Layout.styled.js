@@ -43,6 +43,7 @@ export const MainContainer = styled.main`
     align-content: flex-start;
     padding: 20px 32px 32px 32px;
     height: calc(100% - 400px);
+    position: relative;
   }
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {

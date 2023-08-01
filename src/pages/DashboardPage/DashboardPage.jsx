@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import Transactions from 'components/Transactions/Transactions';
 import TransactionsMobile from 'components/TransactionsMobile/TransactionsMobile';
 import { fetchTransactions } from 'redux/slices/transactionSlice';
-import ButtonAddTransaction from 'components/ButtonAddTransaction/ButtonAddTransaction';
 import { Title } from './Dashboard.styled';
+import ButtonAddTransaction from 'components/ButtonAddTransaction/ButtonAddTransaction';
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const DashboardPage = () => {
     <>
       <Title as="h1">DashboardPage</Title>
       {windowWidth ? <Transactions /> : <TransactionsMobile />}
-      <ButtonAddTransaction />
+      {!windowWidth && <ButtonAddTransaction />}
     </>
   );
 };
