@@ -13,7 +13,7 @@ export const Heading = styled(HeadingBase)`
   font-size: 30px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 1.5;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     display: inline-block;

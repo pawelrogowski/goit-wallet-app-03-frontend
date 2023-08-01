@@ -1,26 +1,8 @@
 import styled from 'styled-components';
-import { BaseInput } from './BaseInput';
+import { BaseInput } from './BaseInput.styled';
 import { Icon } from '../Icon/Icon';
 import { useField } from 'formik';
-
-const StyledDiv = styled.div`
-  display: inline-block;
-  position: relative;
-  margin-top: 30px;
-
-  ${BaseInput} {
-    padding-left: 47px;
-  }
-`;
-
-const ErrorMessage = styled.div`
-  position: absolute;
-  top: 30px;
-  left: 0;
-  font-size: 13px;
-  color: var(--color-brand-accent);
-  margin-bottom: 10px;
-`;
+import { ErrorMessage, StyledDiv } from './InputWithIcon.styled';
 
 const InputWithIconBase = ({ icon, ...props }) => {
   const [field, meta] = useField(props);

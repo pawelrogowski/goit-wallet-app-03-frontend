@@ -1,57 +1,38 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { InputWithIcon } from 'components/Inputs/InputWithIcon';
 import Logo from 'components/Logo/Logo';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import { object, string, ref } from 'yup';
 import PasswordStrength from './../Inputs/PasswordStrength';
-import Loader from 'components/Loader/Loader';
+import Loader from 'components/Loader/Loader.styled';
 import { getCharacterValidationError } from 'utils/formaters';
 import { useNavigate } from 'react-router-dom';
-
-const FormikForm = styled(Form)`
-  height: 100vh;
-  min-width: 320px;
-  width: 100%;
-  padding: 107px 20px 36px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--background-light);
-  border-radius: 12px;
-
-  // Logo is the first component so this adds margin to logo
-  & > :first-child {
-    margin-bottom: 30px;
-  }
-
-  & > :nth-child(6) {
-    margin-bottom: 40px;
-  }
-
-  & > :nth-child(4) .error {
-    top: 47px;
-  }
-
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
-    box-shadow: 0 0 0px 40rem #ffff inset;
-  }
-
-  //tablet+desktop
-  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    width: 533px;
-    padding: 40px 58.5px 62px 65px;
-    height: auto;
-  }
-`;
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from 'redux/slices/sessionSlice';
+import { FormikForm } from './RegistrationForm.styled';
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const isAuth = useSelector(state => state.session.isAuth);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/home');
+    }
+  }, [isAuth, navigate]);
+
+  const handleRegister = values => {
+    dispatch(
+      register({
+        name: values.firstName,
+        email: values.email,
+        password: values.password,
+      })
+    );
+  };
 
   return (
     <Formik
@@ -79,13 +60,13 @@ const RegistrationForm = () => {
           .max(30, 'First name is too long - should be 30 characters or less.'),
       })}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        console.log(values);
+        handleRegister(values);
         resetForm();
         setSubmitting(false);
       }}
       validateOnMount
     >
-      {({ values, isValid, isSubmitting, handleBlur }) => (
+      {({ values, isSubmitting, handleBlur }) => (
         <FormikForm autoComplete="off">
           {isSubmitting && <Loader />}
           <Logo />
@@ -126,9 +107,7 @@ const RegistrationForm = () => {
             autoComplete="off"
             onKeyUp={handleBlur}
           />
-          <PrimaryButton type="submit" disabled={!isValid} onClick={() => navigate('/')}>
-            REGISTER
-          </PrimaryButton>
+          <PrimaryButton type="submit">REGISTER</PrimaryButton>
           <SecondaryButton type="button" onClick={() => navigate('/login')}>
             LOG IN
           </SecondaryButton>

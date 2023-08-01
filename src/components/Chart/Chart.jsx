@@ -1,48 +1,32 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { data } from '../DiagramTable/data';
-import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchTotals } from 'redux/slices/transactionSlice';
+import { formatBalance } from 'utils/numberUtils';
+import { ChartContainer, Balance } from './Chart.styled';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ChartContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-  min-width: 280px;
-  min-height: 280px;
-  padding: 0px;
-
-  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
-    width: 336px;
-    height: 336px;
-  }
-
-  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    width: 288px;
-    height: 288px;
-  }
-`;
-
-const Balance = styled.span`
-  font-size: 18px;
-  font-weight: 700;
-  font-family: 'Circe';
-  font-style: normal;
-  line-height: normal;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
 const Chart = () => {
-  const labels = data.map(item => item.category);
-  const dataValues = data.map(item => parseFloat(item.sum.replace(/\s+/g, '')));
-  const backgroundColors = data.map(item => item.color);
-  const sum = dataValues.reduce((total, value) => total + value, 0).toFixed(2);
+  const dispatch = useDispatch();
+  const { totals, monthlyTotals } = useSelector(state => state.transactions);
+
+  useEffect(() => {
+    dispatch(fetchTotals());
+  }, [dispatch]);
+
+  const showTotals = monthlyTotals && monthlyTotals.totals;
+  const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
+
+  if (!dataToMap || totals.totals.length === 0) {
+    return <div></div>;
+  }
+  const labels = dataToMap.map(item => item.category);
+  const backgroundColors = dataToMap.map(item => item.color);
+  const dataValues = dataToMap.map(item => item.sum);
+
+  const balance = showTotals ? monthlyTotals.difference : totals.difference || 0;
 
   const chartData = {
     labels: labels,
@@ -52,13 +36,15 @@ const Chart = () => {
         data: dataValues,
         backgroundColor: backgroundColors,
         borderWidth: 0,
+        weight: 1,
       },
     ],
   };
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
+
     plugins: {
       legend: {
         display: false,
@@ -69,7 +55,7 @@ const Chart = () => {
   return (
     <ChartContainer>
       <Doughnut data={chartData} options={options} />
-      <Balance>{sum}</Balance>
+      <Balance>$ {formatBalance(balance)}</Balance>
     </ChartContainer>
   );
 };
