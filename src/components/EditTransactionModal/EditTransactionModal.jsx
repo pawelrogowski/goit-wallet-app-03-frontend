@@ -3,9 +3,8 @@ import { Formik } from 'formik';
 import { object, string, date, bool, mixed, number } from 'yup';
 import { PrimaryButton } from '../Buttons/Buttons';
 import { BaseInput } from 'components/Inputs/BaseInput.styled';
-import Loader from '../Loader/Loader.styled';
 import CategorySelect from 'components/CategorySelect/CategorySelect';
-
+import Textarea from 'components/Inputs/Textarea';
 import DatetimePicker from 'components/DatetimePicker/DatetimePicker';
 import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
@@ -13,6 +12,7 @@ import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { editTransaction, fetchTransactions } from 'redux/slices/transactionSlice';
+import { customStyles } from 'components/CategorySelect/CategorySelect.styled';
 import {
   Backdrop,
   CalendarWrapper,
@@ -27,11 +27,13 @@ import {
   Modal,
   TransactionTypeDiv,
   TwoColumnRow,
+  placeholderStyles,
 } from './EditTransactionModal.styled';
 
 const options = [
   { value: 'main expenses', label: 'Main expenses' },
   { value: 'products', label: 'Products' },
+  { value: 'car', label: 'Car' },
   { value: 'self care', label: 'Self care' },
   { value: 'child care', label: 'Child care' },
   { value: 'household products', label: 'Household products' },
@@ -123,14 +125,11 @@ const EditTransactionModal = () => {
             resetForm();
             setSubmitting(false);
           }}
-          validateOnMount
           enableReinitialize
         >
-          {({ values, isValid, isSubmitting, setFieldValue, handleBlur }) => (
+          {({ values, setFieldValue, handleBlur }) => (
             <FormikForm>
               <Heading>Edit transaction</Heading>
-              {isSubmitting && <Loader />}
-
               <TransactionTypeDiv>
                 <IncomeSpan $active={selectedTransactionToEdit.isIncome}>Income</IncomeSpan>
                 <Icon icon="icon__slash"></Icon>
@@ -139,14 +138,12 @@ const EditTransactionModal = () => {
               {!selectedTransactionToEdit.isIncome && (
                 <InputWrapper>
                   <CategorySelect
-                    value={{
-                      value: selectedTransactionToEdit.category,
-                      label: selectedTransactionToEdit.category,
-                    }}
+                    value={values.category}
                     placeholder={selectedTransactionToEdit.category}
                     name="category"
                     onChange={category => setFieldValue('category', category)}
                     options={options}
+                    styles={{ ...customStyles, ...placeholderStyles }}
                   />
                   <ErrorText name="category" component="div" className="category" />
                 </InputWrapper>
@@ -157,7 +154,7 @@ const EditTransactionModal = () => {
                     placeholder="0.00"
                     title="Please put the transaction value"
                     name="value"
-                    type="text"
+                    type="number"
                     autoComplete="off"
                     value={values.value}
                     onChange={value => setFieldValue('value', value.target.value)}
@@ -178,21 +175,16 @@ const EditTransactionModal = () => {
                 </CalendarWrapper>
               </TwoColumnRow>
               <InputWrapper>
-                <BaseInput
+                <Textarea
                   placeholder="Comment"
                   title="Please describe your transaction."
                   name="comment"
                   type="text"
                   autoComplete="off"
-                  value={values.comment}
-                  onChange={comment => setFieldValue('comment', comment.target.value)}
-                  onBlur={comment => setFieldValue('comment', comment.target.value)}
                 />
                 <ErrorText name="comment" component="div" />
               </InputWrapper>
-              <PrimaryButton type="submit" disabled={!isValid}>
-                SAVE
-              </PrimaryButton>
+              <PrimaryButton type="submit">SAVE</PrimaryButton>
               <CancelButton onClick={handleCloseEditModal} type="button">
                 CANCEL
               </CancelButton>

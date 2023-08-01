@@ -101,7 +101,7 @@ export const CancelButton = styled(SecondaryButton)`
 export const TwoColumnRow = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 41px;
+  gap: 46px;
   max-width: 410px;
 
   input {
@@ -153,8 +153,8 @@ export const CalendarWrapper = styled.div`
 
   svg {
     position: absolute;
-    bottom: 6px;
-    right: 0;
+    bottom: 8px;
+    right: 14px;
     width: 24px;
     height: 24px;
     fill: var(--color-brand-primary);
@@ -162,8 +162,8 @@ export const CalendarWrapper = styled.div`
 
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
     svg {
-      right: 20px;
-      bottom: 2px;
+      right: 17px;
+      bottom: 4px;
     }
   }
 `;

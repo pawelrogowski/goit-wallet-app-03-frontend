@@ -4,6 +4,18 @@ import { Form, ErrorMessage } from 'formik';
 import { SecondaryButton } from '../Buttons/Buttons';
 import { BaseInput } from 'components/Inputs/BaseInput.styled';
 
+export const placeholderStyles = {
+  placeholder: provided => ({
+    ...provided,
+    paddingLeft: '8px',
+    paddingBottom: '2px',
+    color: 'var(--font-color-dark)',
+    '@media only screen and (max-width: 767px)': {
+      paddingLeft: '0px',
+    },
+  }),
+};
+
 export const Backdrop = styled.div`
   display: flex;
   justify-content: center;
@@ -151,8 +163,8 @@ export const CalendarWrapper = styled.div`
 
   svg {
     position: absolute;
-    bottom: 5px;
-    right: 0;
+    bottom: 8px;
+    right: 14px;
     width: 24px;
     height: 24px;
     fill: var(--color-brand-primary);
