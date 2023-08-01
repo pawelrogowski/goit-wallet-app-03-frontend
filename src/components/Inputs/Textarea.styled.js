@@ -14,6 +14,7 @@ export const StyledTextarea = styled.textarea`
   margin-bottom: 10px;
   width: 280px;
   line-height: 1.33;
+  padding-left: 8px;
 
   &::placeholder {
     color: var(--color-logout-button);

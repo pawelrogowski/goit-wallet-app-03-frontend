@@ -29,6 +29,7 @@ import {
 const options = [
   { value: 'main expenses', label: 'Main expenses' },
   { value: 'products', label: 'Products' },
+  { value: 'car', label: 'Car' },
   { value: 'self care', label: 'Self care' },
   { value: 'child care', label: 'Child care' },
   { value: 'household products', label: 'Household products' },
@@ -146,7 +147,7 @@ const AddTransactionModal = () => {
                     placeholder="0.00"
                     title="Please put the transaction value"
                     name="amount"
-                    type="text"
+                    type="number"
                     autoComplete="off"
                     value={values.value}
                     onChange={value => setFieldValue('value', value.target.value)}

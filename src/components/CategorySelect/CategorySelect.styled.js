@@ -11,11 +11,13 @@ export const customStyles = {
   }),
   control: provided => ({
     ...provided,
+    minHeight: '20px',
     border: 'none',
     borderBottom: '1px solid var(--color-switch-main)',
     borderRadius: '0',
     boxShadow: 'none',
     alignItems: 'flex-end',
+    cursor: 'pointer',
     '&:hover': { borderBottom: '1px solid var(--color-switch-main)' },
 
     '@media only screen and (max-width: 767px)': {
@@ -45,14 +47,45 @@ export const customStyles = {
     ...provided,
     display: 'none',
   }),
+  indicatorContainer: provided => ({
+    ...provided,
+    padding: '0px',
+  }),
+  dropdownIndicator: provided => ({
+    ...provided,
+    padding: '0px 5px 0px 0px',
+  }),
   valueContainer: provided => ({
     ...provided,
     alignItems: 'flex-end',
     padding: '1px 1px',
   }),
+  input: provided => ({
+    ...provided,
+    paddingLeft: '8px',
+    paddingBottom: '0px',
+
+    '@media only screen and (max-width: 767px)': {
+      paddingLeft: '0px',
+    },
+  }),
+  singleValue: provided => ({
+    ...provided,
+    paddingLeft: '8px',
+    paddingBottom: '2px',
+    '@media only screen and (max-width: 767px)': {
+      paddingLeft: '0px',
+      margin: '0px',
+    },
+  }),
   placeholder: provided => ({
     ...provided,
+    paddingLeft: '8px',
+    paddingBottom: '2px',
     color: 'var(--color-logout-button)',
+    '@media only screen and (max-width: 767px)': {
+      paddingLeft: '0px',
+    },
   }),
 };
 

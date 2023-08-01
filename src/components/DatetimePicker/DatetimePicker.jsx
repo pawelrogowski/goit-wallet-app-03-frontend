@@ -11,6 +11,9 @@ const DatetimePicker = ({ ...props }) => {
     <StyledDatetime
       {...field}
       {...props}
+      inputProps={{
+        readOnly: true,
+      }}
       selected={field.value}
       onChange={value => {
         helpers.setValue(moment(value).format('DD.MM.YYYY'));
