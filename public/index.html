@@ -14,6 +14,25 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script>
+      function preventOrientationChange() {
+        if (window.screen.orientation) {
+          window.screen.orientation.lock('portrait').catch(function (error) {
+            console.log('Orientation lock failed: ' + error);
+          });
+        } else {
+          // Fallback for browsers that don't support orientation lock
+          window.addEventListener('orientationchange', function () {
+            if (window.orientation !== 0) {
+              window.orientation = 0;
+            }
+          });
+        }
+      }
+
+      // Call the function to prevent orientation change
+      preventOrientationChange();
+    </script>
     <div id="root"></div>
   </body>
 </html>
