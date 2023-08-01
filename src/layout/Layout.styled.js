@@ -11,6 +11,7 @@ export const Section = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-width: 320px;
   min-height: calc(100vh - 60px);
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {

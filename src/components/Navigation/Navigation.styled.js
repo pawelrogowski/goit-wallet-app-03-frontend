@@ -5,8 +5,12 @@ import { Icon } from 'components/Icon/Icon';
 export const NavContainer = styled.nav`
   margin: 0;
   padding: 0;
-  display: inline-block;
-
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    display: inline-block;
+  }
   ${Icon} {
     fill: var(--nav-color-inactive);
     width: 44px;
