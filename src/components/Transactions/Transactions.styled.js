@@ -8,16 +8,16 @@ export const TransactionContainer = styled.div`
   &::-webkit-scrollbar {
     width: 4px;
   }
-  /* Track */
+
   &::-webkit-scrollbar-track {
     margin-top: 57px;
     background: transparent;
   }
-  /* Handle */
+
   &::-webkit-scrollbar-thumb {
     background: var(--color-logout-button);
   }
-  /* Handle on hover */
+
   &::-webkit-scrollbar-thumb:hover {
     background: var(--color-logout-button);
   }
@@ -109,6 +109,10 @@ export const TransactionsTableHeader = styled.th`
   &:first-child {
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
+  }
+
+  &:nth-child(2) {
+    text-align: center;
   }
 
   &:last-child {
