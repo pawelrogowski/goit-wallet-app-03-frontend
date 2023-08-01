@@ -13,10 +13,14 @@ export const Section = styled.section`
   width: 100%;
   min-width: 320px;
   min-height: calc(100vh - 60px);
-
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     min-height: calc(100vh - 80px);
     height: calc(100vh - 80px);
+    @media screen and (orientation: landscape) {
+      @media screen and (max-height: 767px) {
+        overflow-y: auto;
+      }
+    }
   }
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {

@@ -3,6 +3,13 @@ import { PrimaryButton } from 'components/Buttons/Buttons';
 
 export const TransactionContainer = styled.div`
   height: calc(100% - 32px);
+  @media screen and (orientation: landscape) {
+    @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+      @media screen and (max-height: 767px) {
+        height: 90vh;
+      }
+    }
+  }
   overflow-y: auto;
   width: 100%;
   &::-webkit-scrollbar {
@@ -51,6 +58,9 @@ export const TransactionsTable = styled.table`
 `;
 
 export const TransactionsTableHead = styled.thead`
+  @media screen and (orientation: landscape) {
+    position: sticky;
+  }
   font-size: 18px;
   font-weight: 700;
   position: sticky;
