@@ -26,6 +26,9 @@ export const globalSlice = createSlice({
     setIsModalEditTransactionOpen: (state, action) => {
       state.isModalEditTransactionOpen = action.payload;
     },
+    toggleIsLoading: state => {
+      state.isLoading = !state.isLoading;
+    },
     reset: () => initialState,
   },
 });
@@ -37,5 +40,5 @@ export const {
   setIsModalEditTransactionOpen,
 } = globalSlice.actions;
 
-export const { reset: resetGlobal } = globalSlice.actions;
+export const { reset: resetGlobal, toggleIsLoading } = globalSlice.actions;
 export default globalSlice.reducer;

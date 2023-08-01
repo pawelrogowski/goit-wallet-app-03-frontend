@@ -9,11 +9,13 @@ import {
   getUserProfile,
   refreshTokens,
 } from '../../utils/api';
-import { resetGlobal } from './globalSlice';
+import { resetGlobal, setIsLoading } from './globalSlice';
 import { resetTransactions } from './transactionSlice';
 
-export const register = createAsyncThunk('session/register', async userData => {
+export const register = createAsyncThunk('session/register', async (userData, { dispatch }) => {
+  dispatch(setIsLoading(true));
   try {
+    dispatch(setIsLoading(true));
     const response = await registerUser(userData);
     return { token: response.token, user: response.user };
   } catch (error) {
@@ -23,11 +25,14 @@ export const register = createAsyncThunk('session/register', async userData => {
       toast.error('An unexpected error occurred during registration.');
     }
     throw error;
+  } finally {
+    dispatch(setIsLoading(false));
   }
 });
 
-export const login = createAsyncThunk('session/login', async loginData => {
+export const login = createAsyncThunk('session/login', async (loginData, { dispatch }) => {
   try {
+    dispatch(setIsLoading(true));
     const response = await loginUser(loginData);
     return response;
   } catch (error) {
@@ -37,11 +42,14 @@ export const login = createAsyncThunk('session/login', async loginData => {
       toast.error('An unexpected error occurred during login.');
     }
     throw error;
+  } finally {
+    dispatch(setIsLoading(false));
   }
 });
 
 export const logout = createAsyncThunk('session/logout', async (_, { dispatch }) => {
   try {
+    dispatch(setIsLoading(true));
     await logoutUser();
     dispatch(resetGlobal());
     dispatch(resetTransactions());
@@ -56,29 +64,41 @@ export const logout = createAsyncThunk('session/logout', async (_, { dispatch })
   }
 });
 
-export const fetchUserProfile = createAsyncThunk('users/fetchUserProfile', async () => {
-  try {
-    const response = await getUserProfile();
-    return response;
-  } catch (error) {
-    if (error.response && error.response.data && error.response.data.error) {
-      toast.error(error.response.data.error);
-    } else {
-      toast.error('An unexpected error occurred while fetching user profile.');
+export const fetchUserProfile = createAsyncThunk(
+  'users/fetchUserProfile',
+  async (_, { dispatch }) => {
+    dispatch(setIsLoading(true));
+    try {
+      const response = await getUserProfile();
+      return response;
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.error) {
+        toast.error(error.response.data.error);
+      } else {
+        toast.error('An unexpected error occurred while fetching user profile.');
+      }
+      throw error;
+    } finally {
+      dispatch(setIsLoading(false));
     }
-    throw error;
   }
-});
+);
 
-export const refreshAccessToken = createAsyncThunk('session/refreshAccessToken', async () => {
-  try {
-    const response = await refreshTokens();
-    return response;
-  } catch (error) {
-    toast.error('An unexpected error occurred while refreshing access token.');
-    throw error;
+export const refreshAccessToken = createAsyncThunk(
+  'session/refreshAccessToken',
+  async (_, { dispatch }) => {
+    dispatch(setIsLoading(true));
+    try {
+      const response = await refreshTokens();
+      return response;
+    } catch (error) {
+      toast.error('An unexpected error occurred while refreshing access token.');
+      throw error;
+    } finally {
+      dispatch(setIsLoading(false));
+    }
   }
-});
+);
 
 const initialState = {
   accessToken: null,
