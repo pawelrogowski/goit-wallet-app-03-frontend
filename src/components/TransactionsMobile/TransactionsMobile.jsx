@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
-import { formatNumberWithSpaces } from 'utils/numberUtils';
+import { formatStringWithSpaces, MakeDecimalPlaces } from 'utils/formaters';
 import {
   DeleteButton,
   EditButton,
@@ -66,7 +66,7 @@ const TransactionsMobile = () => {
                   }`,
                 }}
               >
-                {formatNumberWithSpaces(transaction.amount)}
+                {formatStringWithSpaces(MakeDecimalPlaces(transaction.amount))}
               </TransactionText>
             </TransactionElement>
             <TransactionElement>
