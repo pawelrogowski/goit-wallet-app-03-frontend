@@ -2,16 +2,13 @@ import { Icon } from 'components/Icon/Icon';
 import React from 'react';
 import { NavContainer, NavItem, NavItemText, NavList, StyledNavLink } from './Navigation.styled';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setIsLoading } from 'redux/slices/globalSlice';
+
 const NavigationBase = () => {
-  const dispatch = useDispatch();
   return (
     <NavContainer>
       <NavList>
         <NavItem>
           <StyledNavLink
-            // onClick={() => dispatch(setIsLoading(true))}
             to={`/home`}
             className={({ isActive }) => (isActive ? 'activelink' : NavContainer)}
           >
@@ -22,7 +19,6 @@ const NavigationBase = () => {
 
         <NavItem>
           <StyledNavLink
-            // onClick={() => dispatch(setIsLoading(true))}
             to={`/diagram`}
             className={({ isActive }) => (isActive ? 'activelink' : NavContainer)}
           >
@@ -33,7 +29,6 @@ const NavigationBase = () => {
 
         <NavItem>
           <StyledNavLink
-            // onClick={() => dispatch(setIsLoading(true))}
             to={`/currency`}
             className={({ isActive }) => (isActive ? 'activelink' : NavContainer)}
           >
