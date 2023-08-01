@@ -13,7 +13,7 @@ const Layout = () => {
         <Section>
           <AsideBar />
           <MainContainer>
-            <Suspense fallback={null}>
+            <Suspense>
               <Outlet />
             </Suspense>
           </MainContainer>

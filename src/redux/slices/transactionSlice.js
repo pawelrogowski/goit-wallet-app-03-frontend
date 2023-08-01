@@ -9,7 +9,7 @@ import {
   getCategoryTotals,
   getMonthlyCategoryTotals,
 } from '../../utils/api';
-
+import { setIsLoading } from './globalSlice';
 const filterTransaction = transaction => {
   const { _id, amount, date, isIncome, category, comment } = transaction;
 
@@ -23,23 +23,30 @@ const filterTransaction = transaction => {
   };
 };
 
-export const fetchTransactions = createAsyncThunk('transactions/fetchTransactions', async () => {
-  try {
-    const response = await getTransactions();
-    const filtered = response.map(filterTransaction);
-    return filtered;
-  } catch (error) {
-    if (error.response && error.response.data && error.response.data.error) {
-      throw new Error(error.response.data.error);
-    } else {
-      throw error;
+export const fetchTransactions = createAsyncThunk(
+  'transactions/fetchTransactions',
+  async (_, { dispatch }) => {
+    dispatch(setIsLoading(true));
+    try {
+      const response = await getTransactions();
+      const filtered = response.map(filterTransaction);
+      return filtered;
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.error) {
+        throw new Error(error.response.data.error);
+      } else {
+        throw error;
+      }
+    } finally {
+      dispatch(setIsLoading(false));
     }
   }
-});
+);
 
 export const addTransaction = createAsyncThunk(
   'transactions/addTransaction',
-  async transactionData => {
+  async (transactionData, { dispatch }) => {
+    dispatch(setIsLoading(true));
     try {
       const response = await createTransaction(transactionData);
       return response;
@@ -49,13 +56,16 @@ export const addTransaction = createAsyncThunk(
       } else {
         throw error;
       }
+    } finally {
+      dispatch(setIsLoading(false));
     }
   }
 );
 
 export const removeTransaction = createAsyncThunk(
   'transactions/removeTransaction',
-  async transactionId => {
+  async (transactionId, { dispatch }) => {
+    dispatch(setIsLoading(true));
     try {
       await deleteTransaction(transactionId);
       return transactionId;
@@ -65,13 +75,16 @@ export const removeTransaction = createAsyncThunk(
       } else {
         throw error;
       }
+    } finally {
+      dispatch(setIsLoading(false));
     }
   }
 );
 
 export const editTransaction = createAsyncThunk(
   'transactions/editTransaction',
-  async ({ id, updatedData }) => {
+  async ({ id, updatedData }, { dispatch }) => {
+    dispatch(setIsLoading(true));
     try {
       const response = await updateTransaction(id, updatedData);
       return response;
@@ -81,13 +94,16 @@ export const editTransaction = createAsyncThunk(
       } else {
         throw error;
       }
+    } finally {
+      dispatch(setIsLoading(false));
     }
   }
 );
 
 export const fetchFilteredTransactions = createAsyncThunk(
   'transactions/fetchFilteredTransactions',
-  async ({ month, year }) => {
+  async ({ month, year }, { dispatch }) => {
+    dispatch(setIsLoading(true));
     try {
       const response = await filterTransactions(month, year);
       return response;
@@ -97,11 +113,14 @@ export const fetchFilteredTransactions = createAsyncThunk(
       } else {
         throw error;
       }
+    } finally {
+      dispatch(setIsLoading(false));
     }
   }
 );
 
-export const fetchTotals = createAsyncThunk('transactions/fetchTotals', async () => {
+export const fetchTotals = createAsyncThunk('transactions/fetchTotals', async (_, { dispatch }) => {
+  dispatch(setIsLoading(true));
   try {
     const response = await getCategoryTotals();
     return response;
@@ -111,12 +130,15 @@ export const fetchTotals = createAsyncThunk('transactions/fetchTotals', async ()
     } else {
       throw error;
     }
+  } finally {
+    dispatch(setIsLoading(false));
   }
 });
 
 export const fetchMonthlyTotals = createAsyncThunk(
   'transactions/fetchMonthlyTotals',
-  async ({ month, year }) => {
+  async ({ month, year }, { dispatch }) => {
+    dispatch(setIsLoading(true));
     try {
       const response = await getMonthlyCategoryTotals(month, year);
       return response;
@@ -126,6 +148,8 @@ export const fetchMonthlyTotals = createAsyncThunk(
       } else {
         throw error;
       }
+    } finally {
+      dispatch(setIsLoading(false));
     }
   }
 );
