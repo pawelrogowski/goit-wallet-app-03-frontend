@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { PrimaryButton } from 'components/Buttons/Buttons';
 
 export const TransactionContainer = styled.div`
   height: calc(100% - 32px);
@@ -190,17 +189,6 @@ export const EditButton = styled.button`
       stroke: var(--color-brand-primary);
     }
   }
-`;
-
-export const SmallButton = styled(PrimaryButton)`
-  display: inline-block;
-  width: 67px;
-  height: 26px;
-  color: var(--background-light);
-  font-size: 14px;
-  letter-spacing: 1px;
-  line-height: 1;
-  padding: 0;
 `;
 
 export const TransactionsBodyHeadRow = styled.tr`

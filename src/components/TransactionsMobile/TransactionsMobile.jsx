@@ -4,8 +4,8 @@ import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { formatStringWithSpaces, MakeDecimalPlaces } from 'utils/formaters';
+import { DeleteButton } from 'components/Buttons/Buttons';
 import {
-  DeleteButton,
   EditButton,
   TransactionElement,
   TransactionHeader,
