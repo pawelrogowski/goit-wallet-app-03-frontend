@@ -15,9 +15,9 @@ export const formatNumberWithSpaces = number => {
 };
 
 export const formatCompactNumber = number => {
-  const billion = 1000000000; // 1 billion
-  const million = 1000000; // 1 million
-  const thousand = 1000; // 1 thousand
+  const billion = 1000000000;
+  const million = 1000000;
+  const thousand = 1000;
 
   if (Math.abs(number) >= billion) {
     return `${(number / billion).toFixed(2)}B`;

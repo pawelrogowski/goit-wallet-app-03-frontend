@@ -1,72 +1,40 @@
 import axios from 'axios';
+import { setAuthToken } from './authUtils';
+import Cookies from 'js-cookie';
+import { refreshTokens } from './authUtils';
+export const API_URL = 'https://wallet-lzvg.onrender.com/api';
 
 const WalletInstance = axios.create();
-export const API_URL = 'https://wallet-lzvg.onrender.com/api';
-// export const API_URL = 'https://wallet-pr-12.onrender.com/api';
-
-export const setAuthToken = () => {
-  const accessToken = localStorage.getItem('accessToken');
-  if (accessToken) {
-    WalletInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  } else {
-    delete WalletInstance.defaults.headers.common['Authorization'];
-  }
-};
 setAuthToken();
+export { WalletInstance };
 
-export const refreshTokens = async () => {
-  // Get refresh token from localStorage
-  const refreshToken = localStorage.getItem('refreshToken');
+WalletInstance.interceptors.response.use(
+  response => {
+    return response;
+  },
+  async error => {
+    const originalRequest = error.config;
 
-  // Set auth token header if refresh token exists
-  if (refreshToken) {
-    setAuthToken();
-  }
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
 
-  // Only make API call if we have a refresh token
-  if (refreshToken) {
-    try {
-      // Make refresh API call
-      const response = await axios.post(`${API_URL}/users/refresh`, {
-        refreshToken,
-      });
+      try {
+        const { accessToken } = await refreshTokens();
 
-      // Update tokens
-      const { accessToken, refreshToken: newRefreshToken } = response.data;
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', newRefreshToken);
+        WalletInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
 
-      return { accessToken, refreshToken };
-    } catch (error) {
-      // Handle errors
-      if (error.response.status === 401) {
-        console.log('Refresh token invalid');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-      } else {
-        throw error;
+        return WalletInstance(originalRequest);
+      } catch (refreshError) {
+        logoutUser();
+        window.location.replace('/login');
+        return Promise.reject(refreshError);
       }
     }
+
+    return Promise.reject(error);
   }
-};
-
-let refreshInterval;
-
-const startRefreshInterval = () => {
-  refreshInterval = setInterval(refreshTokens, 5 * 60 * 1000);
-};
-
-startRefreshInterval();
-
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') {
-    refreshTokens();
-    clearInterval(refreshInterval);
-    refreshInterval = setInterval(refreshTokens, 5 * 60 * 1000);
-  } else {
-    clearInterval(refreshInterval);
-  }
-});
+);
 
 export const registerUser = async userData => {
   const response = await WalletInstance.post(`${API_URL}/users/register`, userData);
@@ -79,8 +47,8 @@ export const loginUser = async loginData => {
 
   const { accessToken, refreshToken } = response.data;
 
-  localStorage.setItem('accessToken', accessToken);
-  localStorage.setItem('refreshToken', refreshToken);
+  Cookies.set('accessToken', accessToken);
+  Cookies.set('refreshToken', refreshToken);
 
   return response.data;
 };
@@ -93,8 +61,8 @@ export const getUserProfile = async () => {
 
 export const logoutUser = async () => {
   await WalletInstance.get(`${API_URL}/users/logout`);
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
+  Cookies.remove('accessToken');
+  Cookies.remove('refreshToken');
 };
 
 export const createTransaction = async transactionData => {

@@ -9,7 +9,6 @@ const Balance = () => {
   const { totals, transactions } = useSelector(state => state.transactions);
   const balance = totals.difference || 0;
 
-  // Fetch totals when page is refresh and when transaction object is changed
   useEffect(() => {
     dispatch(fetchTotals());
   }, [dispatch, transactions]);

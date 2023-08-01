@@ -5,7 +5,7 @@ export const Title = styled(Heading)`
   display: inline-block;
   padding: 0;
   margin: 0;
-  width: 100%; // this 100% width is so the heading takes full width of a parent, pushing other elements below
+  width: 100%;
 `;
 export const ChartContainer = styled.div`
   display: flex;

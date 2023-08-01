@@ -45,7 +45,6 @@ const ModalLogout = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-    // Safe to omit handleCloseModal from dependency array to prevent unnecessary re-renders.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

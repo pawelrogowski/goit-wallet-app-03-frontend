@@ -48,7 +48,6 @@ export const NavItem = styled.li`
   padding: 0;
 `;
 
-// StyledNavLink Wraps around text+icon, meaning the redirection works on both and gap between them
 export const StyledNavLink = styled(NavLink)`
   margin: 0;
   padding: 0;
