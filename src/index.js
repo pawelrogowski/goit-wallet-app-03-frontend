@@ -2,6 +2,7 @@ import 'modern-normalize/modern-normalize.css';
 import './stylesheet/fonts.css';
 import './stylesheet/vars.css';
 import './index.css';
+import './utils/lockScreen';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
