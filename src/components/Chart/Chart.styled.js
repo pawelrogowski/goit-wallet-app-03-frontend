@@ -19,11 +19,11 @@ export const ChartContainer = styled.div`
     max-height: 500px;
     @media (min-width: ${props => props.theme.breakpoints.tablet}) {
       max-width: calc(100vh - 80px - 214px - 114px);
-      /* max-height: calc(100vh - 80px - 214px - 144px); */
+      max-height: calc(100vh - 80px - 214px - 144px);
     }
     @media (min-width: ${props => props.theme.breakpoints.tablet}) {
       max-width: calc(100vh - 80px - 214px - 114px);
-      /* max-height: calc(100vh - 80px - 144px); */
+      max-height: calc(100vh - 80px - 350px);
     }
   }
 `;
