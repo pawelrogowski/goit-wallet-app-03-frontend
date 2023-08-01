@@ -4,9 +4,9 @@ import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
 import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { formatStringWithSpaces, MakeDecimalPlaces } from 'utils/formaters';
+import { DeleteButton } from 'components/Buttons/Buttons';
 import {
   EditButton,
-  SmallButton,
   TransactionContainer,
   TransactionTableData,
   TransactionsBodyHeadRow,
@@ -75,12 +75,12 @@ const Transactions = () => {
                   >
                     <Icon icon="icon__edit" />
                   </EditButton>
-                  <SmallButton
+                  <DeleteButton
                     type="button"
                     onClick={() => TransactionsDeleteHandler(transaction._id)}
                   >
                     Delete
-                  </SmallButton>
+                  </DeleteButton>
                 </TransactionTableData>
               </TransactionsBodyHeadRow>
             ))}
