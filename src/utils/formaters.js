@@ -15,6 +15,14 @@ export const getCharacterValidationError = str => {
   return `Password must have at least 1 ${str} character.`;
 };
 
+export const formatStringWithSpaces = text => {
+  return text.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+};
+
+export const MakeDecimalPlaces = text => {
+  return parseFloat(text).toFixed(2);
+};
+
 export const truncateString = (str, maxLength = 50) => {
   if (str.length > maxLength) {
     return str.substring(0, maxLength) + '...';

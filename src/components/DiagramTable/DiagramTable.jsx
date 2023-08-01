@@ -8,7 +8,6 @@ import {
   setSelectedMonth,
   setSelectedYear,
 } from 'redux/slices/transactionSlice';
-import { fixDigitsToTwoDecimalPlaces, formatNumberWithSpaces } from 'utils/numberUtils';
 import {
   BoxFooter,
   BoxHeading,
@@ -23,6 +22,7 @@ import {
   Sum,
 } from './DiagramTable.styled';
 import styled from 'styled-components';
+import { formatStringWithSpaces, MakeDecimalPlaces } from 'utils/formaters';
 
 const months = [
   { id: 1, name: 'January' },
@@ -98,7 +98,7 @@ const DiagramTableBase = () => {
 
   const sumExpenses = showTotals ? monthlyTotals.totalExpenses : totals.totalExpenses || 0;
   const sumIncome = showTotals ? monthlyTotals.totalIncome : totals.totalIncome || 0;
-  const formatSum = num => formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
+  const formatSum = num => formatStringWithSpaces(MakeDecimalPlaces(num));
   return (
     <StyledTable>
       <BoxInputs>
