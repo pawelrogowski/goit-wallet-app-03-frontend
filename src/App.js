@@ -24,6 +24,26 @@ const App = () => {
   const [delayCompleted, setDelayCompleted] = useState(false);
 
   useEffect(() => {
+    const lockOrientation = async () => {
+      try {
+        if (window.screen.orientation) {
+          await window.screen.orientation.lock('portrait');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    lockOrientation();
+
+    return () => {
+      if (window.screen.orientation) {
+        window.screen.orientation.unlock();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     if (isLoading) {
       setShowLoader(true);
       setDelayCompleted(false);

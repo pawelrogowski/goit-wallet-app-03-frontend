@@ -14,49 +14,6 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <script>
-      function preventOrientationChange() {
-        function handleOrientationChange() {
-          const isPortrait = window.innerHeight > window.innerWidth;
-          if (!isPortrait) {
-            // Change the orientation back to portrait
-            // This may not work on all devices/browsers
-            try {
-              if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('portrait').catch(function (error) {
-                  console.log('Orientation lock failed: ' + error);
-                });
-              } else if (screen.lockOrientation) {
-                screen.lockOrientation('portrait');
-              } else if (screen.mozLockOrientation) {
-                screen.mozLockOrientation('portrait');
-              } else if (screen.msLockOrientation) {
-                screen.msLockOrientation('portrait');
-              } else {
-                // Fallback for unsupported devices/browsers
-                // Handle orientation changes manually
-                window.addEventListener('orientationchange', function () {
-                  if (window.orientation !== 0) {
-                    window.orientation = 0;
-                  }
-                });
-              }
-            } catch (error) {
-              console.log('Error locking orientation: ' + error);
-            }
-          }
-        }
-
-        // Listen for orientation change events
-        window.addEventListener('orientationchange', handleOrientationChange);
-
-        // Initial check to set orientation on page load
-        handleOrientationChange();
-      }
-
-      // Call the function to prevent orientation change
-      preventOrientationChange();
-    </script>
     <div id="root"></div>
   </body>
 </html>
