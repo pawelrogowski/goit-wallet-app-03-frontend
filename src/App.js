@@ -36,13 +36,13 @@ const App = () => {
     }
   }, [isLoading]);
 
-  useEffect(() => {
-    setShowLoader(true);
-    setDelayCompleted(false);
-    setTimeout(() => {
-      setDelayCompleted(true);
-    }, 500);
-  }, [location]);
+  // useEffect(() => {
+  //   setShowLoader(true);
+  //   setDelayCompleted(false);
+  //   setTimeout(() => {
+  //     setDelayCompleted(true);
+  //   }, 500);
+  // }, [location]);
 
   return (
     <>
