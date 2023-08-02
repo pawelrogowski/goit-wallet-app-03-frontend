@@ -117,14 +117,20 @@ export const sessionSlice = createSlice({
     });
 
     builder.addCase(register.fulfilled, (state, action) => {
+      const { accessToken, user } = action.payload;
+
+      setAuthToken(accessToken);
+
       state.isLoading = false;
-      state.user = action.payload.user;
+      state.user = user;
+      state.isAuth = true;
       state.error = null;
     });
 
     builder.addCase(register.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
+      state.isAuth = false;
     });
 
     builder.addCase(login.pending, state => {

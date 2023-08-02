@@ -9,6 +9,11 @@ setAuthToken();
 export const registerUser = async userData => {
   const response = await WalletInstance.post(`${API_URL}/users/register`, userData);
 
+  const { accessToken, refreshToken } = response.data;
+
+  Cookies.set('accessToken', accessToken, cookieOptions);
+  Cookies.set('refreshToken', refreshToken, cookieOptions);
+
   return response.data;
 };
 
