@@ -1,6 +1,8 @@
 import { setAuthToken } from './authUtils';
 import Cookies from 'js-cookie';
 import { WalletInstance } from './authUtils';
+
+import { cookieOptions } from './authUtils';
 export const API_URL = 'https://wallet-lzvg.onrender.com/api';
 setAuthToken();
 
@@ -15,8 +17,8 @@ export const loginUser = async loginData => {
 
   const { accessToken, refreshToken } = response.data;
 
-  Cookies.set('accessToken', accessToken);
-  Cookies.set('refreshToken', refreshToken);
+  Cookies.set('accessToken', accessToken, cookieOptions);
+  Cookies.set('refreshToken', refreshToken, cookieOptions);
 
   return response.data;
 };
@@ -29,8 +31,8 @@ export const getUserProfile = async () => {
 
 export const logoutUser = async () => {
   await WalletInstance.get(`${API_URL}/users/logout`);
-  Cookies.remove('accessToken');
-  Cookies.remove('refreshToken');
+  Cookies.remove('accessToken', { path: '/' });
+  Cookies.remove('refreshToken', { path: '/' });
 };
 
 export const createTransaction = async transactionData => {
