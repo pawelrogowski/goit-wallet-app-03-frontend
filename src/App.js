@@ -23,7 +23,7 @@ const App = () => {
 
   useEffect(() => {
     if (isLoading) {
-      setShowLoader(true);
+      setShowLoader(false);
     } else {
       const loaderTimer = setTimeout(() => {
         setShowLoader(false);
