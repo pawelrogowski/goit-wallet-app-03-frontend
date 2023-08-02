@@ -1,7 +1,7 @@
 import { Icon } from 'components/Icon/Icon';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
-import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
+import { removeTransaction, setTransactionToEdit } from 'redux/slices/financeSlice';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { formatStringWithSpaces, MakeDecimalPlaces } from 'utils/formaters';
 import { DeleteButton } from 'components/Buttons/Buttons';

@@ -6,7 +6,7 @@ import {
   fetchTotals,
   setSelectedMonth,
   setSelectedYear,
-} from 'redux/slices/transactionSlice';
+} from 'redux/slices/financeSlice';
 import {
   BoxFooter,
   BoxHeading,

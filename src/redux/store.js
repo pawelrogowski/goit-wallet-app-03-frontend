@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import sessionReducer from './slices/sessionSlice';
 import globalReducer from './slices/globalSlice';
-import transactionsReducer from './slices/transactionSlice';
+import transactionsReducer from './slices/financeSlice';
 import { setDispatch } from 'utils/authUtils';
 const rootReducer = combineReducers({
   session: sessionReducer,

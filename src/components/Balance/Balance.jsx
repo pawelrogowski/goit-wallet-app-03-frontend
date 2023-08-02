@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTotals } from 'redux/slices/transactionSlice';
+import { fetchTotals } from 'redux/slices/financeSlice';
 import { BalanceSection, BalanceParagraph, AmountParagraph, DollarHolder } from './Balance.styled';
 import { formatBalance } from 'utils/numberUtils';
 
