@@ -46,7 +46,7 @@ const App = () => {
 
   return (
     <>
-      {showLoader && !delayCompleted ? <LoaderGlobal /> : null}
+      {/* {showLoader && !delayCompleted ? <LoaderGlobal /> : null} */}
       {isModalLogoutOpen && <ModalLogout />}
       {isModalAddTransactionOpen && <AddTransactionModal />}
       {isModalEditTransactionOpen && <EditTransactionModal />}
