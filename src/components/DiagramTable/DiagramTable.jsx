@@ -6,7 +6,7 @@ import {
   fetchTotals,
   setSelectedMonth,
   setSelectedYear,
-} from 'redux/slices/transactionSlice';
+} from 'redux/slices/financeSlice';
 import {
   BoxFooter,
   BoxHeading,
@@ -71,8 +71,8 @@ const yearOptions = year.map(option => ({
 
 const DiagramTableBase = () => {
   const dispatch = useDispatch();
-  const { totals, monthlyTotals, transactions } = useSelector(state => state.transactions);
-  const { selectedMonth, selectedYear } = useSelector(state => state.transactions);
+  const { totals, monthlyTotals, transactions } = useSelector(state => state.finance);
+  const { selectedMonth, selectedYear } = useSelector(state => state.finance);
 
   useEffect(() => {
     dispatch(fetchTotals());

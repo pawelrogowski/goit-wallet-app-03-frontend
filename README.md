@@ -1,9 +1,6 @@
-
 # Wallet Frontend 🏦
 
 https://main--mern-wallet.netlify.app/login
-
-
 ## Overview 📝
 
 The Wallet Frontend is a React application that provides a user-friendly interface for managing
@@ -15,6 +12,7 @@ and a currencies page displaying just the prices.
 ## Tech Stack 💻
 
 Frontend: React, Redux, Styled Components, Chart.js
+
 Backend: MongoDb, ExpressJs, REST api, Node.js, Swagger(docs)
 
 ## Dependencies 📦

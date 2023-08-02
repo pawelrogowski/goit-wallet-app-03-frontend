@@ -1,60 +1,28 @@
 import { styled } from 'styled-components';
 export const Loader = styled.div`
-  position: relative;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
+  border: 8px solid var(--color-brand-secondary);
+  border-bottom-color: var(--color-brand-primary);
   border-radius: 50%;
-  &::before,
-  &::after {
-    content: '';
-    border-radius: 50%;
-    position: absolute;
-    inset: 0;
-  }
-  &::after {
-    box-shadow: 0 4px 0 var(--color-brand-primary) inset;
-    animation: rotate 2s linear infinite;
-  }
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 
-  @keyframes rotate {
+  @keyframes rotation {
     0% {
-      transform: rotate(0);
+      transform: rotate(0deg);
     }
     100% {
       transform: rotate(360deg);
     }
   }
 `;
-export const LoaderInner = styled.div`
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  &::before,
-  &::after {
-    content: '';
-    border-radius: 50%;
-    position: absolute;
-    inset: 0;
-  }
-  &::after {
-    box-shadow: 0 4px 0 var(--color-brand-primary) inset;
-    animation: rotate2 2s linear infinite;
-  }
-
-  @keyframes rotate2 {
-    0% {
-      transform: rotate(0);
-    }
-    100% {
-      transform: rotate(-360deg);
-    }
-  }
-`;
 export const ContainerLoader = styled.div`
   z-index: 100;
-  /* position: fixed;
-  top: 0; */
-  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  backdrop-filter: blur(3px);
   width: 100vw;
   height: 100vh;
   display: flex;

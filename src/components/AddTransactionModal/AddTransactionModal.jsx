@@ -11,7 +11,7 @@ import { formatDate } from 'utils/formaters';
 import { dateTransformer } from 'utils/formaters';
 import { useDispatch } from 'react-redux';
 import { setIsModalAddTransactionOpen } from 'redux/slices/globalSlice';
-import { addTransaction, fetchTransactions } from 'redux/slices/transactionSlice';
+import { addTransaction, fetchTransactions } from 'redux/slices/financeSlice';
 import Textarea from 'components/Inputs/Textarea';
 import {
   Backdrop,
