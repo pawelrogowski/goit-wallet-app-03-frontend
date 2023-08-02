@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import Layout from 'layout/Layout';
 import WithAuthRedirect from './routes/WithAuthRedirect';
@@ -17,36 +17,24 @@ const Statistic = lazy(() => import('pages/StatisticsPage/StatisticsPage'));
 const Currency = lazy(() => import('pages/CurrencyPage/CurrencyPage'));
 
 const App = () => {
-  const location = useLocation();
   const { isModalLogoutOpen, isModalAddTransactionOpen, isModalEditTransactionOpen, isLoading } =
     useSelector(state => state.global);
   const [showLoader, setShowLoader] = useState(false);
-  const [delayCompleted, setDelayCompleted] = useState(false);
 
   useEffect(() => {
     if (isLoading) {
       setShowLoader(true);
-      setDelayCompleted(false);
     } else {
       const loaderTimer = setTimeout(() => {
         setShowLoader(false);
-        setDelayCompleted(true);
       }, 500);
       return () => clearTimeout(loaderTimer);
     }
   }, [isLoading]);
 
-  useEffect(() => {
-    setShowLoader(true);
-    setDelayCompleted(false);
-    setTimeout(() => {
-      setDelayCompleted(true);
-    }, 500);
-  }, [location]);
-
   return (
     <>
-      {showLoader && !delayCompleted ? <LoaderGlobal /> : null}
+      {showLoader ? <LoaderGlobal /> : null}
       {isModalLogoutOpen && <ModalLogout />}
       {isModalAddTransactionOpen && <AddTransactionModal />}
       {isModalEditTransactionOpen && <EditTransactionModal />}
