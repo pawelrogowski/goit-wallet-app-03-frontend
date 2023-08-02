@@ -1,7 +1,48 @@
 import styled from 'styled-components';
 
+export const TransactionFade = styled.div`
+  width: 100%;
+  height: 100%;
+  -webkit-mask: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0,
+      rgba(0, 0, 0, 1) 92%,
+      rgba(0, 0, 0, 0) 97%,
+      rgba(0, 0, 0, 0) 0
+    )
+    100% 50% / 100% 100% repeat-x;
+  mask: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0,
+      rgba(0, 0, 0, 1) 92%,
+      rgba(0, 0, 0, 0) 97%,
+      rgba(0, 0, 0, 0) 0
+    )
+    100% 50% / 100% 100% repeat-x;
+
+  @media screen and (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
+    -webkit-mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0,
+        rgba(0, 0, 0, 1) 92%,
+        rgba(0, 0, 0, 0) 95%,
+        rgba(0, 0, 0, 0) 0
+      )
+      100% 50% / 100% 100% repeat-x;
+    mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0,
+        rgba(0, 0, 0, 1) 92%,
+        rgba(0, 0, 0, 0) 95%,
+        rgba(0, 0, 0, 0) 0
+      )
+      100% 50% / 100% 100% repeat-x;
+  }
+`;
+
 export const TransactionContainer = styled.div`
   height: calc(100% - 32px);
+
   @media screen and (orientation: landscape) {
     @media (min-width: ${props => props.theme.breakpoints.tablet}) {
       @media screen and (max-height: 767px) {
@@ -54,6 +95,7 @@ export const TransactionsTable = styled.table`
   font-size: 16px;
   font-weight: 400;
   line-height: 1;
+  margin-bottom: 20px;
 `;
 
 export const TransactionsTableHead = styled.thead`

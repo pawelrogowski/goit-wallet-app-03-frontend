@@ -22,6 +22,13 @@ export const setAuthToken = () => {
   }
 };
 
+export const cookieOptions = {
+  expires: 30,
+  path: '/',
+  secure: true,
+  sameSite: 'strict',
+};
+
 export const refreshTokens = async () => {
   const refreshToken = Cookies.get('refreshToken');
   if (refreshToken) {
@@ -35,16 +42,14 @@ export const refreshTokens = async () => {
       });
 
       const { accessToken, refreshToken: newRefreshToken } = response.data;
-      Cookies.set('accessToken', accessToken);
-      Cookies.set('refreshToken', newRefreshToken);
-      console.log('tokens refreshed');
+      Cookies.set('accessToken', accessToken, cookieOptions);
+      Cookies.set('refreshToken', newRefreshToken, cookieOptions);
 
       return { accessToken, refreshToken };
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        console.log('Refresh token invalid');
-        Cookies.remove('accessToken');
-        Cookies.remove('refreshToken');
+        Cookies.remove('accessToken', { path: '/' });
+        Cookies.remove('refreshToken', { path: '/' });
       } else {
         throw error;
       }
