@@ -222,7 +222,7 @@ const initialState = {
 };
 
 export const transactionsSlice = createSlice({
-  name: 'transactions',
+  name: 'finance',
 
   initialState,
 
@@ -244,29 +244,29 @@ export const transactionsSlice = createSlice({
     builder
       .addCase(fetchTransactions.pending, startLoading)
       .addCase(fetchTransactions.fulfilled, (state, action) => {
-        state.transactions = action.payload;
+        state.finance = action.payload;
         handleSuccess(state, action);
       })
       .addCase(fetchTransactions.rejected, handleError)
 
       .addCase(addTransaction.pending, startLoading)
       .addCase(addTransaction.fulfilled, (state, action) => {
-        state.transactions.push(action.payload);
+        state.finance.push(action.payload);
         handleSuccess(state, action);
       })
       .addCase(addTransaction.rejected, handleError)
 
       .addCase(removeTransaction.pending, startLoading)
       .addCase(removeTransaction.fulfilled, (state, action) => {
-        state.transactions = state.transactions.filter(t => t._id !== action.payload);
+        state.finance = state.finance.filter(t => t._id !== action.payload);
         handleSuccess(state, action);
       })
       .addCase(removeTransaction.rejected, handleError)
 
       .addCase(editTransaction.pending, startLoading)
       .addCase(editTransaction.fulfilled, (state, action) => {
-        const index = state.transactions.findIndex(t => t._id === action.payload._id);
-        state.transactions[index] = action.payload;
+        const index = state.finance.findIndex(t => t._id === action.payload._id);
+        state.finance[index] = action.payload;
         handleSuccess(state, action);
       })
       .addCase(editTransaction.rejected, handleError)

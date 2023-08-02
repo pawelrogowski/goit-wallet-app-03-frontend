@@ -46,9 +46,7 @@ const options = [
 const EditTransactionModal = () => {
   const dispatch = useDispatch();
 
-  const selectedTransactionToEdit = useSelector(
-    state => state.transactions.currentTransactionToEdit
-  );
+  const selectedTransactionToEdit = useSelector(state => state.finance.currentTransactionToEdit);
 
   const handleCloseEditModal = () => {
     dispatch(setIsModalEditTransactionOpen(false));

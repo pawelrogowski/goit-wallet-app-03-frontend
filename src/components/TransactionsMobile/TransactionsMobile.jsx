@@ -20,7 +20,7 @@ const headers = ['Date', 'Type', 'Category', 'Comment', 'Sum', ''];
 const TransactionsMobile = () => {
   const dispatch = useDispatch();
 
-  const { transactions } = useSelector(state => state.transactions);
+  const { transactions } = useSelector(state => state.finance);
 
   const sortedTransactions = transactions.slice().sort((a, b) => {
     return makeProperDate(b.date) - makeProperDate(a.date);

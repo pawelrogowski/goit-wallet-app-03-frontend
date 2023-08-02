@@ -6,7 +6,7 @@ import { formatBalance } from 'utils/numberUtils';
 
 const Balance = () => {
   const dispatch = useDispatch();
-  const { totals, transactions } = useSelector(state => state.transactions);
+  const { totals, transactions } = useSelector(state => state.finance);
   const balance = totals.difference || 0;
 
   useEffect(() => {

@@ -7,7 +7,7 @@ import { ChartContainer, Balance } from './Chart.styled';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Chart = () => {
-  const { totals, monthlyTotals } = useSelector(state => state.transactions);
+  const { totals, monthlyTotals } = useSelector(state => state.finance);
 
   const showTotals = monthlyTotals && monthlyTotals.totals;
   const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
