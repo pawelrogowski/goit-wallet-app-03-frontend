@@ -74,7 +74,6 @@ const DiagramTableBase = () => {
   const dispatch = useDispatch();
   const { totals, monthlyTotals, transactions } = useSelector(state => state.transactions);
   const { selectedMonth, selectedYear } = useSelector(state => state.transactions);
-
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
