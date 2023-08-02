@@ -99,8 +99,8 @@ const DiagramTableBase = () => {
   const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
 
   useEffect(() => {
-    animate('li', { opacity: [0, 1] }, { delay: stagger(0.2) });
-  }, [animate, scope, dataToMap]);
+    animate('li', { opacity: [0, 1] }, { delay: stagger(0.06) });
+  }, [animate, dataToMap]);
 
   const sumExpenses = showTotals ? monthlyTotals.totalExpenses : totals.totalExpenses || 0;
   const sumIncome = showTotals ? monthlyTotals.totalIncome : totals.totalIncome || 0;
