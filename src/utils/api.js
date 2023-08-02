@@ -30,6 +30,8 @@ WalletInstance.interceptors.response.use(
         window.location.replace('/login');
         return Promise.reject(refreshError);
       }
+    } else {
+      window.location.replace('/login');
     }
 
     return Promise.reject(error);
