@@ -87,7 +87,6 @@ const DiagramTableBase = () => {
 
   const handleYearChange = year => {
     dispatch(setSelectedYear(year));
-    console.log(selectedMonth, selectedYear);
     if (selectedMonth !== null && year !== null) {
       dispatch(fetchMonthlyTotals({ month: selectedMonth, year: year }));
     }
