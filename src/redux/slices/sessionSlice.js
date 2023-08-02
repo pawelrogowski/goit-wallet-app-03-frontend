@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { registerUser, loginUser, logoutUser, getUserProfile } from '../../utils/api';
 import { refreshTokens, setAuthToken } from 'utils/authUtils';
 import { resetGlobal, setIsLoading } from './globalSlice';
-import { resetTransactions } from './transactionSlice';
+import { resetTransactions } from './financeSlice';
 
 export const register = createAsyncThunk('session/register', async (userData, { dispatch }) => {
   dispatch(setIsLoading(true));

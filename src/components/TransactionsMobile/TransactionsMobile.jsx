@@ -1,7 +1,7 @@
 import { Icon } from 'components/Icon/Icon';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatDate, makeProperDate, truncateString } from 'utils/formaters';
-import { removeTransaction, setTransactionToEdit } from 'redux/slices/transactionSlice';
+import { removeTransaction, setTransactionToEdit } from 'redux/slices/financeSlice';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { formatStringWithSpaces, MakeDecimalPlaces } from 'utils/formaters';
 import { DeleteButton } from 'components/Buttons/Buttons';
@@ -20,7 +20,7 @@ const headers = ['Date', 'Type', 'Category', 'Comment', 'Sum', ''];
 const TransactionsMobile = () => {
   const dispatch = useDispatch();
 
-  const { transactions } = useSelector(state => state.transactions);
+  const { transactions } = useSelector(state => state.finance);
 
   const sortedTransactions = transactions.slice().sort((a, b) => {
     return makeProperDate(b.date) - makeProperDate(a.date);

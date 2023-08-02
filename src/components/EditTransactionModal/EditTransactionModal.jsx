@@ -11,7 +11,7 @@ import { dateTransformer } from 'utils/formaters';
 import { setIsModalEditTransactionOpen } from 'redux/slices/globalSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { editTransaction, fetchTransactions } from 'redux/slices/transactionSlice';
+import { editTransaction, fetchTransactions } from 'redux/slices/financeSlice';
 import { customStyles } from 'components/CategorySelect/CategorySelect.styled';
 import {
   Backdrop,
@@ -46,9 +46,7 @@ const options = [
 const EditTransactionModal = () => {
   const dispatch = useDispatch();
 
-  const selectedTransactionToEdit = useSelector(
-    state => state.transactions.currentTransactionToEdit
-  );
+  const selectedTransactionToEdit = useSelector(state => state.finance.currentTransactionToEdit);
 
   const handleCloseEditModal = () => {
     dispatch(setIsModalEditTransactionOpen(false));
