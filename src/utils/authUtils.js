@@ -84,12 +84,18 @@ WalletInstance.interceptors.response.use(
         return WalletInstance(originalRequest);
       } catch (refreshError) {
         dispatchFunction(resetSession());
-        window.location.replace('/login');
+        const currentUrl = window.location.pathname;
+        if (currentUrl !== '/login' && currentUrl !== '/register') {
+          window.location.replace('/login');
+        }
         return;
       }
     } else {
       dispatchFunction(resetSession());
-      window.location.replace('/login');
+      const currentUrl = window.location.pathname;
+      if (currentUrl !== '/login' && currentUrl !== '/register') {
+        window.location.replace('/login');
+      }
     }
 
     return Promise.reject(error);
