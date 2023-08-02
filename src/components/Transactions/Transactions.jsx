@@ -17,6 +17,8 @@ import {
   TransactionsTableHeader,
   TransactionFade,
 } from './Transactions.styled';
+import { useAnimate, stagger } from 'framer-motion';
+import { useEffect } from 'react';
 
 const headers = ['Date', 'Type', 'Category', 'Comment', 'Sum', ''];
 
@@ -36,7 +38,11 @@ const Transactions = () => {
   const TransactionsDeleteHandler = id => {
     dispatch(removeTransaction(id));
   };
+  const [scope, animate] = useAnimate();
 
+  useEffect(() => {
+    animate('tr', { opacity: [0, 1] }, { delay: stagger(0.06) });
+  }, [animate, sortedTransactions]);
   return (
     <>
       <TransactionFade>
@@ -49,43 +55,49 @@ const Transactions = () => {
                 ))}
               </TransactionsTableHeadRow>
             </TransactionsTableHead>
-            <TransactionsTableBody>
-              {sortedTransactions.map(transaction => (
-                <TransactionsBodyHeadRow key={transaction._id}>
-                  <TransactionTableData>{formatDate(transaction.date)}</TransactionTableData>
-                  <TransactionTableData>{transaction.isIncome ? '+' : '-'}</TransactionTableData>
-                  <TransactionTableData>{transaction.category}</TransactionTableData>
-                  <TransactionTableData>{truncateString(transaction.comment)}</TransactionTableData>
-                  <TransactionTableData
-                    style={{
-                      color: `${
-                        transaction.isIncome
-                          ? 'var(--color-brand-secondary)'
-                          : 'var(--color-brand-accent)'
-                      }`,
-                    }}
-                  >
-                    {formatStringWithSpaces(MakeDecimalPlaces(transaction.amount))}
-                  </TransactionTableData>
-                  <TransactionTableData>
-                    <EditButton
-                      type="button"
-                      onClick={() => {
-                        dispatch(setTransactionToEdit(transaction));
-                        handleOpenEditModal();
+            <TransactionsTableBody ref={scope}>
+              {sortedTransactions && sortedTransactions.length > 0 ? (
+                sortedTransactions.map(transaction => (
+                  <TransactionsBodyHeadRow key={transaction._id}>
+                    <TransactionTableData>{formatDate(transaction.date)}</TransactionTableData>
+                    <TransactionTableData>{transaction.isIncome ? '+' : '-'}</TransactionTableData>
+                    <TransactionTableData>{transaction.category}</TransactionTableData>
+                    <TransactionTableData>
+                      {truncateString(transaction.comment)}
+                    </TransactionTableData>
+                    <TransactionTableData
+                      style={{
+                        color: `${
+                          transaction.isIncome
+                            ? 'var(--color-brand-secondary)'
+                            : 'var(--color-brand-accent)'
+                        }`,
                       }}
                     >
-                      <Icon icon="icon__edit" />
-                    </EditButton>
-                    <DeleteButton
-                      type="button"
-                      onClick={() => TransactionsDeleteHandler(transaction._id)}
-                    >
-                      Delete
-                    </DeleteButton>
-                  </TransactionTableData>
-                </TransactionsBodyHeadRow>
-              ))}
+                      {formatStringWithSpaces(MakeDecimalPlaces(transaction.amount))}
+                    </TransactionTableData>
+                    <TransactionTableData>
+                      <EditButton
+                        type="button"
+                        onClick={() => {
+                          dispatch(setTransactionToEdit(transaction));
+                          handleOpenEditModal();
+                        }}
+                      >
+                        <Icon icon="icon__edit" />
+                      </EditButton>
+                      <DeleteButton
+                        type="button"
+                        onClick={() => TransactionsDeleteHandler(transaction._id)}
+                      >
+                        Delete
+                      </DeleteButton>
+                    </TransactionTableData>
+                  </TransactionsBodyHeadRow>
+                ))
+              ) : (
+                <TransactionsBodyHeadRow></TransactionsBodyHeadRow>
+              )}
             </TransactionsTableBody>
           </TransactionsTable>
         </TransactionContainer>

@@ -14,6 +14,8 @@ import {
   TransactionsElement,
   TransactionsList,
 } from './TransactionsMobile.styled';
+import { useAnimate, stagger } from 'framer-motion';
+import { useEffect } from 'react';
 
 const headers = ['Date', 'Type', 'Category', 'Comment', 'Sum', ''];
 
@@ -34,59 +36,68 @@ const TransactionsMobile = () => {
     dispatch(removeTransaction(id));
   };
 
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    animate('li', { opacity: [0, 1] }, { delay: stagger(0.06) });
+  }, [animate, sortedTransactions]);
   return (
-    <TransactionsList>
-      {sortedTransactions.map(transaction => (
-        <TransactionsElement key={transaction._id}>
-          <TransactionList type={transaction.isIncome ? 1 : 0}>
-            <TransactionElement>
-              <TransactionHeader>{headers[0]}</TransactionHeader>
-              <TransactionText>{formatDate(transaction.date)}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[1]}</TransactionHeader>
-              <TransactionText>{transaction.isIncome ? '+' : '-'}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[2]}</TransactionHeader>
-              <TransactionText>{transaction.category}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[3]}</TransactionHeader>
-              <TransactionText>{truncateString(transaction.comment)}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[4]}</TransactionHeader>
-              <TransactionText
-                style={{
-                  color: `${
-                    transaction.isIncome
-                      ? 'var(--color-brand-secondary)'
-                      : 'var(--color-brand-accent)'
-                  }`,
-                }}
-              >
-                {formatStringWithSpaces(MakeDecimalPlaces(transaction.amount))}
-              </TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <DeleteButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
-                Delete
-              </DeleteButton>
-              <EditButton
-                type="button"
-                onClick={() => {
-                  dispatch(setTransactionToEdit(transaction));
-                  handleOpenEditModal();
-                }}
-              >
-                <Icon icon="icon__edit" />
-                Edit
-              </EditButton>
-            </TransactionElement>
-          </TransactionList>
-        </TransactionsElement>
-      ))}
+    <TransactionsList ref={scope}>
+      {sortedTransactions && sortedTransactions.length > 0 ? (
+        sortedTransactions.map(transaction => (
+          <TransactionsElement key={transaction._id}>
+            <TransactionList type={transaction.isIncome ? 1 : 0}>
+              <TransactionElement>
+                <TransactionHeader>{headers[0]}</TransactionHeader>
+                <TransactionText>{formatDate(transaction.date)}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[1]}</TransactionHeader>
+                <TransactionText>{transaction.isIncome ? '+' : '-'}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[2]}</TransactionHeader>
+                <TransactionText>{transaction.category}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[3]}</TransactionHeader>
+                <TransactionText>{truncateString(transaction.comment)}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[4]}</TransactionHeader>
+                <TransactionText
+                  style={{
+                    color: `${
+                      transaction.isIncome
+                        ? 'var(--color-brand-secondary)'
+                        : 'var(--color-brand-accent)'
+                    }`,
+                  }}
+                >
+                  {formatStringWithSpaces(MakeDecimalPlaces(transaction.amount))}
+                </TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <DeleteButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
+                  Delete
+                </DeleteButton>
+                <EditButton
+                  type="button"
+                  onClick={() => {
+                    dispatch(setTransactionToEdit(transaction));
+                    handleOpenEditModal();
+                  }}
+                >
+                  <Icon icon="icon__edit" />
+                  Edit
+                </EditButton>
+              </TransactionElement>
+            </TransactionList>
+          </TransactionsElement>
+        ))
+      ) : (
+        <li></li>
+      )}
     </TransactionsList>
   );
 };
