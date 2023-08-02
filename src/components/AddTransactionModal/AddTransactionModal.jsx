@@ -106,6 +106,11 @@ const AddTransactionModal = () => {
             }),
             value: number()
               .typeError('Transaction value must be a number')
+              .test(
+                'len',
+                'Transaction value can be a maximum of 16 characters',
+                val => val.toString().length <= 16
+              )
               .required('Please provide transaction value.'),
             date: date()
               .transform(dateTransformer)
@@ -146,7 +151,7 @@ const AddTransactionModal = () => {
                   <BaseInput
                     placeholder="0.00"
                     title="Please put the transaction value"
-                    name="amount"
+                    name="value"
                     type="number"
                     autoComplete="off"
                     value={values.value}
