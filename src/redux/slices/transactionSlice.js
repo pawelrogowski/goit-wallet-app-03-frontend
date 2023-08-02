@@ -24,7 +24,7 @@ const filterTransaction = transaction => {
 };
 
 export const fetchTransactions = createAsyncThunk(
-  'transactions/fetchTransactions',
+  'finance/fetchTransactions',
   async (_, { dispatch }) => {
     dispatch(setIsLoading(true));
     try {
@@ -44,7 +44,7 @@ export const fetchTransactions = createAsyncThunk(
 );
 
 export const addTransaction = createAsyncThunk(
-  'transactions/addTransaction',
+  'finance/addTransaction',
   async (transactionData, { dispatch }) => {
     dispatch(setIsLoading(true));
     try {
@@ -63,7 +63,7 @@ export const addTransaction = createAsyncThunk(
 );
 
 export const removeTransaction = createAsyncThunk(
-  'transactions/removeTransaction',
+  'finance/removeTransaction',
   async (transactionId, { dispatch }) => {
     dispatch(setIsLoading(true));
     try {
@@ -82,7 +82,7 @@ export const removeTransaction = createAsyncThunk(
 );
 
 export const editTransaction = createAsyncThunk(
-  'transactions/editTransaction',
+  'finance/editTransaction',
   async ({ id, updatedData }, { dispatch }) => {
     dispatch(setIsLoading(true));
     try {
@@ -101,7 +101,7 @@ export const editTransaction = createAsyncThunk(
 );
 
 export const fetchFilteredTransactions = createAsyncThunk(
-  'transactions/fetchFilteredTransactions',
+  'finance/fetchFilteredTransactions',
   async ({ month, year }, { dispatch }) => {
     dispatch(setIsLoading(true));
     try {
@@ -119,7 +119,7 @@ export const fetchFilteredTransactions = createAsyncThunk(
   }
 );
 
-export const fetchTotals = createAsyncThunk('transactions/fetchTotals', async (_, { dispatch }) => {
+export const fetchTotals = createAsyncThunk('finance/fetchTotals', async (_, { dispatch }) => {
   dispatch(setIsLoading(true));
   try {
     const response = await getCategoryTotals();
@@ -136,7 +136,7 @@ export const fetchTotals = createAsyncThunk('transactions/fetchTotals', async (_
 });
 
 export const fetchMonthlyTotals = createAsyncThunk(
-  'transactions/fetchMonthlyTotals',
+  'finance/fetchMonthlyTotals',
   async ({ month, year }, { dispatch }) => {
     dispatch(setIsLoading(true));
     try {
@@ -156,21 +156,21 @@ export const fetchMonthlyTotals = createAsyncThunk(
 
 export const setSelectedMonth = month => {
   return {
-    type: 'transactions/setSelectedMonth',
+    type: 'finance/setSelectedMonth',
     payload: month,
   };
 };
 
 export const setSelectedYear = year => {
   return {
-    type: 'transactions/setSelectedYear',
+    type: 'finance/setSelectedYear',
     payload: year,
   };
 };
 
 export const setTransactionToEdit = transaction => {
   return {
-    type: 'transactions/setTransactionToEdit',
+    type: 'finance/setTransactionToEdit',
     payload: transaction,
   };
 };
@@ -244,29 +244,29 @@ export const transactionsSlice = createSlice({
     builder
       .addCase(fetchTransactions.pending, startLoading)
       .addCase(fetchTransactions.fulfilled, (state, action) => {
-        state.finance = action.payload;
+        state.transactions = action.payload;
         handleSuccess(state, action);
       })
       .addCase(fetchTransactions.rejected, handleError)
 
       .addCase(addTransaction.pending, startLoading)
       .addCase(addTransaction.fulfilled, (state, action) => {
-        state.finance.push(action.payload);
+        state.transactions.push(action.payload);
         handleSuccess(state, action);
       })
       .addCase(addTransaction.rejected, handleError)
 
       .addCase(removeTransaction.pending, startLoading)
       .addCase(removeTransaction.fulfilled, (state, action) => {
-        state.finance = state.finance.filter(t => t._id !== action.payload);
+        state.transactions = state.transactions.filter(t => t._id !== action.payload);
         handleSuccess(state, action);
       })
       .addCase(removeTransaction.rejected, handleError)
 
       .addCase(editTransaction.pending, startLoading)
       .addCase(editTransaction.fulfilled, (state, action) => {
-        const index = state.finance.findIndex(t => t._id === action.payload._id);
-        state.finance[index] = action.payload;
+        const index = state.transactions.findIndex(t => t._id === action.payload._id);
+        state.transactions[index] = action.payload;
         handleSuccess(state, action);
       })
       .addCase(editTransaction.rejected, handleError)

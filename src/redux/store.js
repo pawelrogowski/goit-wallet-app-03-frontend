@@ -9,7 +9,7 @@ import { setDispatch } from 'utils/authUtils';
 const rootReducer = combineReducers({
   session: sessionReducer,
   global: globalReducer,
-  transactions: transactionsReducer,
+  finance: transactionsReducer,
 });
 
 const persistConfig = {
