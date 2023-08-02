@@ -44,12 +44,10 @@ export const refreshTokens = async () => {
       const { accessToken, refreshToken: newRefreshToken } = response.data;
       Cookies.set('accessToken', accessToken, cookieOptions);
       Cookies.set('refreshToken', newRefreshToken, cookieOptions);
-      console.log('tokens refreshed');
 
       return { accessToken, refreshToken };
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        console.log('Refresh token invalid');
         Cookies.remove('accessToken', { path: '/' });
         Cookies.remove('refreshToken', { path: '/' });
       } else {
