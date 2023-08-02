@@ -1,4 +1,5 @@
 import InputDropdown from 'components/Inputs/InputDropdown';
+import { useAnimate, stagger } from 'framer-motion';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -74,6 +75,8 @@ const DiagramTableBase = () => {
   const { totals, monthlyTotals, transactions } = useSelector(state => state.transactions);
   const { selectedMonth, selectedYear } = useSelector(state => state.transactions);
 
+  const [scope, animate] = useAnimate();
+
   useEffect(() => {
     dispatch(fetchTotals());
   }, [dispatch, transactions]);
@@ -94,6 +97,10 @@ const DiagramTableBase = () => {
 
   const showTotals = selectedMonth && selectedYear && monthlyTotals && monthlyTotals.totals;
   const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
+
+  useEffect(() => {
+    animate('li', { opacity: [0, 1] }, { delay: stagger(0.2) });
+  }, [animate, scope, dataToMap]);
 
   const sumExpenses = showTotals ? monthlyTotals.totalExpenses : totals.totalExpenses || 0;
   const sumIncome = showTotals ? monthlyTotals.totalIncome : totals.totalIncome || 0;
@@ -116,7 +123,7 @@ const DiagramTableBase = () => {
         <h3>Category</h3>
         <h3>Sum</h3>
       </BoxHeading>
-      <List>
+      <List ref={scope}>
         {dataToMap && dataToMap.length > 0 ? (
           dataToMap.map((item, index) => (
             <ListItem key={index}>
