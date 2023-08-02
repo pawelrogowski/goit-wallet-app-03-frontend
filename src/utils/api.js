@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { setAuthToken } from './authUtils';
 import Cookies from 'js-cookie';
 import { WalletInstance } from './authUtils';
