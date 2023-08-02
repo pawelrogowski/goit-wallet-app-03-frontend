@@ -1,26 +1,19 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchTotals } from 'redux/slices/transactionSlice';
+import { useSelector } from 'react-redux'; // Remove 'useDispatch' and 'useEffect'
 import { formatBalance } from 'utils/numberUtils';
 import { ChartContainer, Balance } from './Chart.styled';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Chart = () => {
-  const dispatch = useDispatch();
   const { totals, monthlyTotals } = useSelector(state => state.transactions);
-
-  useEffect(() => {
-    dispatch(fetchTotals());
-  }, [dispatch]);
 
   const showTotals = monthlyTotals && monthlyTotals.totals;
   const dataToMap = showTotals ? monthlyTotals.totals : totals.totals;
 
   if (!dataToMap || totals.totals.length === 0) {
-    return <div></div>;
+    return null;
   }
   const labels = dataToMap.map(item => item.category);
   const backgroundColors = dataToMap.map(item => item.color);

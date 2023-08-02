@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const StyledButton = styled.button`
   position: sticky;
+
   align-self: flex-end;
   z-index: 99;
   right: 20px;
@@ -32,7 +33,9 @@ export const StyledButton = styled.button`
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     position: absolute;
-    right: 40px;
-    bottom: 40px;
+  }
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    position: absolute;
+    bottom: -40px;
   }
 `;

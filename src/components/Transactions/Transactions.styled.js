@@ -1,23 +1,77 @@
 import styled from 'styled-components';
-import { PrimaryButton } from 'components/Buttons/Buttons';
+
+export const TransactionFade = styled.div`
+  @media screen and (orientation: landscape) {
+    @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+      @media screen and (max-height: 767px) {
+        height: 90vh;
+      }
+    }
+  }
+  width: 100%;
+  height: 100%;
+  -webkit-mask: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0,
+      rgba(0, 0, 0, 1) 92%,
+      rgba(0, 0, 0, 0) 97%,
+      rgba(0, 0, 0, 0) 0
+    )
+    100% 50% / 100% 100% repeat-x;
+  mask: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0,
+      rgba(0, 0, 0, 1) 92%,
+      rgba(0, 0, 0, 0) 97%,
+      rgba(0, 0, 0, 0) 0
+    )
+    100% 50% / 100% 100% repeat-x;
+
+  @media screen and (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
+    -webkit-mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0,
+        rgba(0, 0, 0, 1) 92%,
+        rgba(0, 0, 0, 0) 95%,
+        rgba(0, 0, 0, 0) 0
+      )
+      100% 50% / 100% 100% repeat-x;
+    mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0,
+        rgba(0, 0, 0, 1) 92%,
+        rgba(0, 0, 0, 0) 95%,
+        rgba(0, 0, 0, 0) 0
+      )
+      100% 50% / 100% 100% repeat-x;
+  }
+`;
 
 export const TransactionContainer = styled.div`
   height: calc(100% - 32px);
+
+  @media screen and (orientation: landscape) {
+    @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+      @media screen and (max-height: 767px) {
+        height: 90vh;
+      }
+    }
+  }
   overflow-y: auto;
   width: 100%;
   &::-webkit-scrollbar {
     width: 4px;
   }
-  /* Track */
+
   &::-webkit-scrollbar-track {
     margin-top: 57px;
     background: transparent;
   }
-  /* Handle */
+
   &::-webkit-scrollbar-thumb {
     background: var(--color-logout-button);
   }
-  /* Handle on hover */
+
   &::-webkit-scrollbar-thumb:hover {
     background: var(--color-logout-button);
   }
@@ -48,9 +102,13 @@ export const TransactionsTable = styled.table`
   font-size: 16px;
   font-weight: 400;
   line-height: 1;
+  /* margin-bottom: 20px; */
 `;
 
 export const TransactionsTableHead = styled.thead`
+  @media screen and (orientation: landscape) {
+    position: sticky;
+  }
   font-size: 18px;
   font-weight: 700;
   position: sticky;
@@ -109,6 +167,10 @@ export const TransactionsTableHeader = styled.th`
   &:first-child {
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
+  }
+
+  &:nth-child(2) {
+    text-align: center;
   }
 
   &:last-child {
@@ -190,17 +252,6 @@ export const EditButton = styled.button`
       stroke: var(--color-brand-primary);
     }
   }
-`;
-
-export const SmallButton = styled(PrimaryButton)`
-  display: inline-block;
-  width: 67px;
-  height: 26px;
-  color: var(--background-light);
-  font-size: 14px;
-  letter-spacing: 1px;
-  line-height: 1;
-  padding: 0;
 `;
 
 export const TransactionsBodyHeadRow = styled.tr`

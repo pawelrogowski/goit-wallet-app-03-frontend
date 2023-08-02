@@ -1,14 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import {
-  registerUser,
-  loginUser,
-  logoutUser,
-  setAuthToken,
-  getUserProfile,
-  refreshTokens,
-} from '../../utils/api';
+import { registerUser, loginUser, logoutUser, getUserProfile } from '../../utils/api';
+import { refreshTokens, setAuthToken } from 'utils/authUtils';
 import { resetGlobal, setIsLoading } from './globalSlice';
 import { resetTransactions } from './transactionSlice';
 
@@ -101,8 +95,6 @@ export const refreshAccessToken = createAsyncThunk(
 );
 
 const initialState = {
-  accessToken: null,
-  refreshToken: null,
   user: {},
   currentUser: {},
   error: null,
@@ -120,37 +112,37 @@ export const sessionSlice = createSlice({
   },
 
   extraReducers: builder => {
-    // Register
     builder.addCase(register.pending, state => {
       state.isLoading = true;
     });
 
     builder.addCase(register.fulfilled, (state, action) => {
+      const { accessToken, user } = action.payload;
+
+      setAuthToken(accessToken);
+
       state.isLoading = false;
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-      state.user = action.payload.user;
+      state.user = user;
+      state.isAuth = true;
       state.error = null;
     });
 
     builder.addCase(register.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
+      state.isAuth = false;
     });
 
-    // Login
     builder.addCase(login.pending, state => {
       state.isLoading = true;
     });
 
     builder.addCase(login.fulfilled, (state, action) => {
-      const { accessToken, refreshToken, user } = action.payload;
+      const { accessToken, user } = action.payload;
 
       setAuthToken(accessToken);
 
       state.isLoading = false;
-      state.accessToken = accessToken;
-      state.refreshToken = refreshToken;
       state.user = user;
       state.isAuth = true;
       state.error = null;
@@ -161,14 +153,11 @@ export const sessionSlice = createSlice({
       state.error = action.error.message;
     });
 
-    // Logout
     builder.addCase(logout.pending, state => {
       state.isLoading = true;
     });
 
     builder.addCase(logout.fulfilled, state => {
-      state.accessToken = null;
-      state.refreshToken = null;
       state.user = {};
       state.currentUser = {};
       state.isAuth = false;
@@ -176,8 +165,6 @@ export const sessionSlice = createSlice({
     });
 
     builder.addCase(logout.rejected, (state, action) => {
-      state.accessToken = null;
-      state.refreshToken = null;
       state.user = {};
       state.currentUser = {};
       state.isAuth = false;
@@ -186,15 +173,13 @@ export const sessionSlice = createSlice({
       state.error = action.error.message;
     });
 
-    // Refresh Tokens
     builder.addCase(refreshAccessToken.pending, state => {
       state.isLoading = true;
     });
 
     builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
+      state.error = 'New Auth Token Aquired';
       state.error = null;
     });
 

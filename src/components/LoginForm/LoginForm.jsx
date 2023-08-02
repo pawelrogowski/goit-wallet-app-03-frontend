@@ -4,7 +4,6 @@ import { InputWithIcon } from 'components/Inputs/InputWithIcon';
 import Logo from 'components/Logo/Logo';
 import { Formik } from 'formik';
 import { object, string } from 'yup';
-import Loader from '../Loader/Loader.styled';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'redux/slices/sessionSlice';
@@ -33,16 +32,15 @@ const LoginForm = () => {
         password: string().required('No password provided.'),
       })}
       onSubmit={(values, { setSubmitting, resetForm }) => {
+        setSubmitting(false);
         handleLogin(values);
         resetForm();
-        setSubmitting(false);
       }}
       validateOnMount
     >
-      {({ isSubmitting, handleBlur }) => (
+      {({ handleBlur }) => (
         <FormikForm autoComplete="off">
           <Logo />
-          {isSubmitting && <Loader />}
           <InputWithIcon
             icon="icon__baseline-email"
             placeholder="E-mail"

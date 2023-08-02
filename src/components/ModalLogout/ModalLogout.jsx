@@ -45,7 +45,6 @@ const ModalLogout = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-    // Safe to omit handleCloseModal from dependency array to prevent unnecessary re-renders.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -54,8 +53,8 @@ const ModalLogout = () => {
       <ModalContainer>
         <ModalText>Are you sure you want to leave?</ModalText>
         <ButtonContainer>
-          <ButtonDecline onClick={handleCloseModal}>NO</ButtonDecline>
-          <ButtonAccept onClick={handleLogout}>YES</ButtonAccept>
+          <ButtonDecline onClick={handleCloseModal}>No</ButtonDecline>
+          <ButtonAccept onClick={handleLogout}>Yes</ButtonAccept>
         </ButtonContainer>
       </ModalContainer>
     </ModalGeneral>

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { PrimaryButton } from 'components/Buttons/Buttons';
 
 export const TransactionsList = styled.ul`
   list-style: none;
@@ -72,19 +71,6 @@ export const TransactionText = styled.p`
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   hyphens: auto;
-`;
-
-export const DeleteButton = styled(PrimaryButton)`
-  width: 67px;
-  height: 26px;
-  color: var(--background-light);
-  font-size: 14px;
-  letter-spacing: normal;
-  padding: 0px;
-
-  &:not(:last-of-type) {
-    margin-bottom: 0px;
-  }
 `;
 
 export const EditButton = styled.button`

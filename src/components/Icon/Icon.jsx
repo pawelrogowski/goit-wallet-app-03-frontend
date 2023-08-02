@@ -9,4 +9,7 @@ export const IconBase = ({ className, icon, width, height }) => {
   );
 };
 
-export const Icon = styled(IconBase)``;
+export const Icon = styled(IconBase)`
+  max-width: 435px;
+  max-height: 420px;
+`;

@@ -52,6 +52,7 @@ export const PrimaryButton = styled(BaseButton)`
   background-color: var(--color-brand-secondary);
   border: none;
   color: var(--font-color-light);
+  min-height: 50px;
 `;
 
 export const SecondaryButton = styled(PrimaryButton)`
@@ -62,5 +63,22 @@ export const SecondaryButton = styled(PrimaryButton)`
   &:hover,
   &:focus {
     color: var(--font-color-light);
+  }
+`;
+
+export const DeleteButton = styled(PrimaryButton)`
+  display: inline-block;
+  width: 67px;
+  height: 26px;
+  color: var(--background-light);
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 1;
+  padding: 0;
+  min-height: 26px;
+  margin-bottom: 0px;
+
+  &:not(:last-of-type) {
+    margin-bottom: 0px;
   }
 `;

@@ -64,7 +64,9 @@ export const List = styled.ul`
   flex: 1;
   max-height: 470px;
   overflow-y: auto;
-
+  @media screen and (orientation: landscape) {
+    min-height: 94px;
+  }
   &::-webkit-scrollbar {
     width: 4px;
   }

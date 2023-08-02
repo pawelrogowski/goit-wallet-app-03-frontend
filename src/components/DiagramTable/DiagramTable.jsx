@@ -1,5 +1,4 @@
 import InputDropdown from 'components/Inputs/InputDropdown';
-
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -81,14 +80,14 @@ const DiagramTableBase = () => {
 
   const handleMonthChange = month => {
     dispatch(setSelectedMonth(month));
-    if (selectedYear !== '') {
+    if (selectedYear !== null && month !== null) {
       dispatch(fetchMonthlyTotals({ month: month, year: selectedYear }));
     }
   };
 
   const handleYearChange = year => {
     dispatch(setSelectedYear(year));
-    if (selectedMonth !== '') {
+    if (selectedMonth !== null && year !== null) {
       dispatch(fetchMonthlyTotals({ month: selectedMonth, year: year }));
     }
   };
@@ -141,5 +140,6 @@ const DiagramTableBase = () => {
     </StyledTable>
   );
 };
+
 const DiagramTable = styled(DiagramTableBase)``;
 export default DiagramTable;

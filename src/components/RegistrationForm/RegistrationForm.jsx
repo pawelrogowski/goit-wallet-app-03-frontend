@@ -5,7 +5,6 @@ import Logo from 'components/Logo/Logo';
 import { Formik } from 'formik';
 import { object, string, ref } from 'yup';
 import PasswordStrength from './../Inputs/PasswordStrength';
-import Loader from 'components/Loader/Loader.styled';
 import { getCharacterValidationError } from 'utils/formaters';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -66,9 +65,8 @@ const RegistrationForm = () => {
       }}
       validateOnMount
     >
-      {({ values, isSubmitting, handleBlur }) => (
+      {({ values, handleBlur }) => (
         <FormikForm autoComplete="off">
-          {isSubmitting && <Loader />}
           <Logo />
           <InputWithIcon
             icon="icon__baseline-email"
