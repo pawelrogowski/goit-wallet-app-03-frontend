@@ -113,6 +113,11 @@ const EditTransactionModal = () => {
             }),
             value: number()
               .typeError('Transaction value must be a number')
+              .test(
+                'len',
+                'Transaction value can be a maximum of 16 characters',
+                val => val.toString().length <= 16
+              )
               .required('Please provide transaction value.'),
             date: date()
               .transform(dateTransformer)

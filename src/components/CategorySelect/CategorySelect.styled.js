@@ -26,6 +26,7 @@ export const customStyles = {
   }),
   option: (provided, { isFocused }) => ({
     ...provided,
+    cursor: 'pointer',
     backgroundColor: isFocused && 'var(--background-light)',
     color: isFocused ? 'var(--color-brand-accent)' : 'black',
     '&:hover': {
@@ -41,9 +42,11 @@ export const customStyles = {
     boxShadow: '0px 6px 15px 0px var(--shadow-cayegory-select)',
     backdropFilter: 'blur(9px)',
     overflow: 'hidden',
+    marginTop: '1px',
   }),
   menuList: provided => ({
     ...provided,
+
     '&::-webkit-scrollbar': {
       width: '4px',
     },

@@ -38,7 +38,7 @@ const LoginForm = () => {
       }}
       validateOnMount
     >
-      {({ isSubmitting, handleBlur }) => (
+      {({ handleBlur }) => (
         <FormikForm autoComplete="off">
           <Logo />
           <InputWithIcon
