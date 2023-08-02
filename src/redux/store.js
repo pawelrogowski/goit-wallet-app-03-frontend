@@ -5,7 +5,7 @@ import { combineReducers } from 'redux';
 import sessionReducer from './slices/sessionSlice';
 import globalReducer from './slices/globalSlice';
 import transactionsReducer from './slices/transactionSlice';
-
+import { setDispatch } from 'utils/authUtils';
 const rootReducer = combineReducers({
   session: sessionReducer,
   global: globalReducer,
@@ -28,6 +28,7 @@ const store = configureStore({
     }),
 });
 
+setDispatch(store.dispatch);
 export const persistor = persistStore(store);
 
 export default store;

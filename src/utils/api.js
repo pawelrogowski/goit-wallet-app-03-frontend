@@ -1,42 +1,9 @@
 import axios from 'axios';
 import { setAuthToken } from './authUtils';
 import Cookies from 'js-cookie';
-import { refreshTokens } from './authUtils';
+import { WalletInstance } from './authUtils';
 export const API_URL = 'https://wallet-lzvg.onrender.com/api';
-
-const WalletInstance = axios.create();
 setAuthToken();
-export { WalletInstance };
-
-WalletInstance.interceptors.response.use(
-  response => {
-    return response;
-  },
-  async error => {
-    const originalRequest = error.config;
-
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
-      try {
-        const { accessToken } = await refreshTokens();
-
-        WalletInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-
-        return WalletInstance(originalRequest);
-      } catch (refreshError) {
-        logoutUser();
-        window.location.replace('/login');
-        return Promise.reject(refreshError);
-      }
-    } else {
-      window.location.replace('/login');
-    }
-
-    return Promise.reject(error);
-  }
-);
 
 export const registerUser = async userData => {
   const response = await WalletInstance.post(`${API_URL}/users/register`, userData);
