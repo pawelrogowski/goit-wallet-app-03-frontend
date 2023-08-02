@@ -19,7 +19,7 @@ export const Backdrop = styled.div`
   z-index: 1000;
 
   .category {
-    top: 44px;
+    top: 33px;
   }
 
   @media (min-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
