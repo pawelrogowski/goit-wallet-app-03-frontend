@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 
 export const TransactionFade = styled.div`
+  @media screen and (orientation: landscape) {
+    @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+      @media screen and (max-height: 767px) {
+        height: 90vh;
+      }
+    }
+  }
   width: 100%;
   height: 100%;
   -webkit-mask: linear-gradient(
@@ -95,7 +102,7 @@ export const TransactionsTable = styled.table`
   font-size: 16px;
   font-weight: 400;
   line-height: 1;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 `;
 
 export const TransactionsTableHead = styled.thead`
@@ -248,8 +255,6 @@ export const EditButton = styled.button`
 `;
 
 export const TransactionsBodyHeadRow = styled.tr`
-  transition: background-color 150ms;
-
   &:hover {
     background-color: var(--background-transactions-el);
   }
