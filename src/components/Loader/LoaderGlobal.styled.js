@@ -22,7 +22,7 @@ export const ContainerLoader = styled.div`
   z-index: 100;
   position: fixed;
   top: 0;
-  /* backdrop-filter: blur(3px); */
+  backdrop-filter: blur(3px);
   width: 100vw;
   height: 100vh;
   display: flex;
