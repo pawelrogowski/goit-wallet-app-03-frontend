@@ -42,7 +42,39 @@ export const customStyles = {
     backdropFilter: 'blur(9px)',
     overflow: 'hidden',
   }),
+  menuList: provided => ({
+    ...provided,
+    '&::-webkit-scrollbar': {
+      width: '4px',
+    },
 
+    '&::-webkit-scrollbar-track': {
+      background: 'transparent',
+    },
+
+    '&::-webkit-scrollbar-thumb': {
+      background: 'var(--color-logout-button)',
+    },
+
+    '&::-webkit-scrollbar-thumb:hover': {
+      background: 'var(--color-logout-button)',
+    },
+
+    maskImage:
+      'linear-gradient(to top, transparent, black),linear-gradient(to left, transparent 4px, black 4px)',
+    maskSize: '100% 20000px',
+    maskPosition: 'left bottom',
+    '-webkit-mask-image':
+      'linear-gradient(to top, transparent, black),linear-gradient(to left, transparent 4px, black 4px)',
+    '-webkit-mask-size': '100% 20000px',
+    '-webkit-mask-position': 'left bottom',
+    transition: 'mask-position 0.3s, -webkit-mask-position 0.3s',
+
+    '&:hover': {
+      '-webkit-mask-position': 'left top',
+      maskPosition: 'left top',
+    },
+  }),
   indicatorSeparator: provided => ({
     ...provided,
     display: 'none',
