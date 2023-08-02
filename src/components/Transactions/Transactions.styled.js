@@ -248,6 +248,8 @@ export const EditButton = styled.button`
 `;
 
 export const TransactionsBodyHeadRow = styled.tr`
+  transition: background-color 150ms;
+
   &:hover {
     background-color: var(--background-transactions-el);
   }
