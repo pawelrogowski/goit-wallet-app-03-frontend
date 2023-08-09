@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setIsModalLogoutOpen } from 'redux/slices/globalSlice';
 import { ContainerHeader, HeaderDiv, LogoutDiv } from './Header.styled';
 import { motion, AnimatePresence } from 'framer-motion';
-import Balance from 'components/Balance/Balance';
 const Header = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
@@ -19,7 +18,6 @@ const Header = () => {
     <HeaderDiv>
       <ContainerHeader>
         <LogoButton />
-        <Balance />
         <LogoutDiv>
           <span className="nameText">
             <button className="button" type="button">
