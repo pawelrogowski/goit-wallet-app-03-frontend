@@ -73,6 +73,16 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
   }
+  .loader-header {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    border-bottom: 1px solid rgba(74, 87, 226, 0.75);
+    box-shadow: 0px 0 0 1px rgba(74, 86, 226, 0.75);
+    height: 1px;
+    z-index: 9999;
+    overflow: hidden;
+  }
 
 }
 

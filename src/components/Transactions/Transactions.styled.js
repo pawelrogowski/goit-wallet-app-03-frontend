@@ -102,6 +102,7 @@ export const TransactionsTable = styled.table`
   font-size: 16px;
   font-weight: 400;
   line-height: 1;
+  scroll-behavior: smooth;E
   /* margin-bottom: 20px; */
 `;
 

@@ -1,31 +1,34 @@
 import { styled } from 'styled-components';
 export const Loader = styled.div`
-  width: 100px;
-  height: 100px;
-  border: 8px solid var(--color-brand-secondary);
-  border-bottom-color: var(--color-brand-primary);
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
+  position: relative;
+  width: 22px;
+  height: 22px;
+  top: 0;
+  right: 32px;
 
-  @keyframes rotation {
+  &:before,
+  &:after {
+    content: '';
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2) inset;
+  }
+  &:after {
+    width: 22px;
+    height: 22px;
+    box-shadow: 0 2px 0 var(--color-brand-secondary) inset;
+    animation: rotate 0.65s linear infinite;
+  }
+
+  @keyframes rotate {
     0% {
-      transform: rotate(0deg);
+      transform: rotate(0);
     }
     100% {
       transform: rotate(360deg);
     }
   }
-`;
-export const ContainerLoader = styled.div`
-  z-index: 100;
-  position: fixed;
-  top: 0;
-  backdrop-filter: blur(3px);
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;

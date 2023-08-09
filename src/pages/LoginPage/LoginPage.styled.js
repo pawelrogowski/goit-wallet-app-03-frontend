@@ -83,7 +83,7 @@ export const LoginFormContainer = styled.div`
         z-index: -1;
         width: 100vw;
         height: 100vh;
-        background-color: #ffffff40;
+        background-color: var(--something);
         backdrop-filter: blur(10px);
       }
     }
