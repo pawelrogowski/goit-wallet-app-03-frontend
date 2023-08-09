@@ -1,5 +1,5 @@
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import Layout from 'layout/Layout';
 import WithAuthRedirect from './routes/WithAuthRedirect';
 import { ToastContainer } from 'react-toastify';
@@ -15,8 +15,9 @@ const Statistic = lazy(() => import('pages/StatisticsPage/StatisticsPage'));
 const Currency = lazy(() => import('pages/CurrencyPage/CurrencyPage'));
 
 const App = () => {
-  const { isModalLogoutOpen, isModalAddTransactionOpen, isModalEditTransactionOpen, isLoading } =
-    useSelector(state => state.global);
+  const { isModalLogoutOpen, isModalAddTransactionOpen, isModalEditTransactionOpen } = useSelector(
+    state => state.global
+  );
 
   return (
     <>
