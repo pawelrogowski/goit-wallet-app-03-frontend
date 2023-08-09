@@ -38,7 +38,7 @@ const Header = () => {
             exit={{
               width: '100vw',
               opacity: 0,
-              transition: { duration: 0.3, ease: 'linear' }, // Use linear easing for both width and opacity
+              transition: { duration: 0.3, ease: 'linear' },
             }}
             className="loader-header"
           />

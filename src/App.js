@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import ModalLogout from 'components/ModalLogout/ModalLogout';
 import AddTransactionModal from 'components/AddTransactionModal/AddTransactionModal';
 import EditTransactionModal from 'components/EditTransactionModal/EditTransactionModal';
+import { motion, AnimatePresence } from 'framer-motion';
+
 const Home = lazy(() => import('pages/HomePage/Home'));
 const Register = lazy(() => import('pages/RegistrationPage/RegistrationPage'));
 const Login = lazy(() => import('pages/LoginPage/LoginPage'));
@@ -21,9 +23,21 @@ const App = () => {
 
   return (
     <>
-      {isModalLogoutOpen && <ModalLogout />}
-      {isModalAddTransactionOpen && <AddTransactionModal />}
-      {isModalEditTransactionOpen && <EditTransactionModal />}
+      <AnimatePresence>
+        {(isModalLogoutOpen || isModalAddTransactionOpen || isModalEditTransactionOpen) && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.08, 0.82, 0.17, 1] }}
+            className="modals"
+          >
+            {isModalLogoutOpen && <ModalLogout />}
+            {isModalAddTransactionOpen && <AddTransactionModal />}
+            {isModalEditTransactionOpen && <EditTransactionModal />}
+          </motion.div>
+        )}
+      </AnimatePresence>
       <Suspense>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />

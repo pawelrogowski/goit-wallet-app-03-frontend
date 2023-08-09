@@ -83,6 +83,12 @@ export const GlobalStyles = createGlobalStyle`
     z-index: 9999;
     overflow: hidden;
   }
+  .modals {
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    left: 0;
+  }
 
 }
 
