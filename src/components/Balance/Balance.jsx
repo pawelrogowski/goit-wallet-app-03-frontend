@@ -12,7 +12,7 @@ const Balance = () => {
   useEffect(() => {
     if (!balance) {
       dispatch(fetchTotals());
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, transactions]);
 
   return (
