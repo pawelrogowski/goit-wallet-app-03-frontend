@@ -3,7 +3,7 @@ import Currency from 'components/Currency/Currency';
 import Navigation from 'components/Navigation/Navigation';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { FlexWrapper, AsideContainer } from './AsideBar.styled';
+import { FlexWrapper } from './AsideBar.styled';
 import { motion } from 'framer-motion';
 
 const AsideMenu = () => {
