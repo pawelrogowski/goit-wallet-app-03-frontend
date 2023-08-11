@@ -62,8 +62,8 @@ const TransactionsTable = () => {
             animate="visible"
             exit="exit"
           >
-            <li key={transaction._id}>
-              <TransactionRow $variant={index === 0 ? null : 'border'}>
+            <div key={transaction._id}>
+              <TransactionRow $variant={index === transactions.length - 1 ? null : 'border'}>
                 <li>{formatDate(transaction.date)}</li>
                 <li>{transaction.isIncome ? '+' : '-'}</li>
                 <li>{transaction.category}</li>
@@ -85,7 +85,7 @@ const TransactionsTable = () => {
                   </DeleteButton>
                 </li>
               </TransactionRow>
-            </li>
+            </div>
           </motion.li>
         ))}
       </TransactionContainer>

@@ -4,6 +4,7 @@ import Navigation from 'components/Navigation/Navigation';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FlexWrapper, AsideContainer } from './AsideBar.styled';
+import { motion } from 'framer-motion';
 
 const AsideMenu = () => {
   const location = useLocation();
@@ -22,14 +23,45 @@ const AsideMenu = () => {
     };
   }, [windowWidth]);
 
+  const sideVariants = {
+    hidden: {
+      x: '-100%',
+      opacity: 0,
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        type: 'spring',
+        stiffness: 80,
+      },
+    },
+    exit: {
+      x: '-100%',
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+        type: 'spring',
+        stiffness: 80,
+      },
+    },
+  };
+
   return (
-    <AsideContainer>
+    <motion.div
+      className="aside-container"
+      layout
+      initial="hidden"
+      animate="visible"
+      variants={sideVariants}
+    >
       <FlexWrapper>
         <Navigation />
         {windowWidth || isHome ? <Balance /> : ''}
       </FlexWrapper>
       {isCurrency ? '' : <Currency />}
-    </AsideContainer>
+    </motion.div>
   );
 };
 

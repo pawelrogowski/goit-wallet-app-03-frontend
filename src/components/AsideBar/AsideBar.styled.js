@@ -4,6 +4,7 @@ export const AsideContainer = styled.aside`
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
+
   max-width: 462px;
   display: flex;
   flex-direction: column;
