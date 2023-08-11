@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Background = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255 0.1);
     backdrop-filter: blur(25px);
   }
 `;

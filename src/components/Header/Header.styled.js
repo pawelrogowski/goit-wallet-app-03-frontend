@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Container } from 'components/Container/Container.styled';
 
 export const HeaderDiv = styled.header`
+  position: relative;
   height: 60px;
   display: flex;
   background-color: ${props => props.theme.background.light};

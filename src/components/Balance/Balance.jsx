@@ -10,7 +10,9 @@ const Balance = () => {
   const balance = totals.difference || 0;
 
   useEffect(() => {
-    dispatch(fetchTotals());
+    if (!balance) {
+      dispatch(fetchTotals());
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, transactions]);
 
   return (

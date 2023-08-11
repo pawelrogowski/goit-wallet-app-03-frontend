@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { PrimaryButton, SecondaryButton } from '../Buttons/Buttons';
 import { InputWithIcon } from 'components/Inputs/InputWithIcon';
 import Logo from 'components/Logo/Logo';
@@ -13,6 +13,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuth = useSelector(state => state.session.isAuth);
+  const loginButtonRef = useRef(null);
 
   useEffect(() => {
     if (isAuth) {
@@ -24,6 +25,16 @@ const LoginForm = () => {
     dispatch(login({ email: values.email, password: values.password }));
   };
 
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      await handleLogin(values);
+      resetForm();
+      loginButtonRef.current.focus();
+    } catch (error) {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -31,11 +42,7 @@ const LoginForm = () => {
         email: string().email('Invalid email address.').required('Please provide your email.'),
         password: string().required('No password provided.'),
       })}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
-        setSubmitting(false);
-        handleLogin(values);
-        resetForm();
-      }}
+      onSubmit={handleSubmit}
       validateOnMount
     >
       {({ handleBlur }) => (
@@ -44,7 +51,7 @@ const LoginForm = () => {
           <InputWithIcon
             icon="icon__baseline-email"
             placeholder="E-mail"
-            title="Plase fill out your e-mail"
+            title="Please fill out your e-mail"
             name="email"
             type="email"
             autoComplete="off"
@@ -59,7 +66,9 @@ const LoginForm = () => {
             autoComplete="off"
             onKeyUp={handleBlur}
           />
-          <PrimaryButton type="submit">LOG IN</PrimaryButton>
+          <PrimaryButton type="submit" ref={loginButtonRef}>
+            LOG IN
+          </PrimaryButton>
           <SecondaryButton type="button" onClick={() => navigate('/register')}>
             REGISTER
           </SecondaryButton>

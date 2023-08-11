@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Transactions from 'components/TransactionList/TransactionList';
 import TransactionsMobile from 'components/TransactionsMobile/TransactionsMobile';
 import { fetchTransactions } from 'redux/slices/financeSlice';
-import { Title } from './Dashboard.styled';
+import { Title } from './Home.styled';
 import ButtonAddTransaction from 'components/ButtonAddTransaction/ButtonAddTransaction';
 
 const DashboardPage = () => {
