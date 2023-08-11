@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Transactions from 'components/Transactions/Transactions';
+import Transactions from 'components/TransactionList/TransactionList';
 import TransactionsMobile from 'components/TransactionsMobile/TransactionsMobile';
 import { fetchTransactions } from 'redux/slices/financeSlice';
 import { Title } from './Dashboard.styled';
