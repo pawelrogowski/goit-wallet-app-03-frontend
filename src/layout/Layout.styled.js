@@ -29,6 +29,7 @@ export const Section = styled.section`
 `;
 
 export const MainContainer = styled.main`
+  overflow: hidden;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -37,7 +38,6 @@ export const MainContainer = styled.main`
   flex-wrap: wrap;
   z-index: 1;
   padding: 32px 20px;
-  gap: 32px;
   height: 100%;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
@@ -52,6 +52,6 @@ export const MainContainer = styled.main`
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     padding: 46px 16px 0px 69px;
-    height: calc(100% - 90px);
+    height: 100%;
   }
 `;

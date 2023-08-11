@@ -5,8 +5,8 @@ export const StyledButton = styled.button`
 
   align-self: flex-end;
   z-index: 99;
-  right: 20px;
-  bottom: 20px;
+  right: 54px;
+  bottom: 40px;
   background: transparent;
   cursor: pointer;
   transition: transform 0.5s;
@@ -36,6 +36,7 @@ export const StyledButton = styled.button`
   }
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     position: absolute;
-    bottom: -40px;
+    bottom: 45px;
+    right: 40px;
   }
 `;
