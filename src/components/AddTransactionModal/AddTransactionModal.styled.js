@@ -158,6 +158,7 @@ export const CalendarWrapper = styled.div`
     width: 24px;
     height: 24px;
     fill: var(--color-brand-primary);
+    pointer-events: none;
   }
 
   @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
