@@ -1,4 +1,5 @@
 import { Icon } from 'components/Icon/Icon';
+import { motion } from 'framer-motion';
 import { useDispatch } from 'react-redux';
 import React from 'react';
 import { setIsModalAddTransactionOpen } from 'redux/slices/globalSlice';
@@ -13,11 +14,27 @@ export const ButtonAddTransaction = () => {
     }
   };
 
+  const btnVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        duration: 0.3,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   return (
     <>
-      <StyledButton onClick={handleOpenModal}>
-        <Icon icon="icon__btn-plus" />
-      </StyledButton>
+      <motion.div variants={btnVariants} initial="hidden" animate="visible">
+        <StyledButton onClick={handleOpenModal}>
+          <Icon icon="icon__btn-plus" />
+        </StyledButton>
+      </motion.div>
     </>
   );
 };

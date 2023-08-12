@@ -8,6 +8,10 @@ export const Title = styled(Heading)`
   width: 100%;
 `;
 export const ChartContainer = styled.div`
+  h1 {
+    max-width: 90%;
+    text-align: center;
+  }
   display: flex;
   flex-direction: column;
   gap: 20px;

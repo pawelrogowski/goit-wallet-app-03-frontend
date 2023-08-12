@@ -89,7 +89,36 @@ export const GlobalStyles = createGlobalStyle`
     top: 0;
     left: 0;
   }
+  .aside-container {
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 462px;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 20px 0px 20px;
 
+  @media (max-width: ${props => props.theme.breakpoints.desktopForMaxMedia}) {
+    flex-grow: 0;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    max-width: none;
+    gap: 32px;
+  }
+
+  @media (min-width: ${props => props.theme.breakpoints.tablet}) {
+    padding: 32px 32px 0px 32px;
+  }
+
+  @media (min-width: ${props => props.theme.breakpoints.desktop}) {
+    border-right: 2px solid #e7e5f2;
+    box-shadow: 1px 0 0 0 rgba(255, 255, 255, 0.6);
+    padding: 38px 69px 20px 16px;
+    gap: 32px;
+    height: calc(100vh -1px);
+    margin-top: 2px;
+  }
+  }
 }
-
 `;

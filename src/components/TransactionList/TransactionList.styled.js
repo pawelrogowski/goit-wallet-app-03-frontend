@@ -23,14 +23,16 @@ export const EditButton = styled.button`
     width: 14px;
     height: 14px;
     z-index: 10;
-    transition: stroke 150ms;
+    transition: stroke 150ms, border 150ms;
   }
 
   &:hover {
     border: 1px solid var(--color-brand-primary);
+    transition: border 75ms;
 
     svg {
       stroke: var(--color-brand-primary);
+      transition: stroke 75ms;
     }
   }
 `;
@@ -113,13 +115,13 @@ export const TransactionRow = styled.ul`
   font-family: Circe;
   font-size: 16px;
   font-weight: 400;
-  border-top: ${props =>
+  border-bottom: ${props =>
     props.$variant === 'border' ? '1px solid var(--background-gray)' : 'none'};
   box-shadow: ${props =>
-    props.$variant === 'border' ? '0px 2px 0px var(--background-light)' : 'none'};
+    props.$variant === 'border' ? '0px 1px 0px var(--background-light)' : 'none'};
   transition: background-color 555ms;
   &:hover {
-    background-color: #e6e6fad6;
+    background-color: #08086412;
     transition: background-color 25ms;
   }
   li {

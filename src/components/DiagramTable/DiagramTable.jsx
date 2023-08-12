@@ -22,6 +22,7 @@ import {
 } from './DiagramTable.styled';
 import styled from 'styled-components';
 import { formatStringWithSpaces, MakeDecimalPlaces } from 'utils/formaters';
+import { motion } from 'framer-motion';
 
 const months = [
   { id: 1, name: 'January' },
@@ -71,6 +72,23 @@ const yearOptions = year.map(option => ({
   value: option.year,
 }));
 
+const tableVariants = {
+  hidden: {
+    x: '100%',
+    opacity: 0,
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      type: 'spring',
+      stiffness: 100,
+      damping: 20,
+    },
+  },
+};
+
 const DiagramTableBase = () => {
   const dispatch = useDispatch();
   const { totals, monthlyTotals, transactions } = useSelector(state => state.finance);
@@ -102,43 +120,45 @@ const DiagramTableBase = () => {
   const formatSum = num => formatStringWithSpaces(MakeDecimalPlaces(num));
   return (
     <StyledTable>
-      <BoxInputs>
-        <InputDropdown
-          title={selectedMonth ? getFullMonthName(selectedMonth) : 'Month'}
-          options={monthsOptions}
-          onChange={([{ id }]) => handleMonthChange(id)}
-        />
-        <InputDropdown
-          title={selectedYear ? selectedYear : 'Year'}
-          options={yearOptions}
-          onChange={([{ value }]) => handleYearChange(value)}
-        />
-      </BoxInputs>
-      <BoxHeading>
-        <h3>Category</h3>
-        <h3>Sum</h3>
-      </BoxHeading>
-      <List>
-        {dataToMap && dataToMap.length > 0 ? (
-          dataToMap.map((item, index) => (
-            <ListItem key={index}>
-              <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
-              <Category>{item.category}</Category>
-              <Sum>{formatSum(item.sum) || 0}</Sum>
-            </ListItem>
-          ))
-        ) : (
-          <li></li>
-        )}
-      </List>
-      <BoxFooter>
-        <Expenses>
-          Expenses: <span>{formatSum(sumExpenses)}</span>
-        </Expenses>
-        <Income>
-          Income: <span>{formatSum(sumIncome)}</span>
-        </Income>
-      </BoxFooter>
+      <motion.div variants={tableVariants} initial="hidden" animate="visible">
+        <BoxInputs>
+          <InputDropdown
+            title={selectedMonth ? getFullMonthName(selectedMonth) : 'Month'}
+            options={monthsOptions}
+            onChange={([{ id }]) => handleMonthChange(id)}
+          />
+          <InputDropdown
+            title={selectedYear ? selectedYear : 'Year'}
+            options={yearOptions}
+            onChange={([{ value }]) => handleYearChange(value)}
+          />
+        </BoxInputs>
+        <BoxHeading>
+          <h3>Category</h3>
+          <h3>Sum</h3>
+        </BoxHeading>
+        <List>
+          {dataToMap && dataToMap.length > 0 ? (
+            dataToMap.map((item, index) => (
+              <ListItem key={index}>
+                <ColorCategory style={{ backgroundColor: `${item.color}` }}></ColorCategory>
+                <Category>{item.category}</Category>
+                <Sum>{formatSum(item.sum) || 0}</Sum>
+              </ListItem>
+            ))
+          ) : (
+            <li></li>
+          )}
+        </List>
+        <BoxFooter>
+          <Expenses>
+            Expenses: <span>{formatSum(sumExpenses)}</span>
+          </Expenses>
+          <Income>
+            Income: <span>{formatSum(sumIncome)}</span>
+          </Income>
+        </BoxFooter>
+      </motion.div>
     </StyledTable>
   );
 };

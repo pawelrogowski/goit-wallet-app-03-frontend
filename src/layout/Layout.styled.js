@@ -29,7 +29,6 @@ export const Section = styled.section`
 `;
 
 export const MainContainer = styled.main`
-  overflow: hidden;
   display: flex;
   justify-content: flex-start;
   align-items: center;
