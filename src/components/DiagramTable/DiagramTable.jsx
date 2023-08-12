@@ -61,7 +61,9 @@ const getNumberRange = (start, end) => {
   }
   return range;
 };
-const year = getNumberRange(currentYear - 5, currentYear).map(value => ({ year: value }));
+const year = getNumberRange(currentYear - 5, currentYear)
+  .map(value => ({ year: value }))
+  .reverse();
 
 const yearOptions = year.map(option => ({
   ...option,
