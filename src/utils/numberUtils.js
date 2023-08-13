@@ -31,8 +31,15 @@ export const formatCompactNumber = number => {
 };
 
 export const formatBalance = num => {
-  if (Math.abs(num) > 10000000) {
+  if (Math.abs(num) > 9999) {
     return formatCompactNumber(num);
   }
-  return formatNumberWithSpaces(fixDigitsToTwoDecimalPlaces(num));
+
+  const fixed = num.toFixed(2);
+
+  if (fixed.indexOf('.00') === -1) {
+    return fixed + '.00';
+  } else {
+    return fixed;
+  }
 };

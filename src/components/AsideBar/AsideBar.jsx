@@ -4,7 +4,7 @@ import Navigation from 'components/Navigation/Navigation';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FlexWrapper } from './AsideBar.styled';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const AsideMenu = () => {
   const location = useLocation();
@@ -25,11 +25,11 @@ const AsideMenu = () => {
 
   const sideVariants = {
     hidden: {
-      x: '-100%',
+      y: '-100%',
       opacity: 0,
     },
     visible: {
-      x: 0,
+      y: 0,
       opacity: 1,
       transition: {
         duration: 0.5,
@@ -38,7 +38,7 @@ const AsideMenu = () => {
       },
     },
     exit: {
-      x: '-100%',
+      y: '-100%',
       opacity: 0,
       transition: {
         duration: 0.5,
@@ -49,19 +49,21 @@ const AsideMenu = () => {
   };
 
   return (
-    <motion.div
-      className="aside-container"
-      layout
-      initial="hidden"
-      animate="visible"
-      variants={sideVariants}
-    >
-      <FlexWrapper>
-        <Navigation />
-        {windowWidth || isHome ? <Balance /> : ''}
-      </FlexWrapper>
-      {isCurrency ? '' : <Currency />}
-    </motion.div>
+    <AnimatePresence>
+      <motion.div
+        className="aside-container"
+        layout
+        initial="hidden"
+        animate="visible"
+        variants={sideVariants}
+      >
+        <FlexWrapper>
+          <Navigation />
+          {windowWidth || isHome ? <Balance /> : ''}
+        </FlexWrapper>
+        {isCurrency ? '' : <Currency />}
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

@@ -1,7 +1,6 @@
 import { Icon } from 'components/Icon/Icon';
 import { useField } from 'formik';
 import { StyledSwitch, SwitchCheckbox, SwitchSlider, SwitchText } from './Switch.styled';
-import PropTypes from 'prop-types';
 
 const Switch = ({ ...props }) => {
   const [field] = useField(props);
@@ -20,12 +19,3 @@ const Switch = ({ ...props }) => {
 };
 
 export default Switch;
-
-Switch.propTypes = {
-  name: PropTypes.string.isRequired,
-  checked: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
-
-  field: PropTypes.object.isRequired,
-  form: PropTypes.object.isRequired,
-};

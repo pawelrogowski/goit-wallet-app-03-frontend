@@ -38,6 +38,7 @@ export const MainContainer = styled.main`
   z-index: 1;
   padding: 32px 20px;
   height: 100%;
+  overflow: hidden;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     justify-content: space-between;
