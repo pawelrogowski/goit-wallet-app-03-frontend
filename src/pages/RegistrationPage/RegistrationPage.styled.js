@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Heading } from 'components/Heading/Heading';
+import { motion } from 'framer-motion';
 
 export const RegistrationPageContainer = styled.div`
   @media screen and (min-height: 767px) {
@@ -36,7 +37,7 @@ export const RegistrationPageContainer = styled.div`
   }
 `;
 
-export const RegistrationHeaderContainer = styled.div`
+export const RegistrationHeaderContainer = styled(motion.div)`
   display: none;
   @media screen and (min-height: 767px) {
     @media (min-width: ${props => props.theme.breakpoints.tablet}) {
@@ -68,7 +69,7 @@ export const RegistrationHeaderContainer = styled.div`
   }
 `;
 
-export const RegistrationFormContainer = styled.div`
+export const RegistrationFormContainer = styled(motion.div)`
   @media screen and (min-height: 767px) {
     @media (min-width: ${props => props.theme.breakpoints.desktop}) {
       display: flex;
@@ -83,7 +84,6 @@ export const RegistrationFormContainer = styled.div`
         z-index: -1;
         width: 100vw;
         height: 100vh;
-        background-color: #ffffff40;
         backdrop-filter: blur(10px);
       }
     }

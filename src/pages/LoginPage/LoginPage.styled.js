@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Heading } from 'components/Heading/Heading';
-
+import { motion } from 'framer-motion';
 export const LoginPageContainer = styled.div`
   @media screen and (min-height: 767px) {
     @media (max-width: ${props => props.theme.breakpoints.tabletForMaxMedia}) {
@@ -36,7 +36,7 @@ export const LoginPageContainer = styled.div`
   }
 `;
 
-export const LoginHeaderContainer = styled.div`
+export const LoginHeaderContainer = styled(motion.div)`
   display: none;
   @media screen and (min-height: 767px) {
     @media (min-width: ${props => props.theme.breakpoints.tablet}) {

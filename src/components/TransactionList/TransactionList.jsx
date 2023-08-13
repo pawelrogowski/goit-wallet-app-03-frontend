@@ -7,7 +7,7 @@ import { DeleteButton } from 'components/Buttons/Buttons';
 import { EditButton, TransactionContainer, TransactionRow, Sum } from './TransactionList.styled';
 import { TransactionHeader } from './TransactionHeader/TransactionHeader';
 import { Icon } from 'components/Icon/Icon';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const TransactionsTable = () => {
   const dispatch = useDispatch();
@@ -54,39 +54,42 @@ const TransactionsTable = () => {
       <TransactionHeader />
       <TransactionContainer>
         {sortedTransactions.map((transaction, index) => (
-          <motion.li
-            key={transaction._id}
-            style={itemStyle}
-            variants={transactionVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <div key={transaction._id}>
-              <TransactionRow $variant={index === transactions.length - 1 ? null : 'border'}>
-                <li>{formatDate(transaction.date)}</li>
-                <li>{transaction.isIncome ? '+' : '-'}</li>
-                <li>{transaction.category}</li>
-                <li>{transaction.comment}</li>
-                <Sum $isIncome={transaction.isIncome}>
-                  {formatStringWithSpaces(MakeDecimalPlaces(transaction.amount))}
-                </Sum>
-                <li>
-                  <EditButton
-                    onClick={() => {
-                      dispatch(setTransactionToEdit(transaction));
-                      handleOpenEditModal();
-                    }}
-                  >
-                    <Icon icon={'icon__edit'} />
-                  </EditButton>
-                  <DeleteButton onClick={() => transactionsDeleteHandler(transaction._id)}>
-                    Delete
-                  </DeleteButton>
-                </li>
-              </TransactionRow>
-            </div>
-          </motion.li>
+          <AnimatePresence key={transaction._id}>
+            <motion.li
+              key={transaction._id}
+              style={itemStyle}
+              variants={transactionVariants}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div key={transaction._id}>
+                <TransactionRow $variant={index === transactions.length - 1 ? null : 'border'}>
+                  <li>{formatDate(transaction.date)}</li>
+                  <li>{transaction.isIncome ? '+' : '-'}</li>
+                  <li>{transaction.category}</li>
+                  <li>{transaction.comment}</li>
+                  <Sum $isIncome={transaction.isIncome}>
+                    {formatStringWithSpaces(MakeDecimalPlaces(transaction.amount))}
+                  </Sum>
+                  <li>
+                    <EditButton
+                      onClick={() => {
+                        dispatch(setTransactionToEdit(transaction));
+                        handleOpenEditModal();
+                      }}
+                    >
+                      <Icon icon={'icon__edit'} />
+                    </EditButton>
+                    <DeleteButton onClick={() => transactionsDeleteHandler(transaction._id)}>
+                      Delete
+                    </DeleteButton>
+                  </li>
+                </TransactionRow>
+              </div>
+            </motion.li>
+          </AnimatePresence>
         ))}
       </TransactionContainer>
     </>

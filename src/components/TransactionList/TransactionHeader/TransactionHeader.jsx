@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
-export const ListFlexbox = styled.ul`
+import { motion } from 'framer-motion';
+export const ListFlexbox = styled(motion.ul)`
   display: flex;
   flex-direction: row;
   background-color: #fff;
@@ -66,7 +66,12 @@ export const ListFlexbox = styled.ul`
 
 export const TransactionHeader = () => {
   return (
-    <ListFlexbox>
+    <ListFlexbox
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ delay: 0.1, duration: 0.6, ease: [0.08, 0.82, 0.17, 1] }}
+    >
       <li>Date</li>
       <li>Type</li>
       <li>Category</li>
