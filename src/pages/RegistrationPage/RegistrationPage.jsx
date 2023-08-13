@@ -21,8 +21,18 @@ const RegistrationPage = () => {
     };
   }, [windowWidth]);
   return (
-    <RegistrationPageContainer>
-      <RegistrationHeaderContainer>
+    <RegistrationPageContainer
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6, ease: [0.08, 0.82, 0.17, 1] }}
+    >
+      <RegistrationHeaderContainer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.6, ease: [0.08, 0.82, 0.17, 1] }}
+      >
         {windowWidth ? (
           <Icon className="loginIcon" icon="icon__big-logo-woman1" />
         ) : (

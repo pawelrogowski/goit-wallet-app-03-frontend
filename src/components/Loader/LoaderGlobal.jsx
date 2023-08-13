@@ -1,9 +1,5 @@
-import { Loader, ContainerLoader } from './LoaderGlobal.styled';
+import { Loader } from './LoaderGlobal.styled';
 
 export const LoaderGlobal = () => {
-  return (
-    <ContainerLoader>
-      <Loader />
-    </ContainerLoader>
-  );
+  return <Loader />;
 };

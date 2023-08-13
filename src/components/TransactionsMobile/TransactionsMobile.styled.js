@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-export const TransactionsList = styled.ul`
+export const TransactionsList = styled(motion.ul)`
   list-style: none;
   padding: 0;
   margin: 0;

@@ -45,6 +45,7 @@ const Chart = () => {
     },
     cutout: '70%',
   };
+
   return (
     <ChartContainer>
       <Doughnut data={chartData} options={options} />

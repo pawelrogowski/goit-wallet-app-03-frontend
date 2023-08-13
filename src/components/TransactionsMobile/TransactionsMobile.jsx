@@ -14,7 +14,7 @@ import {
   TransactionsElement,
   TransactionsList,
 } from './TransactionsMobile.styled';
-
+import { AnimatePresence } from 'framer-motion';
 const headers = ['Date', 'Type', 'Category', 'Comment', 'Sum', ''];
 
 const TransactionsMobile = () => {
@@ -34,60 +34,83 @@ const TransactionsMobile = () => {
     dispatch(removeTransaction(id));
   };
 
+  const transactionVariants = {
+    hidden: {
+      y: '100%',
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
+
   return (
-    <TransactionsList>
-      {sortedTransactions.map(transaction => (
-        <TransactionsElement key={transaction._id}>
-          <TransactionList type={transaction.isIncome ? 1 : 0}>
-            <TransactionElement>
-              <TransactionHeader>{headers[0]}</TransactionHeader>
-              <TransactionText>{formatDate(transaction.date)}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[1]}</TransactionHeader>
-              <TransactionText>{transaction.isIncome ? '+' : '-'}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[2]}</TransactionHeader>
-              <TransactionText>{transaction.category}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[3]}</TransactionHeader>
-              <TransactionText>{truncateString(transaction.comment)}</TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <TransactionHeader>{headers[4]}</TransactionHeader>
-              <TransactionText
-                style={{
-                  color: `${
-                    transaction.isIncome
-                      ? 'var(--color-brand-secondary)'
-                      : 'var(--color-brand-accent)'
-                  }`,
-                }}
-              >
-                {formatStringWithSpaces(MakeDecimalPlaces(transaction.amount))}
-              </TransactionText>
-            </TransactionElement>
-            <TransactionElement>
-              <DeleteButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
-                Delete
-              </DeleteButton>
-              <EditButton
-                type="button"
-                onClick={() => {
-                  dispatch(setTransactionToEdit(transaction));
-                  handleOpenEditModal();
-                }}
-              >
-                <Icon icon="icon__edit" />
-                Edit
-              </EditButton>
-            </TransactionElement>
-          </TransactionList>
-        </TransactionsElement>
-      ))}
-    </TransactionsList>
+    <AnimatePresence>
+      <TransactionsList
+        variants={transactionVariants}
+        initial="hidden"
+        animate="visible"
+        exit={{ opacity: 0, height: 0 }}
+        transition={{
+          duration: 0.5,
+          ease: [0.6, 0.05, 0.01, 0.9],
+        }}
+        style={{ transformOrigin: 'bottom' }}
+      >
+        {sortedTransactions.map(transaction => (
+          <TransactionsElement key={transaction._id}>
+            <TransactionList type={transaction.isIncome ? 1 : 0}>
+              <TransactionElement>
+                <TransactionHeader>{headers[0]}</TransactionHeader>
+                <TransactionText>{formatDate(transaction.date)}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[1]}</TransactionHeader>
+                <TransactionText>{transaction.isIncome ? '+' : '-'}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[2]}</TransactionHeader>
+                <TransactionText>{transaction.category}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[3]}</TransactionHeader>
+                <TransactionText>{truncateString(transaction.comment)}</TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <TransactionHeader>{headers[4]}</TransactionHeader>
+                <TransactionText
+                  style={{
+                    color: `${
+                      transaction.isIncome
+                        ? 'var(--color-brand-secondary)'
+                        : 'var(--color-brand-accent)'
+                    }`,
+                  }}
+                >
+                  {formatStringWithSpaces(MakeDecimalPlaces(transaction.amount))}
+                </TransactionText>
+              </TransactionElement>
+              <TransactionElement>
+                <DeleteButton onClick={() => TransactionsDeleteHandler(transaction._id)}>
+                  Delete
+                </DeleteButton>
+                <EditButton
+                  type="button"
+                  onClick={() => {
+                    dispatch(setTransactionToEdit(transaction));
+                    handleOpenEditModal();
+                  }}
+                >
+                  <Icon icon="icon__edit" />
+                  Edit
+                </EditButton>
+              </TransactionElement>
+            </TransactionList>
+          </TransactionsElement>
+        ))}
+      </TransactionsList>
+    </AnimatePresence>
   );
 };
 

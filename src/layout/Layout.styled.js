@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Background = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255 0.1);
     backdrop-filter: blur(25px);
   }
 `;
@@ -37,8 +37,8 @@ export const MainContainer = styled.main`
   flex-wrap: wrap;
   z-index: 1;
   padding: 32px 20px;
-  gap: 32px;
   height: 100%;
+  overflow: hidden;
 
   @media (min-width: ${props => props.theme.breakpoints.tablet}) {
     justify-content: space-between;
@@ -52,6 +52,6 @@ export const MainContainer = styled.main`
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
     padding: 46px 16px 0px 69px;
-    height: calc(100% - 90px);
+    height: 100%;
   }
 `;

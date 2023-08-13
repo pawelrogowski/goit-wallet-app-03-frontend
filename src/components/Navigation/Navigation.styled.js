@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { Icon } from 'components/Icon/Icon';
-
-export const NavContainer = styled.nav`
+import { motion } from 'framer-motion';
+export const NavContainer = styled(motion.nav)`
   margin: 0;
   padding: 0;
   min-width: 280px;

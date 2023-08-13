@@ -10,8 +10,13 @@ export const ChartContainer = styled.div`
   width: 100%;
   padding: 0px;
   flex: 1 1;
+  max-width: 90%;
   align-self: start;
   justify-self: start;
+
+  div {
+    max-width: 90%;
+  }
   canvas {
     width: 100% !important;
     height: 100% !important;

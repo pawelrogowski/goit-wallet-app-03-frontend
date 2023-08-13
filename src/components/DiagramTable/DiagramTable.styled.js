@@ -61,7 +61,6 @@ export const List = styled.ul`
   list-style: none;
   padding: 0;
   height: 100%;
-  flex: 1;
   max-height: 470px;
   overflow-y: auto;
   @media screen and (orientation: landscape) {

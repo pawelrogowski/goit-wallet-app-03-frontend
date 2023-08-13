@@ -20,6 +20,4 @@ const InputDropdown = ({ options, title, onChange }) => {
   );
 };
 
-InputDropdown.propTypes = {};
-
 export default InputDropdown;

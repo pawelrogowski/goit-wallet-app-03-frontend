@@ -12,7 +12,6 @@ export const StyledDatetime = styled(Datetime)`
     padding-left: 20px;
     padding-bottom: 2px;
     cursor: pointer;
-
     &:focus-visible {
       outline: 0 !important;
     }
