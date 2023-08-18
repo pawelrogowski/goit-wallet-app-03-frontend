@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const fetchCurrency = async () => {
   try {
-    const axiosURL = 'https://v6.exchangerate-api.com/v6/8278746a42b16c9d29c494c9/latest/USD';
+    const axiosURL = 'https://v6.exchangerate-api.com/v6/e9b41e884028839570838fc4/latest/USD';
     const currencyDataFetch = await axios
       .get(axiosURL)
       .then(res => {

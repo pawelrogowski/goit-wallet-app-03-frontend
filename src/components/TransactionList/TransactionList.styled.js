@@ -101,7 +101,9 @@ export const TransactionContainer = styled.ul`
 export const Sum = styled.li`
   font-weight: 700;
   color: ${props =>
-    props.$isIncome === true ? 'var(--color-brand-secondary)' : 'var(--color-brand-accent)'};
+    props.$isIncome === true
+      ? 'var(--color-brand-secondary)'
+      : 'var(--color-brand-accent)'} !important;
 `;
 export const TransactionRow = styled.ul`
   display: flex;
@@ -125,6 +127,7 @@ export const TransactionRow = styled.ul`
     transition: background-color 25ms;
   }
   li {
+    color: var(--font-color-dark);
     flex: 1;
     overflow: hidden;
   }
