@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const StrengthBar = styled.progress`
   @media screen and (min-height: 767px) {
     width: 100%;
+    border: none;
   }
   width: 410px;
   border-radius: 20px;
