@@ -36,6 +36,7 @@ export const ChartContainer = styled.div`
 `;
 
 export const Balance = styled.span`
+  color: var(--font-color-dark);
   font-size: calc(14px + (100vw - 288px) * 0.01);
   font-weight: 700;
   font-family: 'Circe';
