@@ -30,6 +30,7 @@ nav {
     font-family: Circe;
   }
   body {
+    color: var(--font-color-dark);
     z-index: -1;
     position: relative;
     top: 0;
