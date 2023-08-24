@@ -1,8 +1,9 @@
 import axios from 'axios';
+const { REACT_APP_CURRENCY_URI } = process.env;
 
 const fetchCurrency = async () => {
   try {
-    const axiosURL = 'https://v6.exchangerate-api.com/v6/e9b41e884028839570838fc4/latest/USD';
+    const axiosURL = REACT_APP_CURRENCY_URI;
     const currencyDataFetch = await axios
       .get(axiosURL)
       .then(res => {

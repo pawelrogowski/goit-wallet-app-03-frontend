@@ -3,7 +3,8 @@ import Cookies from 'js-cookie';
 import { WalletInstance } from './authUtils';
 
 import { cookieOptions } from './authUtils';
-export const API_URL = 'https://wallet-lzvg.onrender.com/api';
+const { REACT_APP_BACKEND_URI } = process.env;
+export const API_URL = REACT_APP_BACKEND_URI;
 setAuthToken();
 
 export const registerUser = async userData => {
