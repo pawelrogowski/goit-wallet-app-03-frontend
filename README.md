@@ -1,13 +1,12 @@
 # Wallet Frontend 🏦
 
-https://main--mern-wallet.netlify.app/login
 ## Overview 📝
 
-The Wallet Frontend is a React application that provides a user-friendly interface for managing
-personal finances. It integrates with the API backend, allowing users to register, login, view their
-profile, and edit their transactions. The app offers various features such as a home page with
-transaction lists, balance, and currency prices, a charts page for expense breakdown and filtering,
-and a currencies page displaying just the prices.
+The Wallet is a React application that provides a user-friendly interface for managing personal
+finances. It integrates with the API backend, allowing users to register, login, view their profile,
+and edit their transactions. The app offers various features such as a home page with transaction
+lists, balance, and currency prices, a charts page for expense breakdown and filtering, and a
+currencies page displaying just the prices.
 
 ## Tech Stack 💻
 
