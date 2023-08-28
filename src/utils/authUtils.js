@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { resetSession } from 'redux/slices/sessionSlice';
-
-export const API_URL = 'https://wallet-lzvg.onrender.com/api';
+const { REACT_APP_BACKEND_URI } = process.env;
+export const API_URL = REACT_APP_BACKEND_URI;
 
 const WalletInstance = axios.create();
 export { WalletInstance };
