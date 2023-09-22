@@ -1,5 +1,7 @@
 # Wallet Frontend  https://walletpr.netlify.app/ 🏦
-
+Feel free to test it with test account or create a new one:
+- email: test@test.com
+- password: password12345
 ## Overview 📝
 
 This project was created in 2 weeks by a team of 7 students under the guidance of experienced web developers.
