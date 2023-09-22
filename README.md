@@ -2,7 +2,7 @@
 
 ## Overview 📝
 
-This project was created by a team of 7 students under the guidance of experienced web developers.
+This project was created in 2 weeks by a team of 7 students under the guidance of experienced web developers.
 The site was built based on a figma design and strict technical specifications.
 Some practices that may seem unconventional are a result of adhering closely to those requirements.
 
@@ -50,7 +50,7 @@ npm start
 
 ## Routes 📄
 
-The app consists of the following pages and their respective functionalities:
+The app consists of the following routes and their respective functionalities:
 
 - `/login`: User login
 - `/register`: User registration
