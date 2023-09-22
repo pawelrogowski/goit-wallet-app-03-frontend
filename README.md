@@ -1,6 +1,10 @@
-# Wallet Frontend 🏦
+# Wallet Frontend  https://walletpr.netlify.app/ 🏦
 
 ## Overview 📝
+
+This project was created by a team of 7 students under the guidance of experienced web developers.
+The site was built based on a figma design and strict technical specifications.
+Some practices that may seem unconventional are a result of adhering closely to those requirements.
 
 The Wallet is a React application that provides a user-friendly interface for managing personal
 finances. It integrates with the API backend, allowing users to register, login, view their profile,
@@ -8,10 +12,13 @@ and edit their transactions. The app offers various features such as a home page
 lists, balance, and currency prices, a charts page for expense breakdown and filtering, and a
 currencies page displaying just the prices.
 
+This project includes custom backend designed and coded strictly for this app:
+- https://github.com/pawelrogowski/goit-wallet-app-03-backend
+
 ## Tech Stack 💻
 
-Frontend: React, Redux, Styled Components, Chart.js
-
+Frontend: HTML, CSS, Javascript, React-Router React, Redux, Styled Components, Chart.js, Formik
+ 
 Backend: MongoDb, ExpressJs, REST api, Node.js, Swagger(docs)
 
 ## Dependencies 📦
