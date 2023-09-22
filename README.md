@@ -48,7 +48,7 @@ npm install
 npm start
 ```
 
-## Pages 📄
+## Routes 📄
 
 The app consists of the following pages and their respective functionalities:
 
